@@ -2,11 +2,11 @@
     //db connection
 
     try {
-        $db = new PDO('mysql:host=localhost;dbname=localmagic', 'root', '');
+        $db = new PDO('mysql:host=localhost;dbname=animalshelter', 'root', '');
         echo 'DB - Connected ✅🖥 ';
 
     } catch (PDOException $e) {
         // attempt to retry the connection after some timeout for example
-        echo $e . 'DB - ERROR &#10005; 🖥';
+        echo $e . 'DB - ERROR ✕ 🖥';
 
     }
