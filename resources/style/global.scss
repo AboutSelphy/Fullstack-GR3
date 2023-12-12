@@ -1,7 +1,51 @@
 @use 'base';
 @use 'variables' as *;
 // GLOBAL
-body {}
+body {
+    font-family: $main-font;
+    font-size: $sm;
+    font-weight: 400;
+    color: $text-color;
+    background-color: $background-color;
+    line-height: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: $text-color;
+
+}
 
 // etc.
-// test
+
+// Btn
+.btn {
+    padding: .655rem 1.44rem;
+    width: 10rem;
+    border: none;
+    border-radius: .33rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .45rem;
+    box-shadow: .22rem .33rem 1rem rgba(13,13,13,0.5);
+}
+
+.btn-default {
+    color: $text-color;
+    background-color: $background-color;
+
+    &:hover {
+        background-color: $hover-color;
+        color: $background-color;
+    }
+}
+
+.btn-cta {
+    color: $background-color;
+    background-color: $optional-color;
+
+    &:hover {
+        background-color: $hover-color;
+        color: $background-color;
+    }
+}
