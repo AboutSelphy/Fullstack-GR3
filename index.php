@@ -16,6 +16,7 @@ require_once("./script/db_connection.php");
 
     <!-- // OWN STYLING -->
     <link rel="stylesheet" href="./resources/style/global.css">
+    <link rel="stylesheet" href="./resources/style/index.css">
 
     <!-- Icons FA -->
     <script src="https://kit.fontawesome.com/96fa54072b.js" crossorigin="anonymous"></script>
@@ -24,13 +25,13 @@ require_once("./script/db_connection.php");
 <body>
     <?php require_once("./components/navbar.php") ?>
 
-   
+
     <!-- MOSTAFA WILL ENTER OUR LANDING PAGE HERE -->
     <div class="container">
         <header>
-        <h1>Find Your New Best Friend</h1>
-        <p>Adopt, Don't Shop!</p>
-    </header>
+            <h1>Find Your New Best Friend</h1>
+            <p>Adopt, Don't Shop!</p>
+        </header>
     </div>
 
     <section>
@@ -49,9 +50,9 @@ require_once("./script/db_connection.php");
                 <h2>Connect with Us</h2>
                 <p>Join our community, and let's make a positive impact together.</p>
 
-                 <!-- Image -->
-                 <img src="path/to/your/image.jpg" alt="Animal Shelter Image" style="width: 100%; max-width: 600px; margin-top: 20px;">
-                
+                <!-- Image -->
+                <img src="path/to/your/image.jpg" alt="Animal Shelter Image" style="width: 100%; max-width: 600px; margin-top: 20px;">
+
             </div>
         </div>
     </section>

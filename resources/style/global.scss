@@ -1,6 +1,9 @@
 @use 'base';
 @use 'variables' as *;
+
+
 // GLOBAL
+
 body {
     font-family: $main-font;
     font-size: $sm;
@@ -13,7 +16,6 @@ body {
 a {
     text-decoration: none;
     color: $text-color;
-
 }
 
 // etc.
@@ -27,7 +29,7 @@ a {
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: .45rem;
-    box-shadow: .22rem .33rem 1rem rgba(13,13,13,0.5);
+    box-shadow: .22rem .33rem 1rem rgba(13, 13, 13, 0.5);
 }
 
 .btn-default {
