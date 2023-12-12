@@ -22,7 +22,14 @@
 </head>
 
 <body>
+<<<<<<< HEAD
+
+    <div style="background-color: #835D2C;">
+    <?php var_dump($value); ?>
+    </div>
+=======
     <?php require_once("./components/navbar.php") ?>
+>>>>>>> 759c9c3dddc2f6b5360877b43ea77daf20fcbf2d
 
     <!-- MOSTAFA WILL ENTER OUR LANDING PAGE HERE -->
 
