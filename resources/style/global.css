@@ -23,6 +23,10 @@ a {
   color: #737048;
 }
 
+.navbar {
+  background-color: #A6A272 !important;
+}
+
 .btn {
   padding: 0.655rem 1.44rem;
   width: 10rem;
