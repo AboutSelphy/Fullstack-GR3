@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2023 at 11:56 AM
+-- Generation Time: Dec 13, 2023 at 09:58 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,9 +50,9 @@ CREATE TABLE `animals` (
   `gender` varchar(50) DEFAULT NULL,
   `age` int(11) NOT NULL,
   `fk_shelter` int(11) NOT NULL,
-  `vaccination` enum('No','Yes') DEFAULT 'No',
+  `vaccination` enum('no','yes') DEFAULT 'no',
   `image` varchar(255) DEFAULT 'default.jpg',
-  `status` enum('Available','Adopted','Pending') DEFAULT 'Available',
+  `status` enum('available','adopted','pending') DEFAULT 'available',
   `description` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -61,7 +61,7 @@ CREATE TABLE `animals` (
 --
 
 INSERT INTO `animals` (`id`, `name`, `species`, `gender`, `age`, `fk_shelter`, `vaccination`, `image`, `status`, `description`) VALUES
-(3, 'Bobby', 'Fox', 'Male', 3, 1, 'No', 'fox.jpg', 'Available', 'Meet Bobby, a charming little fox with a heart full of curiosity and mischief.');
+(3, 'Bobby', 'Fox', 'Male', 3, 1, 'no', 'fox.jpg', 'available', 'Meet Bobby, a charming little fox with a heart full of curiosity and mischief.');
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,7 @@ CREATE TABLE `users` (
   `last_name` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `status` enum('User','Admin','Shelter') NOT NULL DEFAULT 'User',
+  `status` enum('user','admin','shelter') NOT NULL DEFAULT 'user',
   `address` varchar(255) NOT NULL,
   `fk_zip` int(11) NOT NULL,
   `fk_shelter` int(11) DEFAULT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `status`, `address`, `fk_zip`, `fk_shelter`, `profile`) VALUES
-(1, 'Svenja', 'Paws', 'svenja@paws.at', '123', 'Admin', 'Paw Street 1', 1, 1, 'default.jpg');
+(1, 'Svenja', 'Paws', 'svenja@paws.at', '123', 'admin', 'Paw Street 1', 1, 1, 'default.jpg');
 
 -- --------------------------------------------------------
 
