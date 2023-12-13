@@ -19,8 +19,8 @@ function isLoggedIn($db){
             // echo '</pre>';
             // and somewhere later:
             if(count($loginData) > 0 ){
-                echo 'is logged In 😎';
-                echo $loginData[0]['role'];
+                // echo 'is logged In 😎';
+                // echo $loginData[0]['role'];
                 //defineUserStatus
                 // defineUserStatus($loginData[0]['role']);
 
@@ -30,12 +30,12 @@ function isLoggedIn($db){
                 echo 'is no user';
             }
         } else {
-            echo 'no cookie set';
+            // echo 'no cookie set';
         }
 
     } else {
         echo 'no cookies available';
     }
-    return [false,'error'];
+    return [false,'unset'];
 
 }

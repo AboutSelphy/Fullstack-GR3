@@ -41,7 +41,7 @@ function setSessionCookie($sessionID,$db,$email){
             $stmt= $db->prepare($sql);
             $stmt->execute($data);
             
-            echo 'db entry created';
+            // echo 'db entry created';
         }
         
         //close db connection
