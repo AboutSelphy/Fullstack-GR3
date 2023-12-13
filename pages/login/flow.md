@@ -37,10 +37,10 @@
     <!-- -   check is cookie is set and get found in database -->
     -   isLoggedIn
         <!-- -   loginpage->dashboard -->
-        -   register->dashboard
+        <!-- -   register->dashboard -->
     -   !isLoggedIn
         -   createAninaml/editAnimal/deleteAnimal->login/index.php
-        -   user/admin/dashboard->login/index.php
+        <!-- -   user/admin/dashboard->login/index.php -->
         -   animalList->login/index.php
-        -   logout.php->index.php
+        <!-- -   logout.php->index.php -->
 
