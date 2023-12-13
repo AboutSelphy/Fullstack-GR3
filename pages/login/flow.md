@@ -36,7 +36,7 @@
 -   loginGate.php (function with fileName and Switch)
     <!-- -   check is cookie is set and get found in database -->
     -   isLoggedIn
-        -   loginpage->dashboard
+        <!-- -   loginpage->dashboard -->
         -   register->dashboard
     -   !isLoggedIn
         -   createAninaml/editAnimal/deleteAnimal->login/index.php

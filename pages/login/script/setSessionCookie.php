@@ -15,7 +15,7 @@ function setSessionCookie($sessionID,$db,$email){
         setcookie('sessionID',$sessionID,time() + 60 * 60 * 24, '/' );
 
         //get userID from db
-        $stmt = $db->prepare("SELECT `id` FROM `users` WHERE mail = :email");
+        $stmt = $db->prepare("SELECT `id` FROM `users` WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $loginData = $stmt->fetch();

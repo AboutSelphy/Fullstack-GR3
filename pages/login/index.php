@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     // has account and logins successfully
     if(true){
         //? $_POST['mail'] 
-        $email = 'mani@gmail.com';
+        $email = 'svenja@paws.at';
         setSessionCookie($sessionID,$db,$email);
 
         // header('location: ../login/');
