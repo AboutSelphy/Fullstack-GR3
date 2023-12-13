@@ -23,6 +23,7 @@ $name = "";
 $age = "";
 $species = "";
 $gender = "";
+$fk_shelter = "";
 $vaccination = "";
 $status = "";
 $description = "";
@@ -31,6 +32,7 @@ $nameError = "";
 $ageError = "";
 $speciesError = "";
 $genderError = "";
+$shelterError = "";
 $vaccinationError = "";
 $statusError = "";
 $descriptionError = "";
@@ -38,13 +40,13 @@ $descriptionError = "";
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve data from the form
-    $name = $_POST['name'];          
-    $age = $_POST['age'];            
-    $species = $_POST['species'];    
+    $name = clean($_POST['name']);          
+    $age = $_POST['age'] != 0 ? $_POST["age"] : 1;            
+    $species = clean($_POST['species']);    
     $gender = $_POST['gender'];    
-    $age = $_POST['age'];    
-    $fk_shelter = $_POST['fk_shelter'];    
-    $vaccination = $_POST['vaccination'];    
+    $age = clean($_POST['age']);    
+    $fk_shelter = clean($_POST['fk_shelter']);    
+    $vaccination = clean($_POST['vaccination']);    
 
     // File Upload
     $image = fileUpload($_FILES["image"], "animal");
@@ -54,33 +56,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }  
 
-    $status = $_POST['status'];    
-    $description = $_POST['description'];    
+    $status = clean($_POST['status']);    
+    $description = clean($_POST['description']);    
 
     
 
     if (validate($name, $nameError, 50)[0] == true) {
         $error = true;
-        $nameError = validate($name, $nameError, 255)[1];
+        $nameError = validate($name, $nameError, 50)[1];
     }
 
     if (empty($age)) {
         $error = true;
-        $capacityError = "Please insert some data here!";
+        $ageError = "Please insert some data here!";
     }
 
     if (validate($species, $speciesError, 50)[0] == true) {
         $error = true;
-        $nameError = validate($species, $speciesError, 255)[1];
+        $speciesError = validate($species, $speciesError, 50)[1];
     }
-    if (validate($gender, $genderError, 50)[0] == true) {
+    if ($gender == "0") {
         $error = true;
-        $nameError = validate($gender, $genderError, 255)[1];
+        $genderError = "Please select one option!";
     }
 
-    if ($zip == "0") {
+    if ($fk_shelter == "0") {
         $error = true;
-        $zipError = "Please select one option!";
+        $fk_shalterError = "Please select one option!";
+    }
+
+    if ($vaccination == "0") {
+        $error = true;
+        $vaccinationError = "Please select one option!";
+    }
+
+    if ($status == "0") {
+        $error = true;
+        $statusError = "Please select one option!";
     }
 
     if (strlen($description) > 500) {
@@ -158,22 +170,27 @@ $db = null;
 
         <div class="form-group">
             <label for="gender">Gender:</label>
-            <input type="text" name="gender" id="gender" class="form-control" required>
+            <select name="gender" id="gender" class="form-control" required>
+                        <option value="0">Please choose...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="fk_shelter">Shelter:</label>
+            <label for="fk_shelter" >Shelter:</label>
+            <select name="fk_shelter" id="fk_shelter" class="form-control" required>
             <option value="0">Please choose...</option>
-            <select>
-                <?= $shelter ?>
+            <?= $shelter ?>
             </select>
         </div>
 
         <div class="form-group">
             <label for="vaccination">Vaccination:</label>
             <select name="vaccination" id="vaccination" class="form-control" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+                <option value="0">Please choose...</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
             </select>
         </div>
 
@@ -185,8 +202,9 @@ $db = null;
         <div class="form-group">
             <label for="status">Status:</label>
             <select name="status" id="status" class="form-control" required>
-                        <option value="Adopted">Adopted</option>
-                        <option value="Available">Available</option>
+                <option value="0">Please choose...</option>     
+                <option value="Adopted">Adopted</option>
+                <option value="Available">Available</option>
             </select>
         </div>
 
