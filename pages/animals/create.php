@@ -15,7 +15,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($result as $row) {
     $shelter .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
 }
-
+// test
 // Preparing validation/error messages
 $error = false;
 
