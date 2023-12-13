@@ -75,22 +75,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = true;
         $speciesError = validate($species, $speciesError, 50)[1];
     }
-    if ($gender == "0") {
+    if (empty($gender)) {
         $error = true;
         $genderError = "Please select one option!";
     }
 
-    if ($fk_shelter == "0") {
+    if (empty($shelter)) {
         $error = true;
         $fk_shalterError = "Please select one option!";
-    }
+    }    
 
-    if ($vaccination == "0") {
+    if (empty($vaccination)) {
         $error = true;
         $vaccinationError = "Please select one option!";
     }
 
-    if ($status == "0") {
+    if (empty($status)) {
         $error = true;
         $statusError = "Please select one option!";
     }
@@ -171,16 +171,16 @@ $db = null;
         <div class="form-group">
             <label for="gender">Gender:</label>
             <select name="gender" id="gender" class="form-control" required>
-                        <option value="0">Please choose...</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                <option value="" disabled selected hidden>Please Choose...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="fk_shelter" >Shelter:</label>
             <select name="fk_shelter" id="fk_shelter" class="form-control" required>
-            <option value="0">Please choose...</option>
+            <option value="" disabled selected hidden>Please Choose...</option>
             <?= $shelter ?>
             </select>
         </div>
@@ -188,7 +188,7 @@ $db = null;
         <div class="form-group">
             <label for="vaccination">Vaccination:</label>
             <select name="vaccination" id="vaccination" class="form-control" required>
-                <option value="0">Please choose...</option>
+                <option value="" disabled selected hidden>Please Choose...</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
@@ -202,7 +202,7 @@ $db = null;
         <div class="form-group">
             <label for="status">Status:</label>
             <select name="status" id="status" class="form-control" required>
-                <option value="0">Please choose...</option>     
+                <option value="" disabled selected hidden>Please Choose...</option>
                 <option value="Adopted">Adopted</option>
                 <option value="Available">Available</option>
             </select>
