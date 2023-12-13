@@ -12,20 +12,18 @@ $sessionID = session_id();
 
 //is loggedIN?
 
-isLoggedIn($db);
+$role = isLoggedIn($db)[1];
+echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
 
-
-
-if(isset($GLOBALS['role'])){
-
-    if ($GLOBALS['role'] === 'user') {
+if($role !== 'error'){
+    if ($role === 'user') {
         header("Location: ".BASE_DIR."pages/user_dashboard.php");
         exit();
-    }elseif($GLOBALS['role'] === 'admin'){
+    }elseif($role === 'admin'){
         header("Location: ".BASE_DIR."pages/dashboard.php");
         exit();
     
-    }elseif( $GLOBALS['role'] === 'shelter'){
+    }elseif( $role === 'shelter'){
         header("Location: ".BASE_DIR."pages/sh_dashboard.php");
         exit();
     }

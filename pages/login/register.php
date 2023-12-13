@@ -1,7 +1,11 @@
 <?php
 require_once('../../script/globals.php');
-require_once('../../script/loginGate.php');
 
+var_dump($GLOBALS);
+if(isset($GLOBALS['role'])){
+    header("Location: ".BASE_DIR."pages/login/");
+    exit();
+}
 ?>
 
 

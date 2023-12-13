@@ -15,13 +15,15 @@ function setSessionCookie($sessionID,$db,$email){
         setcookie('sessionID',$sessionID,time() + 60 * 60 * 24, '/' );
 
         //get userID from db
-        $stmt = $db->prepare("SELECT `id` FROM `users` WHERE email = :email");
+        $stmt = $db->prepare("SELECT `id`, `status` FROM `users` WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $loginData = $stmt->fetch();
 
         if(count($loginData) > 0 ){
             $userID = $loginData['id'];
+            $userRole= $loginData['status'];
+            
         }else{
             echo 'nothing found';
         }
@@ -30,11 +32,12 @@ function setSessionCookie($sessionID,$db,$email){
         $data = [
             'userID' => $userID,
             'sessionID' => $sessionID,
+            'role' => $userRole
         ];
             
         //only store when cookie is not set in db table
         if(is_int($userID) && !checkIfLoginExists($db,$userID)){
-            $sql = "INSERT INTO `login` (userID,  sessionID) VALUES (:userID, :sessionID)";
+            $sql = "INSERT INTO `login` (userID,  sessionID, role) VALUES (:userID, :sessionID, :role)";
             $stmt= $db->prepare($sql);
             $stmt->execute($data);
             

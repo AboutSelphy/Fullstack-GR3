@@ -9,7 +9,7 @@ function isLoggedIn($db){
         if(isset($_COOKIE['sessionID'])){
             $cookieID = $_COOKIE['sessionID'];
 
-            $stmt = $db->prepare("SELECT sessionID, `status` FROM `login` INNER JOIN users ON login.userID = users.id WHERE sessionID = :cookieID");
+            $stmt = $db->prepare("SELECT sessionID, `role` FROM `login`  WHERE sessionID = :cookieID");
             $stmt->bindParam(':cookieID', $cookieID);
             $stmt->execute();
             $loginData = $stmt->fetchAll();
@@ -20,11 +20,11 @@ function isLoggedIn($db){
             // and somewhere later:
             if(count($loginData) > 0 ){
                 echo 'is logged In 😎';
-                echo $loginData[0]['status'];
+                echo $loginData[0]['role'];
                 //defineUserStatus
-                defineUserStatus($loginData[0]['status']);
+                // defineUserStatus($loginData[0]['role']);
 
-                return true;
+                return [true,$loginData[0]['role']];
                 
             }else{
                 echo 'is no user';
@@ -36,6 +36,6 @@ function isLoggedIn($db){
     } else {
         echo 'no cookies available';
     }
-    return false;
+    return [false,'error'];
 
 }

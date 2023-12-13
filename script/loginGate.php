@@ -5,9 +5,11 @@ require_once(__DIR__.  '/isLoggedIn.php');
 
 
 //check if client has entry in db table login
-    isLoggedIn($db);
+    
+    $role = isLoggedIn($db)[1];
+    echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
 
-    if(!isset($GLOBALS['role'])){
+    if($role === 'error'){
         header("Location: ".BASE_DIR."pages/login/");
         exit();
     }
