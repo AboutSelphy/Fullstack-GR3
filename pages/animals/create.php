@@ -4,6 +4,37 @@ require_once("./../../script/db_connection.php");
 // File Upload
 include("./../../script/file_upload.php");
 
+include("./../../script/input_validation.php");
+
+// Getting Shelter (foreign key) options
+$shelter = "";
+$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($result as $row) {
+    $shelter .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
+}
+
+// Preparing validation/error messages
+$error = false;
+
+$name = "";
+$age = "";
+$species = "";
+$gender = "";
+$vaccination = "";
+$status = "";
+$description = "";
+
+$nameError = "";
+$ageError = "";
+$speciesError = "";
+$genderError = "";
+$vaccinationError = "";
+$statusError = "";
+$descriptionError = "";
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve data from the form
@@ -22,8 +53,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Error uploading the image.";
         exit;
     }  
+
     $status = $_POST['status'];    
     $description = $_POST['description'];    
+
+    
+
+    if (validate($name, $nameError, 50)[0] == true) {
+        $error = true;
+        $nameError = validate($name, $nameError, 255)[1];
+    }
+
+    if (empty($age)) {
+        $error = true;
+        $capacityError = "Please insert some data here!";
+    }
+
+    if (validate($species, $speciesError, 50)[0] == true) {
+        $error = true;
+        $nameError = validate($species, $speciesError, 255)[1];
+    }
+    if (validate($gender, $genderError, 50)[0] == true) {
+        $error = true;
+        $nameError = validate($gender, $genderError, 255)[1];
+    }
+
+    if ($zip == "0") {
+        $error = true;
+        $zipError = "Please select one option!";
+    }
+
+    if (strlen($description) > 500) {
+        $error = true;
+        $descriptionError = "Your input must not have more than 500 characters!";
+    }
 
     // Prepare the SQL statement with named parameters
     $sql = "INSERT INTO animals (`name`, `age`, `species`, `gender`, `fk_shelter`, `vaccination`, `image`, `status`, `description`) VALUES (:name, :age, :species, :gender, :fk_shelter, :vaccination, :image, :status, :description)";
@@ -50,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Close the database connection (if needed)
-$conn = null;
+$db = null;
 
 ?>
 
@@ -85,7 +148,7 @@ $conn = null;
 
         <div class="form-group">
             <label for="age">Age:</label>
-            <input type="number" name="age" id="age" class="form-control" required>
+            <input type="number" min="1" name="age" id="age" class="form-control" required>
         </div>
 
         <div class="form-group">
@@ -99,8 +162,11 @@ $conn = null;
         </div>
 
         <div class="form-group">
-            <label for="fk_shelter">Shelter ID:</label>
-            <input type="number" name="fk_shelter" id="fk_shelter" class="form-control" required>
+            <label for="fk_shelter">Shelter:</label>
+            <option value="0">Please choose...</option>
+            <select>
+                <?= $shelter ?>
+            </select>
         </div>
 
         <div class="form-group">
@@ -129,7 +195,7 @@ $conn = null;
             <textarea name="description" id="description" class="form-control" required></textarea>
         </div>
 
-    <button type="submit" value="Submit" class="btn btn-default">Submit</button>
+    <button type="submit" value="Submit" class="btn btn-cta">Submit</button>
 
     </form>
 </div>

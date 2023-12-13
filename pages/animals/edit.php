@@ -33,6 +33,23 @@ if (isset($_GET['id'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// File Upload
+// Check if a new image was uploaded
+if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
+    // File Upload
+    $uploadedImage = fileUpload($_FILES["image"], "animal");
+    if ($uploadedImage === false) {
+        // Handle file upload error
+        echo "Error uploading the image.";
+        exit;
+    }
+    $imageToUpdate = $uploadedImage[0];
+} else {
+    // No new image uploaded, use the existing image or 'default.jpg'
+    $imageToUpdate = $image ?: 'default.jpg';
+}
+
+
 
 // Prepare the SQL statement with named parameters for update
 $sql = "UPDATE animals SET 
@@ -46,7 +63,7 @@ $sql = "UPDATE animals SET
         `status` = :status,
         `description` = :description
         WHERE `id` = :id";
-var_dump($sql);
+$stmt = $db->prepare($sql);
 
 
 // Bind the parameters
@@ -56,7 +73,7 @@ $stmt->bindParam(':species', $_POST['species'], PDO::PARAM_STR);
 $stmt->bindParam(':gender', $_POST['gender'], PDO::PARAM_STR);
 $stmt->bindParam(':fk_shelter', $_POST['fk_shelter'], PDO::PARAM_INT);
 $stmt->bindParam(':vaccination', $_POST['vaccination'], PDO::PARAM_STR);
-$stmt->bindParam(':image', $_POST['image'], PDO::PARAM_STR);
+$stmt->bindParam(':image', $imageToUpdate, PDO::PARAM_STR);
 $stmt->bindParam(':status', $_POST['status'], PDO::PARAM_STR);
 $stmt->bindParam(':description', $_POST['description'], PDO::PARAM_STR);
 $stmt->bindParam(':id', $animalid, PDO::PARAM_INT);
@@ -107,12 +124,12 @@ $conn = null;
 
         <div class="form-group">
             <label for="age">Age:</label>
-            <input type="number" name="age" id="age" class="form-control" value="<?php echo $name; ?>">
+            <input type="number" name="age" id="age" class="form-control" value="<?php echo $age; ?>">
         </div>
 
         <div class="form-group">
             <label for="species">Species:</label>
-            <input type="text" name="species" id="species" class="form-control"  value="<?php echo $name; ?>">
+            <input type="text" name="species" id="species" class="form-control"  value="<?php echo $species; ?>">
         </div>
 
         <div class="form-group">
@@ -125,7 +142,7 @@ $conn = null;
 
         <div class="form-group">
             <label for="fk_shelter">Shelter ID:</label>
-            <input type="number" name="fk_shelter" id="fk_shelter" class="form-control" value="<?php echo $name; ?>">
+            <input type="number" name="fk_shelter" id="fk_shelter" class="form-control" value="<?php echo $fk_shelter; ?>">
         </div>
 
         <div class="form-group">
@@ -138,7 +155,7 @@ $conn = null;
 
         <div class="form-group">
             <label for="image">Image:</label>
-            <input type="file" name="image" id="image" class="form-control">
+            <input type="file" name="image" id="image" class="form-control" value="<?php echo $image; ?>">
         </div>
 
         <div class="form-group">
@@ -151,7 +168,7 @@ $conn = null;
 
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea name="description" id="description" class="form-control" ></textarea>
+            <textarea name="description" id="description" class="form-control" value="<?php echo $description; ?>"></textarea>
         </div>
 
     <button type="submit" value="Submit" class="btn btn-cta">Update</button>
