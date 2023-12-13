@@ -29,8 +29,8 @@ require_once("./script/db_connection.php");
     <!-- MOSTAFA WILL ENTER OUR LANDING PAGE HERE -->
     <div class="container">
         <header>
-            <h1>Find Your New Best Friend</h1>
-            <p>Adopt, Don't Shop!</p>
+            <h1><b>Find Your New Best Friend</b></h1>
+            <p>Your Perfect Pet Awaits for Adoption!</p>
         </header>
     </div>
 
@@ -39,6 +39,7 @@ require_once("./script/db_connection.php");
             <div class="feature">
                 <h2>Explore Our Adoptable Pets</h2>
                 <p>Discover a variety of lovable pets waiting for a forever home.</p>
+                <img src="resources/img/website/P1.jpg" alt="Animal Shelter Image" width="1200"; margin-top: 20px >
             </div>
 
             <div class="feature">
@@ -48,11 +49,9 @@ require_once("./script/db_connection.php");
 
             <div class="feature">
                 <h2>Connect with Us</h2>
-                <p>Join our community, and let's make a positive impact together.</p>
+                <p>And Start Your Adoption Journey Now.</p>
 
-                <!-- Image -->
-                <img src="path/to/your/image.jpg" alt="Animal Shelter Image" style="width: 100%; max-width: 600px; margin-top: 20px;">
-
+        
             </div>
         </div>
     </section>
