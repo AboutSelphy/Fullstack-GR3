@@ -209,7 +209,7 @@ $conn = null;
         <div class="form-group">
             <label for="gender">Gender:</label>
             <select name="gender" id="gender" class="form-control" required>
-                <option value="<?php echo $gender; ?>"><?php echo $gender; ?></option>
+                <option value="<?php echo $gender; ?>" hidden><?php echo $gender; ?></option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
@@ -218,7 +218,7 @@ $conn = null;
         <div class="form-group">
             <label for="fk_shelter" >Shelter:</label>
             <select name="fk_shelter" id="fk_shelter" class="form-control" required>
-            <option value="<?php echo $fk_shelter; ?>" ><?php echo $fk_shelter; ?></option>
+            <option value="<?php echo $fk_shelter; ?>" hidden><?php echo $fk_shelter; ?></option>
             <?= $shelter ?>
             </select>
         </div>
@@ -226,7 +226,7 @@ $conn = null;
         <div class="form-group">
             <label for="vaccination">Vaccination:</label>
             <select name="vaccination" id="vaccination" class="form-control" required>
-                <option value="<?php echo $vaccination; ?>"><?php echo $vaccination; ?></option>
+                <option value="<?php echo $vaccination; ?>" hidden><?php echo $vaccination; ?></option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
@@ -240,7 +240,7 @@ $conn = null;
         <div class="form-group">
             <label for="status">Status:</label>
             <select name="status" id="status" class="form-control">
-                <option value="<?php echo $status; ?>"><?php echo $status; ?></option>
+                <option value="<?php echo $status; ?>" hidden><?php echo $status; ?></option>
                 <option value="Adopted">Adopted</option>
                 <option value="Available">Available</option>
             </select>
