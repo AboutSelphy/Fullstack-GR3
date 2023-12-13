@@ -1,38 +1,30 @@
 <?php
 require_once("./../../script/db_connection.php");
 
+// Get ID from URL (linked in Details button)
+$id = 1;
 
-// Get all shelters from the corresponding table and display
-$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt = $db->prepare("SELECT * FROM `shelters` WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$row = $result[0];
 
-$shelters = "";
-
-if (count($result) > 0) {
-    foreach ($result as $row) {
-        $shelters .= "
-            <div class='p-4'>
-                <div class='animal'>
-                    <div class='name'>
-                        <h3 class='title'>$row[shelter_name]</h3>
-                    </div>
-                    <div class='image'>
-                        <img class='img-fluid' src='../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
-                    </div>   
-                    <div class='information'>
-                        <h5>Capacity: $row[capacity]</h5>
-                    </div>
-                    <div class='btn'>
-                        <a href='./details.php/$row[id]'>Details</a>
-                    </div>
-                </div>
-            </div>    
-        ";
-    }
-} else {
-    $shelters = "<p>There are no shelters yet :(</p>";
-}
+$details = "
+    <div class='headline'>
+        <h1>$row[shelter_name]</h1>
+    </div>
+    <div class='content'>
+        <div class='image'>
+            <img src='../../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+        </div>
+        <div class='text'>
+            <h3 class='desc'>$row[description]</h3>
+            <hr>
+            <h4>$row[capacity] animals</h4>
+            <p>INSERT LOCATION FOREIGN KEY</p>
+        </div>
+    </div>
+";
 
 // Close database connection
 $db = NULL;
@@ -60,10 +52,9 @@ $db = NULL;
     <?php require_once("./../../components/navbar.php") ?>
 
     <div class="container text-center">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 my-4">
-            <?= $shelters ?>
-        </div>
+        <?= $details ?>
     </div>
+
     <!-- // BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
