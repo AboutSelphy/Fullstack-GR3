@@ -2,44 +2,46 @@
     .container {
         text-align: center;
         margin-bottom: 40px;
+        font-family: $main-font;
     }
     
     .feature {
         margin-bottom: 40px;
         padding: 20px;
-        border: 2px solid #3498db;
+        border: $hover-color;
         border-radius: 8px;
-        background-color: #FFF5EE;
+        background-color: $text-color;
         text-align: center;
     }
     
     .feature h2 {
-        color: #2c3e50;
+        color: $overlay-color;
         font-size: 28px;
         margin-bottom: 10px;
     }
     
     .feature p {
-        color: #555;
+        color: $main-color;
         font-size: 16px;
         line-height: 1.6;
+        font-family: $second-font;
     }
     
     footer {
         text-align: center;
         padding: 20px;
-        background-color: #3498db;
-        color: #fff;
+        background-color: $overlay-color;
+        color: $background-color;
     }
     
     header h1 {
-        color: #4169E1;
         font-size: 36px;
         margin-bottom: 10px;
+        font-family: $header-font;
     }
     
     header p {
-        color: #555;
+        color: $header-color;
         font-size: 22px;
         line-height: 1.6;
     }
