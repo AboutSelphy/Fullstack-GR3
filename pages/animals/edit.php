@@ -3,7 +3,40 @@ require_once("./../../script/db_connection.php");
 // test
 // File Upload
 include("./../../script/file_upload.php");
-// ...
+
+include("./../../script/input_validation.php");
+// Getting Shelter (foreign key) options
+$shelter = "";
+$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($result as $row) {
+    $shelter .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
+}
+
+// Preparing validation/error messages
+$error = false;
+
+$name = "";
+$age = "";
+$species = "";
+$gender = "";
+$fk_shelter = "";
+$vaccination = "";
+$status = "";
+$description = "";
+
+$nameError = "";
+$ageError = "";
+$speciesError = "";
+$genderError = "";
+$shelterError = "";
+$vaccinationError = "";
+$statusError = "";
+$descriptionError = "";
+
+
 if (isset($_GET['id'])) {
     $animalid = $_GET['id'];
 
@@ -33,6 +66,8 @@ if (isset($_GET['id'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $age = $_POST['age'] != 0 ? $_POST["age"] : 1; 
 // File Upload
 // Check if a new image was uploaded
 if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
@@ -49,6 +84,45 @@ if ($_FILES["image"]["error"] == UPLOAD_ERR_OK) {
     $imageToUpdate = $image ?: 'default.jpg';
 }
 
+
+if (validate($name, $nameError, 50)[0] == true) {
+    $error = true;
+    $nameError = validate($name, $nameError, 50)[1];
+}
+
+if (empty($age)) {
+    $error = true;
+    $ageError = "Please insert some data here!";
+}
+
+if (validate($species, $speciesError, 50)[0] == true) {
+    $error = true;
+    $speciesError = validate($species, $speciesError, 50)[1];
+}
+if (empty($gender)) {
+    $error = true;
+    $genderError = "Please select one option!";
+}
+
+if (empty($shelter)) {
+    $error = true;
+    $fk_shalterError = "Please select one option!";
+}    
+
+if (empty($vaccination)) {
+    $error = true;
+    $vaccinationError = "Please select one option!";
+}
+
+if (empty($status)) {
+    $error = true;
+    $statusError = "Please select one option!";
+}
+
+if (strlen($description) > 500) {
+    $error = true;
+    $descriptionError = "Your input must not have more than 500 characters!";
+}
 
 
 // Prepare the SQL statement with named parameters for update
@@ -124,7 +198,7 @@ $conn = null;
 
         <div class="form-group">
             <label for="age">Age:</label>
-            <input type="number" name="age" id="age" class="form-control" value="<?php echo $age; ?>">
+            <input type="number" name="age" id="age" min="1" class="form-control" value="<?php echo $age; ?>">
         </div>
 
         <div class="form-group">
@@ -134,22 +208,27 @@ $conn = null;
 
         <div class="form-group">
             <label for="gender">Gender:</label>
-            <select name="gender" id="gender" class="form-control" >
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+            <select name="gender" id="gender" class="form-control" required>
+                <option value="<?php echo $gender; ?>"><?php echo $gender; ?></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="fk_shelter">Shelter ID:</label>
-            <input type="number" name="fk_shelter" id="fk_shelter" class="form-control" value="<?php echo $fk_shelter; ?>">
+            <label for="fk_shelter" >Shelter:</label>
+            <select name="fk_shelter" id="fk_shelter" class="form-control" required>
+            <option value="<?php echo $fk_shelter; ?>" ><?php echo $fk_shelter; ?></option>
+            <?= $shelter ?>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="vaccination">Vaccination:</label>
-            <select name="vaccination" id="vaccination" class="form-control" >
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
+            <select name="vaccination" id="vaccination" class="form-control" required>
+                <option value="<?php echo $vaccination; ?>"><?php echo $vaccination; ?></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
             </select>
         </div>
 
@@ -160,15 +239,16 @@ $conn = null;
 
         <div class="form-group">
             <label for="status">Status:</label>
-            <select name="status" id="status" class="form-control" >
-                        <option value="Adopted">Adopted</option>
-                        <option value="Available">Available</option>
+            <select name="status" id="status" class="form-control">
+                <option value="<?php echo $status; ?>"><?php echo $status; ?></option>
+                <option value="Adopted">Adopted</option>
+                <option value="Available">Available</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="description">Description:</label>
-            <textarea name="description" id="description" class="form-control" value="<?php echo $description; ?>"></textarea>
+            <textarea name="description" id="description" class="form-control" value="<?php echo $description; ?>"><?php echo $description; ?></textarea>
         </div>
 
     <button type="submit" value="Submit" class="btn btn-cta">Update</button>
