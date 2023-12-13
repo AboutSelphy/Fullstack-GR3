@@ -2,6 +2,12 @@
 require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 
+
+if($role !== 'admin'){
+    header("Location: ".BASE_DIR."pages/login/");
+    exit();
+}
+
 ?>
 
 

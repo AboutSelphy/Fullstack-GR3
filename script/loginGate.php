@@ -8,6 +8,7 @@ require_once(__DIR__.  '/isLoggedIn.php');
     
     $role = isLoggedIn($db)[1];
     echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
+    echo 'FILENAME: ' . basename($_SERVER["SCRIPT_FILENAME"]);
 
     if($role === 'error'){
         header("Location: ".BASE_DIR."pages/login/");
