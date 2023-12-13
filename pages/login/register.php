@@ -1,8 +1,13 @@
 <?php
 require_once('../../script/globals.php');
+require_once('../../script/db_connection.php');
+require_once('../../script/isLoggedIn.php');
 
-var_dump($GLOBALS);
-if(isset($GLOBALS['role'])){
+
+$role = isLoggedIn($db)[1];
+echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
+
+if($role !== 'error'){
     header("Location: ".BASE_DIR."pages/login/");
     exit();
 }
