@@ -44,4 +44,20 @@
         color: $header-color;
         font-size: 22px;
         line-height: 1.6;
+        color: $text-color;
+    }
+    
+    @media only screen and (max-width: 600px) {
+        .container {
+            margin-bottom: 20px;
+        }
+        .feature {
+            margin-bottom: 20px;
+        }
+        header h1 {
+            font-size: 28px;
+        }
+        header p {
+            font-size: 18px;
+        }
     }
