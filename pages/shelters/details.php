@@ -3,8 +3,6 @@ require_once("./../../script/db_connection.php");
 
 //USER ID FOR ANIMAL ADOPTION : CUT & PASTE
 $cookieID = $_COOKIE['sessionID'];
-var_dump($cookieID);
-
 try {
     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
     $stmt->bindParam(':cookieID', $cookieID);
@@ -13,8 +11,8 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); // This will display the error message
 }
+// END OF GETTING USER ID
 
-die();
 // Get ID from URL (linked in Details button) and select according data
 $id = $_GET["id"];
 $stmt = $db->prepare("SELECT * FROM `shelters` WHERE id = $id");
@@ -56,10 +54,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = date("d.m.Y");
 
     $data = [
-        'date' => $date
+        'date' => $date,
+        'fk_user' => $userData['id'],
+        'fk_animal' => $id
     ];
-    $stmt = $db->prepare("INSERT INTO `adoptions`(`date`, `fk_user`, `fk_animal`) VALUES ($date,)");
+
+    try {
+        // Inserting new entry into adoptions table
+        $stmt = $db->prepare("INSERT INTO `adoptions`(`date`, `fk_user`, `fk_animal`) VALUES (:date,:fk_user,:fk_animal)");
+        $stmt->execute($data);
+        // Changing the status of animal to "pending" until it gets accepted by shelter
+        $stmt = $db->prepare("UPDATE `animals` SET `status`='pending' WHERE id = $id");
+        $stmt->execute();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 }
+// END OF ADOPTION FUNCTIONALITY
 
 // Close database connection
 $db = NULL;
