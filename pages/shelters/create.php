@@ -6,16 +6,8 @@ include("./../../script/input_validation.php");
 
 // Preparing validation/error messages
 $error = false;
-
-$name = "";
-$capacity = "";
-$zip = "";
-$description = "";
-
-$nameError = "";
-$capacityError = "";
-$zipError = "";
-$descriptionError = "";
+$name = $capacity = $zip = $description = "";
+$nameError = $capacityError = $zipError = $descriptionError = "";
 
 // Getting ZIP (foreign key) options
 $locations = "";
