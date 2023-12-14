@@ -96,9 +96,9 @@ $first_nameError = $last_nameError = $addressError = $emailError = $passwordErro
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    echo '<pre>';
-    var_dump($_POST);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
 
     $first_name = clean($_POST['first_name']);
     $last_name = clean($_POST['last_name']);
@@ -179,28 +179,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'profile' => $image[0],
         'zip' => $zip,
         'shelter' => $shelter,
+        'cookieID' => $cookieID,
         // 'status' => $accountType
     ];
 
     // Prepare and execute SQL insertion
     if($error === false){
-
-        // if($_FILES["image"]["error"] == 0){
-        //     if( $image != "default.jpg" ){
-        //         unlink("../../resources/img/users/$image" );
-        //     }
-
-            try {
-                    $sql = "UPDATE `users` SET first_name = :first_name, last_name = :last_name, address =  :address, email =  :email, password =  :password, profile =  :profile, fk_zip =  :zip, fk_shelter = :shelter)";
-                    $stmt = $db->prepare($sql);
-                    $stmt->execute($data);
-            
-                    echo 'db entry updated';
-            
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage(); 
+        // echo '<pre>';
+        // var_dump($data);
+        // echo '</pre>';
+        if($_FILES["image"]["error"] == 0){
+            if( $userData['profile'] != "default.jpg" ){
+                unlink("../../resources/img/users/$image" );
             }
-        // }
+
+            $sql = "UPDATE `users`
+                    INNER JOIN `login` ON login.userID = users.id
+                    SET first_name = :first_name,
+                        last_name = :last_name,
+                        address =  :address,
+                        email =  :email,
+                        password =  :password,
+                        profile =  :profile,
+                        fk_zip =  :zip,
+                        fk_shelter = :shelter
+                    WHERE login.sessionID = :cookieID;";
+        }else{
+            $sql = "UPDATE `users`
+                        INNER JOIN `login` ON login.userID = users.id
+                        SET first_name = :first_name,
+                            last_name = :last_name,
+                            address =  :address,
+                            email =  :email,
+                            password =  :password,
+                            profile =  :profile,
+                            fk_zip =  :zip,
+                            fk_shelter = :shelter
+                        WHERE login.sessionID = :cookieID;";
+        }
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->execute($data);
+    
+            echo 'db entry updated';
+        
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage(); 
+        }
     }
 
 }
@@ -255,7 +280,7 @@ $db = NULL;
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input autocomplete="on" type="password" name="password" id="password" class="form-control" value="<?= $password ?? "" ?>">
+                <input autocomplete="on" type="password" name="password" id="password" class="form-control" >
                 <span style="color:red;"><?= $passwordError ?></span>
             </div>
             <div class="form-group">
