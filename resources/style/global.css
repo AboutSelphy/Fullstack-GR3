@@ -51,4 +51,12 @@ a {
 .btn-cta:hover {
   background-color: #6A7324;
   color: #e1e1e1;
+}
+
+.footer {
+  background-color: #98A633;
+  color: #e1e1e1;
+}
+.footer i {
+  color: #e1e1e1;
 }/*# sourceMappingURL=global.css.map */

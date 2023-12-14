@@ -52,3 +52,17 @@ a {
         color: $background-color;
     }
 }
+
+
+
+
+// Footer
+
+    .footer {
+        background-color: $main-color;
+        color: $background-color;
+
+        i {
+            color: $background-color;
+        }
+    }

@@ -2,7 +2,7 @@
 require_once("./../../script/db_connection.php");
 
 // $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
-$id = 12; // delete this line once everything established
+$id = 8; // delete this line once everything established
 $stmt = $db->prepare("SELECT * FROM shelters WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
