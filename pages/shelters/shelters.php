@@ -1,7 +1,6 @@
 <?php
 require_once("./../../script/db_connection.php");
 
-
 // Get all shelters from the corresponding table and display
 $stmt = $db->prepare("SELECT * FROM `shelters`");
 $stmt->execute();
@@ -12,19 +11,19 @@ $shelters = "";
 if (count($result) > 0) {
     foreach ($result as $row) {
         $shelters .= "
-            <div class='p-4'>
-                <div class='animal'>
-                    <div class='name'>
-                        <h3 class='title'>$row[shelter_name]</h3>
+            <div>
+                <div>
+                    <div>
+                        <h3>$row[shelter_name]</h3>
                     </div>
-                    <div class='image'>
+                    <div>
                         <img class='img-fluid' src='../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
                     </div>   
-                    <div class='information'>
-                        <h5>Capacity: $row[capacity]</h5>
+                    <div>
+                        <h5>Capacity: $row[capacity] animals</h5>
                     </div>
                     <div class='btn'>
-                        <a href='./details.php/$row[id]'>Details</a>
+                        <a href='./details.php?id=$row[id]'>Details</a>
                     </div>
                 </div>
             </div>    

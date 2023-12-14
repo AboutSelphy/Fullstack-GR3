@@ -1,30 +1,65 @@
 <?php
 require_once("./../../script/db_connection.php");
 
-// Get ID from URL (linked in Details button)
-$id = 1;
+//USER ID FOR ANIMAL ADOPTION : CUT & PASTE
+$cookieID = $_COOKIE['sessionID'];
+var_dump($cookieID);
 
+try {
+    $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+    $stmt->bindParam(':cookieID', $cookieID);
+    $stmt->execute();
+    $userData = $stmt->fetch();
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage(); // This will display the error message
+}
+
+die();
+// Get ID from URL (linked in Details button) and select according data
+$id = $_GET["id"];
 $stmt = $db->prepare("SELECT * FROM `shelters` WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $row = $result[0];
 
+// Getting ZIP (foreign key) options
+$stmt = $db->prepare("SELECT * FROM `zip` WHERE id = $row[fk_zip]");
+$stmt->execute();
+$result_zip = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$row_zip = $result_zip[0];
+
 $details = "
-    <div class='headline'>
+    <div>
         <h1>$row[shelter_name]</h1>
     </div>
-    <div class='content'>
-        <div class='image'>
+    <div>
+        <div>
             <img src='../../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
         </div>
-        <div class='text'>
-            <h3 class='desc'>$row[description]</h3>
+        <div>
+            <h3>$row[description]</h3>
             <hr>
             <h4>$row[capacity] animals</h4>
-            <p>INSERT LOCATION FOREIGN KEY</p>
+            <p>$row_zip[zip] $row_zip[city], $row_zip[country]</p>
         </div>
     </div>
 ";
+
+// DESIGN OF THE ADOPTION CRUD --> NEEDS TO BE TRANSFERED TO THE ANIMALS DETAIL PAGE
+$adoption = "
+    <form action='' method='post'>
+        <input class='btn' type='submit' value='Adopt' name='adopt'>
+    </form>
+";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $date = date("d.m.Y");
+
+    $data = [
+        'date' => $date
+    ];
+    $stmt = $db->prepare("INSERT INTO `adoptions`(`date`, `fk_user`, `fk_animal`) VALUES ($date,)");
+}
 
 // Close database connection
 $db = NULL;
@@ -53,6 +88,7 @@ $db = NULL;
 
     <div class="container text-center">
         <?= $details ?>
+        <?= $adoption ?>
     </div>
 
     <!-- // BOOTSTRAP -->
