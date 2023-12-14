@@ -3,7 +3,7 @@
    require_once('../script/loginGate.php');
    
    if($role !== 'user'){
-       header("Location: ".BASE_DIR."pages/login/");
+       header("Location: ".BASE_DIR."pages/login/login.php");
        exit();
    }
 
@@ -54,13 +54,13 @@ profile -->
     <div class="wrap_all">
         <!-- <?php include_once('../components/header.php')?> -->
         <main>
-            <div class="section hero subpage" style="background-image: url(../resources/images/<?= $userData['profile'] ?>); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <div class="section hero subpage" style="background-image: url(../resources/img/users/<?= $userData['profile'] ?>); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="container content">
                     <div class="sectionContainer">
                         <div class="heroContent">
                         <div style=" padding: 15px; border-radius: 25px; display: flex; flex-direction: row; align-items: center; background:#FFF2D8 !important;">
                                 <h1 style="line-height: 100px;">WELCOME - <?= $userData['first_name'] . " " . $userData['last_name']  ?></h1>
-                                <img style=" margin-left: 15px; height: 100px; width: 100px; border-radius: 50%; object-fit: cover;" src="../resources/images/<?= $userData['profile'] ?>" alt="<?= $userData['first_name'] ?>">
+                                <img style=" margin-left: 15px; height: 100px; width: 100px; border-radius: 50%; object-fit: cover;" src="../resources/img/users/<?= $userData['profile'] ?>" alt="<?= $userData['first_name'] ?>">
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,7 @@ profile -->
                         </div>
                     </div>
                     <a class="editButton" href="./editUser.php?id=<?= $userData['id'] ?>">EDIT PROFILE</a>
+                    <a style="color:red;" href="./login/logout.php">logout</a>
                 </div>
             </div>
 

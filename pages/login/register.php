@@ -8,7 +8,7 @@ $role = isLoggedIn($db)[1];
 echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
 
 if($role !== 'error'){
-    header("Location: ".BASE_DIR."pages/login/");
+    header("Location: ".BASE_DIR."pages/login/login.php");
     exit();
 }
 ?>

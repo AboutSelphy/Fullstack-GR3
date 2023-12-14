@@ -4,7 +4,7 @@ require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 
 if($role !== 'shelter'){
-    header("Location: ".BASE_DIR."pages/login/");
+    header("Location: ".BASE_DIR."pages/login/login.php");
     exit();
 }
 ?>

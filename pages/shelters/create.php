@@ -4,34 +4,32 @@ require_once("./../../script/db_connection.php");
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");
 
+// Preparing validation/error messages
+$error = false;
+$name = $capacity = $zip = $description = "";
+$nameError = $capacityError = $zipError = $descriptionError = "";
+
 // Getting ZIP (foreign key) options
 $locations = "";
 $stmt = $db->prepare("SELECT * FROM `zip`");
 $stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result_zip = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($result as $row) {
-    $locations .= "<option value='{$row['id']}'>{$row['city']}</option>";
+foreach ($result_zip as $row_zip) { //selected option is a problem of future Svenja
+    if ($zip == $row_zip['id']) {
+        $locations .= "<option value='{$row_zip['id']}' selected>{$row_zip['city']}</option>";
+    } else {
+        $locations .= "<option value='{$row_zip['id']}'>{$row_zip['city']}</option>";
+    }
 }
-
-// Preparing validation/error messages
-$error = false;
-
-$name = "";
-$capacity = "";
-$description = "";
-
-$nameError = "";
-$capacityError = "";
-$descriptionError = "";
 
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name = clean($_POST['name']);
     $capacity = clean($_POST['capacity']);
-    $zip = $_POST['zip'] != 0 ? $_POST["zip"] : 1;
-    $image = fileUpload($_FILES["image"], "shelter");
+    $zip = $_POST['zip'] != 0 ? $_POST['zip'] : 1;
+    $image = fileUpload($_FILES['image'], "shelter");
     $description = clean($_POST['description']);
 
     if (validate($name, $nameError, 255)[0] == true) {
@@ -49,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $zipError = "Please select one option!";
     }
 
-    if (strlen($description) > 500) {
+    if (strlen($description) > 1000) {
         $error = true;
-        $descriptionError = "Your input must not have more than 500 characters!";
+        $descriptionError = "Your input must not have more than 1000 characters!";
     }
 
     $data = [
@@ -63,11 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // Prepare and execute SQL insertion
-    $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
-    $stmt = $db->prepare($sql);
-    $stmt->execute($data);
+    if (!$error) {
+        $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute($data);
 
-    echo 'db entry created';
+        echo 'db entry created';
+        header('Location: ./shelters.php');
+    } else {
+        echo 'oh no, a problem';
+    }
 }
 
 // Close database connection
@@ -116,6 +119,7 @@ $db = NULL;
                     <option value="0">Please choose...</option>
                     <?= $locations ?>
                 </select>
+                <span><?= $zipError ?></span>
             </div>
 
             <div class="form-group">
