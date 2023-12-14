@@ -17,6 +17,8 @@ $loc = "../";
 //is loggedIN?
 $role = isLoggedIn($db)[1];
 
+echo $role;
+
 if($role !== 'unset'){
     if ($role === 'user') {
         header("Location: {$loc}user_dashboard.php");
@@ -62,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $passwordResponse = $stmt->fetch();
     
                 if (is_array($passwordResponse) && count($passwordResponse) != 0 ){
-                    // echo "pw found cookie set" ;
+                    echo "pw found cookie set" ;
                     setSessionCookie($sessionID,$db,$email);
 
                     header("refresh:0;url=".$_SERVER['PHP_SELF']);
