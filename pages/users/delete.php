@@ -1,10 +1,10 @@
 <?php
 
 require_once("./../../script/db_connection.php");
+
 // include("./../../script/loginGate.php");
 
-$userDeletedLoginTable = false;
-$userDeletedUsersTable = false;
+$userDeleted = false;
 
 // if($role = 'shelter'){
 //     header('Location: ../login/login.php ');
@@ -16,18 +16,29 @@ $userDeletedUsersTable = false;
 
 if(isset($_GET['id'])){
     $deleteID = $_GET['id'];
-    
+
     try {
-        $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-        $stmt->bindParam(':cookieID', $cookieID);
+
+        $stmt = $db->prepare("DELETE FROM users WHERE id = :deleteID");
+        $stmt->bindParam(':deleteID', $deleteID);
         $stmt->execute();
-        $userData = $stmt->fetch();
-        // var_dump($userData);
-        if(is_array($userData) && count($userData) > 0){
-            return $userData['id'];
+        $rowCount = $stmt->rowCount();
+
+        if ($rowCount > 0) {
+            if(isset($_COOKIE['sessionID'])){
+                $cookieID = $_COOKIE['sessionID'];
+                
+                //destroy cookie
+                setcookie('sessionID', '', time() - 3600, '/');
+            }
+            echo "Deletion successful. $rowCount row(s) deleted.";
+            $userDeleted = true;
+
+            header("refresh:1;url=../login/login.php");
+        } else {
+            echo "No records deleted. Possibly no matching userID found.";
         }
     
-        return 'error';
     
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage(); // This will display the error message

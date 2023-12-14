@@ -5,7 +5,7 @@ function checkIfLoginExists($db,$userID){
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     $loginData = $stmt->fetchAll();
-
+    var_dump($loginData);
     return is_array($loginData)  && count($loginData) > 0 ? true : false;
 }
 
