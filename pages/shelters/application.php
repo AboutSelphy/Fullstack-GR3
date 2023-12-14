@@ -5,14 +5,14 @@ include("./../../script/input_validation.php");
 
 // Preparing validation/error messages
 $error = false;
-$name = $capacity = $zip = $description = "";
-$nameError = $capacityError = $zipError = $descriptionError = "";
+$name = $animals = $zip = $description = "";
+$nameError = $animalsError = $zipError = $descriptionError = "";
 
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name = clean($_POST['name']);
-    $capacity = clean($_POST['capacity']);
+    $animals = clean($_POST['animals']);
     $zip = $_POST['zip'] != 0 ? $_POST['zip'] : 1;
     $image = fileUpload($_FILES['image'], "shelter");
     $description = clean($_POST['description']);
@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nameError = validate($name, $nameError, 255)[1];
     }
 
-    if (empty($capacity)) {
+    if (empty($animals)) {
         $error = true;
-        $capacityError = "Please insert some data here!";
+        $animalsError = "Please insert some data here!";
     }
 
     if ($zip == "0") {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = [
         'name' => $name,
-        'capacity' => $capacity,
+        'animals' => $animals,
         'image' => $image[0],
         'description' => $description,
         'zip' => $zip
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare and execute SQL insertion
     if (!$error) {
-        $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
+        $sql = "INSERT INTO `shelters`(`shelter_name`, `animals`, `image`, `description`, `fk_zip`) VALUES (:name, :animals, :image, :description, :zip)";
         $stmt = $db->prepare($sql);
         $stmt->execute($data);
 
@@ -87,29 +87,23 @@ $db = NULL;
     <div class="container">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?= $name ?? "" ?>">
-                <span><?= $nameError ?></span>
+
             </div>
 
             <div class="form-group">
-                <label for="age">Capacity:</label>
-                <input type="number" min="1" name="capacity" id="capacity" class="form-control" value="<?= $capacity ?? "" ?>">
-                <span><?= $capacityError ?></span>
+                <label for="age">Animals:</label>
+                <input type="number" min="1" name="animals" id="animals" class="form-control" value="<?= $animals ?? "" ?>">
+                <span><?= $animalsError ?></span>
             </div>
 
             <div class="form-group">
-                <label for="zip">ZIP:</label>
-                <select name="zip" id="zip" class="form-control">
-                    <option value="0">Please choose...</option>
-                    <?= $locations ?>
-                </select>
+                <label for="age">ZIP:</label>
+                <input type="number" min="1" name="zip" id="zip" class="form-control" value="<?= $zip ?? "" ?>">
                 <span><?= $zipError ?></span>
             </div>
 
             <div class="form-group">
-                <label for="image">Image:</label>
-                <input type="file" name="image" id="image" class="form-control">
+                <label for="profit">Non-Profit:</label>
             </div>
 
             <div class="form-group">
