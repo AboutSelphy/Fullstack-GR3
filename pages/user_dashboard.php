@@ -1,6 +1,8 @@
 <?php
    require_once('../script/globals.php');
    require_once('../script/loginGate.php');
+    require_once('../script/getUserIDWithCookieID.php');
+
    
    if($role !== 'user'){
        header("Location: ".BASE_DIR."pages/login/login.php");
@@ -83,6 +85,7 @@ profile -->
                         </div>
                     </div>
                     <a class="editButton" href="./editUser.php?id=<?= $userData['id'] ?>">EDIT PROFILE</a>
+                    <a href="./users/delete.php?id=<?= getUserIDWithCookieID($db) ?>">Delete Account</a>
                     <a style="color:red;" href="./login/logout.php">logout</a>
                 </div>
             </div>
