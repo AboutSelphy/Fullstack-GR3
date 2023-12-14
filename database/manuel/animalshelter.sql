@@ -31,7 +31,7 @@ USE `animalshelter`;
 
 CREATE TABLE `adoptions` (
   `id` int(11) NOT NULL,
-  `status` enum('Available','Adopted','Pending') NOT NULL DEFAULT 'Available',
+  `status` enum('available','adopted','pending') NOT NULL DEFAULT 'available',
   `date` date NOT NULL,
   `fk_user` int(11) NOT NULL,
   `fk_animal` int(11) NOT NULL
