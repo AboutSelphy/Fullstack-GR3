@@ -11,21 +11,22 @@ require_once('../../script/input_validation.php');
 session_start();
 $sessionID = session_id();
 
+
+$loc = "../";
+
 //is loggedIN?
-
 $role = isLoggedIn($db)[1];
-// echo ' <br>--loginGATE -- ' . 'role: ' .$role ;
 
-if($role !== 'error'){
+if($role !== 'unset'){
     if ($role === 'user') {
-        header("Location: ".BASE_DIR."pages/user_dashboard.php");
+        header("Location: {$loc}user_dashboard.php");
         exit();
     }elseif($role === 'admin'){
-        header("Location: ".BASE_DIR."pages/dashboard.php");
+        header("Location: {$loc}dashboard.php");
         exit();
     
     }elseif( $role === 'shelter'){
-        header("Location: ".BASE_DIR."pages/sh_dashboard.php");
+        header("Location: {$loc}sh_dashboard.php");
         exit();
     }
 }
