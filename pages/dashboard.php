@@ -10,7 +10,7 @@ $loc = "./";
 
     if($role !== 'unset'){
         if ($role !== 'admin') {
-            header("Location: {$loc}login/login.php");
+            header("Location: " . BASE_DIR . "pages/login/login.php");
             exit();
         }
     }
