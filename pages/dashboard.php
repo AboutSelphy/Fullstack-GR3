@@ -1,4 +1,7 @@
 <?php
+//config for global constants
+require_once("../config.php");
+
 require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 

@@ -1,21 +1,22 @@
 <?php 
-//header pathing
+
+
 
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="<?=ROOT_PATH?>index.php">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/animals/animals.php">Animals</a>
+            <a class="nav-link active" aria-current="page" href="<?=ROOT_PATH?>pages/animals/animals.php">Animals</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/shelters/shelters.php">Shelters</a>
+            <a class="nav-link active" aria-current="page" href="<?=ROOT_PATH?>pages/shelters/shelters.php">Shelters</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,10 +32,10 @@
       </ul>
       <ul class="navbar-nav  mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/FullStack-GR3/pages/login/login.php">Login</a>
+          <a class="nav-link" aria-current="page" href="<?=ROOT_PATH?>pages/login/login.php">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/users/register.php">Register</a>
+            <a class="nav-link active" aria-current="page" href="<?=ROOT_PATH?>pages/users/register.php">Register</a>
         </li>
       </ul>
     </div>

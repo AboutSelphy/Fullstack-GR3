@@ -1,4 +1,6 @@
 <?php
+//config for global constants
+require_once("../../config.php");
 // db connection
 require_once("./../../script/db_connection.php");
 // get fileupload functionality

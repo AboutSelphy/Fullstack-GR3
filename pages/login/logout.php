@@ -1,4 +1,8 @@
 <?php
+
+//config for global constants
+require_once("../../config.php");
+
 require_once('../../script/db_connection.php');
 require_once('./script/unsetSessionCookie.php');
 include_once('../../script/loginGate.php');

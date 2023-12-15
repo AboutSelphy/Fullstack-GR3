@@ -1,6 +1,6 @@
 <?php
-define('ROOT_PROJECT', __DIR__);
-// require_once("./script/db_connection.php");
+require_once("config.php");
+
 
 
 ?>
