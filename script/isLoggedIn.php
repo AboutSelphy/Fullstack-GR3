@@ -27,7 +27,7 @@ function isLoggedIn($db){
                 return [true,$loginData[0]['role']];
                 
             }else{
-                echo 'is no user';
+                // echo 'is no user';
             }
         } else {
             // echo 'no cookie set';

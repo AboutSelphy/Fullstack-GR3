@@ -1,34 +1,23 @@
 <?php
+// db connection
 require_once("./../../script/db_connection.php");
-
+// get fileupload functionality
 include("./../../script/file_upload.php");
+// get inputValidtio  functionality
 include("./../../script/input_validation.php");
-
+// checks if user is loggedIn and seesion cookie is set
 require_once('./../../script/isLoggedIn.php');
 
 
 //check if client has entry in db table login
-    
     $role = isLoggedIn($db)[1];
 
+    // if $role is set redirect to loginpage that handles the redirect to right dashboard
     if($role !== 'unset'){
         header("Location: ".BASE_DIR."pages/login/login.php");
         exit();
     }
 
-
-
-
-// <!-- d
-// first_name x
-// last_name x
-// email x
-// password x
-// status x
-// address x
-// fk_zip x
-// fk_shelter x
-// profile -->
 
 // Getting ZIP (foreign key) options
 $locations = "";
@@ -59,33 +48,33 @@ $first_nameError = $last_nameError = $addressError = $emailError = $passwordErro
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    echo '<pre>';
-    var_dump($_POST);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
 
     $first_name = clean($_POST['first_name']);
     $last_name = clean($_POST['last_name']);
     $email = clean($_POST['email']);
     $address = clean($_POST['address']);
     $password = clean($_POST['password']);
-    $accountType = clean($_POST['accountType']);
+    // $accountType = clean($_POST['accountType']);
 
     $zip = $_POST['zip'] != 0 ? $_POST["zip"] : 0;
     $shelter = $_POST['shelter'] != 0 ? $_POST["shelter"] : 0;
 
     $image = fileUpload($_FILES["image"], "user");
 
-    //VAL first name
+    //VAL first $first_name
     if (validate($first_name, $first_nameError, 255)[0] == true) {
         $error = true;
         $first_nameError = validate($first_name, $first_nameError, 255)[1];
     }
-    //VAL last name
+    //VAL last $last_name
     if (validate($last_name, $last_nameError, 255)[0] == true) {
         $error = true;
         $last_nameError = validate($last_name, $last_nameError, 255)[1];
     }
-    //VAL adress
+    //VAL $address
     if (validate($address, $addressError, 255)[0] == true) {
         $error = true;
         $addressError = validate($address, $addressError, 255)[1];
@@ -122,16 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $zipError = "Please select one option!";
     }
 
-    //VAL zip
+    //VAL shelter
     if ($shelter == "0") {
         $error = true;
         $shelterError = "Please select one option!";
     }
-
-    // if (strlen($description) > 500) {
-    //     $error = true;
-    //     $descriptionError = "Your input must not have more than 500 characters!";
-    // }
 
     $data = [
         'first_name' => $first_name,
@@ -142,21 +126,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'profile' => $image[0],
         'zip' => $zip,
         'shelter' => $shelter,
-        'status' => $accountType
+        // 'status' => $accountType
     ];
 
     // Prepare and execute SQL insertion
     if($error === false){
-
         try {
-            $sql = "INSERT INTO `users`(`first_name`, `last_name`, `address`, `email`, `password`,`profile`,`fk_zip`,`fk_shelter`,`status`) VALUES (:first_name, :last_name, :address, :email, :password, :profile, :zip, :shelter, :status)";
+            $sql = "INSERT INTO `users`(`first_name`, `last_name`, `address`, `email`, `password`,`profile`,`fk_zip`,`fk_shelter`) VALUES (:first_name, :last_name, :address, :email, :password, :profile, :zip, :shelter)";
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
     
-            echo 'db entry created';
+            echo 'successfully registered :)';
+            header("refresh:2;url=../login/login.php");
+
     
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage(); 
+            // echo "Error: " . $e->getMessage(); 
         }
     }
 
@@ -215,13 +200,13 @@ $db = NULL;
                 <input autocomplete="on" type="password" name="password" id="password" class="form-control" value="<?= $password ?? "" ?>">
                 <span style="color:red;"><?= $passwordError ?></span>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="accountType">Account Type:</label>
                 <select name="accountType" id="accountType" class="form-control">
                     <option value="user" <?= $_SERVER['REQUEST_METHOD'] === 'POST' && $accountType == 'user' ? 'selected' : ''?>>User</option>
                     <option value="shelter" <?= $_SERVER['REQUEST_METHOD'] === 'POST' && $accountType == 'shelter' ? 'selected' : ''?>>Shelter</option>
                 </select>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="zip">ZIP:</label>

@@ -34,7 +34,7 @@
           <a class="nav-link" aria-current="page" href="/FullStack-GR3/pages/login/login.php">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/users/create.php">Register</a>
+            <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/users/register.php">Register</a>
         </li>
       </ul>
     </div>

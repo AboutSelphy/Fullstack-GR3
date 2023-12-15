@@ -1,18 +1,19 @@
 <?php
 
 require_once("./../../script/db_connection.php");
-
-// include("./../../script/loginGate.php");
+include("./../../script/loginGate.php");
 
 $userDeleted = false;
 
-// if($role = 'shelter'){
-//     header('Location: ../login/login.php ');
-// }
+$loc = "../";
 
+if($role !== 'unset'){
+    if ($role === 'shelter') {
+        header("Location: {$loc}sh_dashboard.php");
+        exit();
+    }
+}
 
-//users/delete.php?id=1
-//GET
 
 if(isset($_GET['id'])){
     $deleteID = $_GET['id'];
@@ -36,12 +37,12 @@ if(isset($_GET['id'])){
 
             header("refresh:1;url=../login/login.php");
         } else {
-            echo "No records deleted. Possibly no matching userID found.";
+            // echo "No records deleted. Possibly no matching userID found.";
         }
     
     
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage(); // This will display the error message
+        // echo "Error: " . $e->getMessage(); // This will display the error message
     }
 }
 
@@ -63,7 +64,7 @@ if(isset($_GET['id'])){
     <?php if ($userDeleted === true): ?>
         <h1>User deleted ✅</h1>
     <?php else: ?>
-        <h1>User not deleted ❌</h1>
+        <h1>Something went wrong :/ ❌</h1>
     <?php endif; ?>
 </body>
 </html>

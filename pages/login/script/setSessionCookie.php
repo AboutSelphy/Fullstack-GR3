@@ -20,7 +20,7 @@ function setSessionCookie($sessionID,$db,$email){
         $stmt->execute();
         $loginData = $stmt->fetch();
 
-        if(count($loginData) > 0 ){
+        if(is_array($loginData) && count($loginData) > 0 ){
             $userID = $loginData['id'];
             $userRole= $loginData['status'];
             

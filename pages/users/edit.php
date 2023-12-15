@@ -4,12 +4,17 @@ include("./../../script/loginGate.php");
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");
 
-// require_once('./../../script/isLoggedIn.php');
 
+// edit access (USER / ADMIN)
 
-//check if client has entry in db table login
- 
+$loc = "../";
 
+if($role !== 'unset'){
+    if ($role === 'shelter') {
+        header("Location: {$loc}sh_dashboard.php");
+        exit();
+    }
+}
 
 
 // Getting current User

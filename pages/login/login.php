@@ -14,11 +14,12 @@ $sessionID = session_id();
 
 $loc = "../";
 
-//is loggedIN?
+//check if client has entry in db table login
 $role = isLoggedIn($db)[1];
 
-echo $role;
+// echo $role;
 
+//redirects the logged in user  to the right dashboard
 if($role !== 'unset'){
     if ($role === 'user') {
         header("Location: {$loc}user_dashboard.php");
@@ -38,7 +39,6 @@ $emailError = $passwordError = "";
 $errorStatus = false;
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    //`? get userID
     // has account and logins successfully
         $email = clean($_POST['email']);
         $password = clean($_POST['password']);
@@ -52,33 +52,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         if(empty($password))
         {
             $errorStatus = true;
-            $passError = "Pls enter password";
+            $passwordError = "Pls enter password";
         }
 
-        // echo $email . 'EMASD';
-        if($errorStatus !== true){
+        if($errorStatus === false){
             $password = hash('sha256',$password);
-            $stmt = $db->prepare("SELECT password FROM `users` WHERE password = :password");
+            $stmt = $db->prepare("SELECT email , password FROM `users` WHERE password = :password and email = :email");
             $stmt->bindParam(':password', $password );
+            $stmt->bindParam(':email', $email );
             $stmt->execute();
             $passwordResponse = $stmt->fetch();
-    
+            // var_dump($passwordResponse);
+            
                 if (is_array($passwordResponse) && count($passwordResponse) != 0 ){
-                    echo "pw found cookie set" ;
+                    // echo "pw found cookie set" ;
                     setSessionCookie($sessionID,$db,$email);
 
+                    //resets site. after that, index.php checks the role and redirects to wright place
                     header("refresh:0;url=".$_SERVER['PHP_SELF']);
-                        // if ($role === 'user') {
-                        //     header("Location: ".BASE_DIR."pages/user_dashboard.php");
-                        //     exit();
-                        // }elseif($role === 'admin'){
-                        //     header("Location: ".BASE_DIR."pages/dashboard.php");
-                        //     exit();
-                        
-                        // }elseif( $role === 'shelter'){
-                        //     header("Location: ".BASE_DIR."pages/sh_dashboard.php");
-                        //     exit();
-                        // }
+
+                } else {
+                    $errorStatus = true;
                 }
         }
 }
@@ -111,11 +105,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input autocomplete="on" type="password" name="password" id="password" class="form-control" value="<?= $password ?? "" ?>">
+                <input autocomplete="on" type="password" name="password" id="password" class="form-control" >
                 <span style="color:red;"><?= $passwordError ?></span>
             </div>
             <button type="submit" value="Submit" class="btn btn-default">Login</button>
         </form>
+        <?php if ($errorStatus === true): ?>
+            <span style="color:red;">Something went wrong, pls try again!</span>
+        <?php else: ?>
+        <?php endif; ?>
     </div>
 
     <!-- // BOOTSTRAP -->
