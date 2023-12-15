@@ -18,10 +18,10 @@ function unsetSessionCookie($db){
             $stmt->bindParam(':cookieID', $cookieID);
             $stmt->execute();
             
-            echo 'deleted succesfully';
+            // echo 'deleted succesfully';
     
         } catch (PDOException $e) {
-            echo 'could not be deleted error ' . $e;
+            echo 'could not be unset error ' . $e;
         }
     
         

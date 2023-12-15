@@ -1,4 +1,7 @@
+<?php 
+//header pathing
 
+?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -13,9 +16,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/FullStack-GR3/pages/shelters/shelters.php">Shelters</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -225,11 +225,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
-    
+            
+            header("refresh:0;url=../login/login.php");
             echo 'db entry updated';
         
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage(); 
+            // echo "Error: " . $e->getMessage(); 
         }
     }
 
