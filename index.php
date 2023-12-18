@@ -81,7 +81,7 @@ require_once("config.php");
         </ul>
         </div>
         <div class="col col-lg-4 col-md-6 col-sx-12">
-            <img src="./resources/img/website/logo.png" alt="Logo.png" class="card-logo">
+            <img src="./resources/img/website/logo.svg" alt="Logo.svg" class="card-logo">
         </div>
     </div>
   </div>

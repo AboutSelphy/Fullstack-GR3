@@ -49,6 +49,7 @@ $destination = 'users';
         <li class="nav-item">
           <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/shelters.php">Shelters</a>
         </li>
+        <!-- is shelter -->
         <?php if (isset($headerUserRole) && $headerUserRole === 'shelter') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,19 +60,25 @@ $destination = 'users';
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li>
             </ul>
           </li>
+        <!-- is admin -->
         <?php elseif (isset($headerUserRole) &&  $headerUserRole === 'admin') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Actions
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Action</a></li>
-              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Another action</a></li>
+              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li> -->
+              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
+              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/users/register.php">Register User</a></li>
+              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Something else here</a></li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/dashboard.php#requests">Shelter Requests</a>
           </li>
 
         <?php else : ?>
