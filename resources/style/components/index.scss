@@ -23,9 +23,31 @@
 // about
 .about {
     background-color: $hover-color;
-    color: $background-color;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    color: $background-color !important;
 
+
+    .card-logo {
+        background-color: $background-color;
+        padding: 1rem;
+        border-radius: 2rem;
+        border: solid .6rem $optional-color;
+        
+        
+    }
+    img {
+        height: 30rem;
+    }
+
+    i {
+        color: $background-color;
+        font-size: $lg;
+    }
+
+    hr {
+        height: 4px;  
+        background-color: $background-color;
+        border: none; 
+        margin: 20px 0; 
+        opacity: 100;
+      }
 }

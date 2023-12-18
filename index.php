@@ -1,8 +1,5 @@
 <?php
 require_once("config.php");
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -69,13 +66,23 @@ require_once("config.php");
 
 
 <section class="about">
-  <div class="container">
-    <div class="col col-lg-8 col-md-6 col-sx-12">
-      <h2>Who we are!</h2>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, officiis molestiae iusto suscipit soluta delectus saepe sed minus sint incidunt labore fugit neque explicabo sit. Dolorum quo ut libero consectetur.</p>
-    </div>
-    <div class="col col-lg-4 col-md-6 col-sx-12">
-      
+  <div class="container ">
+    <div class="row justify-content-center align-items-center">
+        <div class="col col-lg-8 col-md-6 col-sx-12">
+        <h2>Who we are!</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, officiis molestiae iusto suscipit soluta delectus saepe sed minus sint incidunt labore fugit neque explicabo sit. Dolorum quo ut libero consectetur.</p>
+        <hr>
+        <ul class="nav justify-content-center list-unstyled d-flex">
+            <li class="ms-3"><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+            <li class="ms-3"><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+            <li class="ms-3"><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+            <li class="ms-3"><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+            <li class="ms-3"><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+        </ul>
+        </div>
+        <div class="col col-lg-4 col-md-6 col-sx-12">
+            <img src="./resources/img/website/logo.png" alt="Logo.png" class="card-logo">
+        </div>
     </div>
   </div>
 </section>

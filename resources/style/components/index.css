@@ -18,8 +18,25 @@
 
 .about {
   background-color: #6A7324;
+  color: #e1e1e1 !important;
+}
+.about .card-logo {
+  background-color: #e1e1e1;
+  padding: 1rem;
+  border-radius: 2rem;
+  border: solid 0.6rem #1D1D1D;
+}
+.about img {
+  height: 30rem;
+}
+.about i {
   color: #e1e1e1;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  font-size: 1.5rem;
+}
+.about hr {
+  height: 4px;
+  background-color: #e1e1e1;
+  border: none;
+  margin: 20px 0;
+  opacity: 100;
 }/*# sourceMappingURL=index.css.map */
