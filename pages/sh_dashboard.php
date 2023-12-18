@@ -49,6 +49,21 @@ try {
 $animalList = "";
 if (count($animals) > 0) {
     foreach ($animals as $animal) {
+        if ($animal['status'] == "available") {
+            $vaccination = "
+                <span class='badge rounded-pill text-bg-success d-inline'>$animal[status]</span>
+            ";
+        } elseif ($animal['status'] == "pending") {
+            $vaccination = "
+                <span class='badge rounded-pill text-bg-danger d-inline'>$animal[status]</span>
+            ";
+        } else {
+            $vaccination = "
+                <span class='badge rounded-pill text-bg-secondary d-inline'>$animal[status]</span>
+            ";
+        }
+
+
         $animalList .= "
             <tr>
                 <td>
@@ -69,10 +84,10 @@ if (count($animals) > 0) {
                     <p class='text-muted mb-0'>$animal[gender]</p>
                 </td>
                 <td>
-                    <span class='badge badge-success rounded-pill d-inline'>$animal[vaccination]</span>
+                    $vaccination
                 </td>
-                <td>$animal[status]</td>
-                <td>
+                <td>$animal[vaccination]</td>
+                <td class='actions'>
                     <a href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                     <a href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
                 </td>
@@ -163,8 +178,8 @@ if (count($animals) > 0) {
                                         <tr>
                                             <th>Animal</th>
                                             <th>Info</th>
-                                            <th>Vaccination</th>
                                             <th>Status</th>
+                                            <th>Vaccination</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
