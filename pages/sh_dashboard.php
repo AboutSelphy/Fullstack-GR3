@@ -5,6 +5,8 @@ require_once("../config.php");
 require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 
+include('../script/grammarCheck.php');
+
 $loc = "./";
 
 if ($role !== 'unset') {
@@ -47,6 +49,7 @@ try {
 
 // Get number for the profile animal counter
 $animalNumber = count($animals);
+$animalCount = grammarCheck($animalNumber, "Animal");
 
 $animalList = "";
 if ($animalNumber > 0) {
@@ -76,16 +79,7 @@ if ($animalNumber > 0) {
             ";
         }
 
-        // Grammar correction depending on number
-        function grammarCheck($word)
-        {
-            if ($word['age'] == 1) {
-                $years = "year";
-            } else {
-                $years = "years";
-            }
-            return $years;
-        }
+        $years = grammarCheck($animal['age'], 'year');
 
         // Create table content of animals belonging to a the corresponding shelter dashboard
         $animalList .= "
@@ -168,17 +162,9 @@ if ($animalNumber > 0) {
                                     </div>
                                     <div class="socials p-4 text-black">
                                         <div class="d-flex justify-content-end text-center py-1">
-                                            <!-- <div>
-                                                <p class="mb-1 h5">253</p>
-                                                <p class="small text-muted mb-0">Photos</p>
-                                            </div>
-                                            <div class="px-3">
-                                                <p class="mb-1 h5">1026</p>
-                                                <p class="small text-muted mb-0">Followers</p>
-                                            </div> -->
                                             <div>
                                                 <p class="mb-1 h5"><?= $animalNumber ?></p>
-                                                <p class="small text-muted mb-0">Animals</p>
+                                                <p class="small text-muted mb-0"><?= $animalCount ?></p>
                                             </div>
                                         </div>
                                     </div>
