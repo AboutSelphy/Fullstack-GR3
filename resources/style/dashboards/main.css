@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Rethink+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+.gradient-custom-2 {
+  border-radius: 0.5rem 0.5rem 0 0;
+  /* fallback for old browsers */
+  background: #fbc2eb;
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to bottom, #e1e1e1, #A6A272, #6A7324);
+}
+
+.content {
+  background-color: #000;
+  height: 200px;
+}
+
+.header {
+  width: 300px;
+}
+.header img {
+  width: 150px;
+  min-height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: 1;
+}
+.header a {
+  display: block;
+  width: 100%;
+  z-index: 1;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.profile {
+  margin-top: 130px;
+}
+
+.socials {
+  background-color: #f8f9fa;
+}
+
+.infoblock {
+  background-color: #f8f9fa;
+}
+
+.tablePic {
+  width: 45px;
+  height: 45px;
+}/*# sourceMappingURL=main.css.map */

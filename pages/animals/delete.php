@@ -4,15 +4,14 @@ require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 include("./../../script/loginGate.php");
 
-if($role !== 'unset'){
+if ($role !== 'unset') {
     if ($role !== 'shelter') {
         header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
 }
 
-// $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
-$id = 23; // delete this line once everything established
+$id = $_GET["id"];
 $stmt = $db->prepare("SELECT * FROM animals WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,7 +25,7 @@ try {
     $delete = "DELETE FROM animals WHERE id = $id";
     $stmt = $db->prepare($delete);
     $stmt->execute();
-    header("Location: ./animals.php");
+    header("Location: ../sh_dashboard.php");
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); // This will display the error message
 }
