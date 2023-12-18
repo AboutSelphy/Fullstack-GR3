@@ -24,7 +24,7 @@ a {
 // Btn
 .btn {
     padding: .655rem 1.44rem;
-    width: 10rem;
+    min-width: 10rem;
     margin: .711rem .0rem;
     border: none;
     border-radius: .33rem;
@@ -54,7 +54,33 @@ a {
     }
 }
 
+section {
+    padding: 1rem 0rem;
+    margin: 2rem 0rem;
 
+    &:first-of-type {
+        margin: 0rem 0rem;
+        padding: 0rem 0rem;
+    }
+}
+
+
+
+// hero
+
+.carousel {
+    height: 40vh;
+}
+
+.c-item {
+    height: 40vh;
+  }
+  
+  .c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+  }
 
 
 // Footer
