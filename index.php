@@ -87,13 +87,64 @@ require_once("config.php");
   </div>
 </section>
 
+<section class="list">
+<div class="container">
+    <div class="row">
+        <div class="four col-md-3">
+            <div class="counter-box colored"> <i class="fa fa-thumbs-o-up"></i> <span class="counter">2147</span>
+                <p>Happy Customers</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box"> <i class="fa fa-group"></i> <span class="counter">3275</span>
+                <p>Registered Members</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box"> <i class="fa fa-shopping-cart"></i> <span class="counter">289</span>
+                <p>Available Products</p>
+            </div>
+        </div>
+        <div class="four col-md-3">
+            <div class="counter-box"> <i class="fa fa-user"></i> <span class="counter">1563</span>
+                <p>Saved Trees</p>
+            </div>
+        </div>
+    </div>
+</div>
+        </section>
+
     <!-- Footer -->
     <?php require_once("./components/footer.php") ?> 
 
 
 
-    <!-- // BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    // Ensure the document is fully loaded before running the script
+    $(document).ready(function() {
+        $('.counter').each(function () {
+            var $this = $(this);
+            var initialText = $this.text().trim();
+            var initialValue = parseFloat(initialText);
+
+            if (!isNaN(initialValue)) {
+                $({ Counter: 0 }).animate({
+                    Counter: initialValue
+                }, {
+                    duration: 4000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $this.text(Math.ceil(now));
+                    }
+                });
+            } else {
+                console.error('Invalid initial value for counter:', initialText);
+            }
+        });
+    });
+</script>
+
+
 
 
 </body>
