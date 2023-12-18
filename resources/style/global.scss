@@ -55,32 +55,18 @@ a {
 }
 
 section {
-    padding: 1rem 0rem;
-    margin: 2rem 0rem;
+    padding:5rem 0rem;
+    position: relative;
 
     &:first-of-type {
-        margin: 0rem 0rem;
         padding: 0rem 0rem;
     }
 }
 
 
 
-// hero
 
-.carousel {
-    height: 75vh;
-}
 
-.c-item {
-    height: 75vh;
-  }
-  
-  .c-img {
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
-  }
 
 
 // Footer

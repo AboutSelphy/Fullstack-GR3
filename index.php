@@ -18,6 +18,7 @@ require_once("config.php");
 
     <!-- // OWN STYLING -->
     <link rel="stylesheet" href="./resources/style/global.css">
+    <link rel="stylesheet" href="./resources/style/components/index.css">
 
     <!-- Icons FA -->
     <script src="https://kit.fontawesome.com/96fa54072b.js" crossorigin="anonymous"></script>
@@ -28,43 +29,43 @@ require_once("config.php");
     <!-- Navbar -->
     <?php require_once("./components/navbar.php") ?>
 
-    <!-- Hero -->
-    <section class="hero">
-    <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
+   <!-- Hero -->
+<section class="hero d-flex align-items-center vh-75">
+    <div id="hero-carousel" class="carousel slide w-100 mx-auto" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
 
-    <div class="carousel-inner">
-      <div class="carousel-item active c-item">
-        <img src="./resources/img/animals/default.jpg" class="d-block w-100 c-img" alt="Slide 1">
-        <div class="carousel-caption top-0 mt-4">
-          <p class="mt-5 fs-3 text-uppercase">Discover the hidden world</p>
-          <h1 class="display-1 fw-bolder text-capitalize">The Aurora Tours</h1>
-          <button class="btn btn-cta px-4 py-2 fs-5 mt-5">Book a tour</button>
+        <div class="carousel-inner">
+            <div class="carousel-item active c-item">
+                <img src="./resources/img/animals/default.jpg" class="d-block w-100 c-img" alt="Slide 1">
+                <div class="carousel-caption top-50 translate-middle-y text-center">
+                    <p class="mt-5 fs-3 text-uppercase">Discover the hidden world</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">The Aurora Tours</h1>
+                    <button class="btn btn-cta px-4 py-2 fs-5 mt-5">Book a tour</button>
+                </div>
+            </div>
+            <div class="carousel-item c-item">
+                <img src="./resources/img/shelters/default.jpg" class="d-block w-100 c-img" alt="Slide 2">
+                <div class="carousel-caption top-50 translate-middle-y text-center">
+                    <p class="text-uppercase fs-3 mt-5">The season has arrived</p>
+                    <p class="display-1 fw-bolder text-capitalize">3 available tours</p>
+                    <button class="btn btn-default px-4 py-2 fs-5 mt-5" data-bs-toggle="modal" data-bs-target="#booking-modal">Book a tour</button>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item c-item">
-        <img src="./resources/img/shelters/default.jpg" class="d-block w-100 c-img" alt="Slide 2">
-        <div class="carousel-caption top-0 mt-4">
-          <p class="text-uppercase fs-3 mt-5">The season has arrived</p>
-          <p class="display-1 fw-bolder text-capitalize">3 available tours</p>
-          <button class="btn btn-default px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
-            data-bs-target="#booking-modal">Book a tour</button>
-        </div>
-      </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
 </section>
+
 
 
 <section class="about">
