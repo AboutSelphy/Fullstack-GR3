@@ -14,7 +14,6 @@ if ($role !== 'unset') {
     }
 }
 
-// GET DATA --> CHANGE SQL COMMAND!
 $cookieID = $_COOKIE['sessionID'];
 try {
     $stmt = $db->prepare("SELECT users.* , zip.*, shelters.*
@@ -30,7 +29,7 @@ try {
     $stmt->execute();
     $userData = $stmt->fetch();
 } catch (PDOException $e) {
-    // echo "Error: " . $e->getMessage(); // This will display the error message
+    echo "Error: " . $e->getMessage(); // This will display the error message
 }
 
 if (count($userData) > 0) {
@@ -46,27 +45,52 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
+// Get number for the profile animal counter
+$animalNumber = count($animals);
+
 $animalList = "";
-if (count($animals) > 0) {
+if ($animalNumber > 0) {
     foreach ($animals as $animal) {
+        // Check the status and store the value with its color into a variable
         if ($animal['status'] == "available") {
-            $vaccination = "
+            $status = "
                 <span class='badge rounded-pill text-bg-success d-inline'>$animal[status]</span>
             ";
         } elseif ($animal['status'] == "pending") {
-            $vaccination = "
+            $status = "
                 <span class='badge rounded-pill text-bg-danger d-inline'>$animal[status]</span>
             ";
         } else {
-            $vaccination = "
+            $status = "
                 <span class='badge rounded-pill text-bg-secondary d-inline'>$animal[status]</span>
             ";
         }
+        // Check vaccination and store the value as an icon into a variable
+        if ($animal['vaccination'] == "yes") {
+            $vaccination = "
+                <i class='fa-solid fa-check success'></i>
+            ";
+        } else {
+            $vaccination = "
+                <i class='fa-solid fa-xmark danger'></i>
+            ";
+        }
 
+        // Grammar correction depending on number
+        function grammarCheck($word)
+        {
+            if ($word['age'] == 1) {
+                $years = "year";
+            } else {
+                $years = "years";
+            }
+            return $years;
+        }
 
+        // Create table content of animals belonging to a the corresponding shelter dashboard
         $animalList .= "
             <tr>
-                <td>
+                <td class='ps-5'>
                     <div class='d-flex align-items-center'>
                         <img
                         src='../resources/img/animals/$animal[image]'
@@ -75,21 +99,23 @@ if (count($animals) > 0) {
                         />
                         <div class='ms-3'>
                             <p class='fw-bold mb-1'>$animal[name]</p>
-                            <p class='text-muted mb-0'>$animal[age] years</p>
+                            <p class='text-muted mb-0'>$animal[age] $years</p>
                         </div>
                     </div>
                 </td>
-                <td>
+                <td class='text-center'>
                     <p class='fw-normal mb-1'>$animal[species]</p>
-                    <p class='text-muted mb-0'>$animal[gender]</p>
                 </td>
-                <td>
-                    $vaccination
+                <td class='text-center'>
+                    <p class='fw-normal mb-1'>$animal[gender]</p>
                 </td>
-                <td>$animal[vaccination]</td>
-                <td class='actions'>
-                    <a href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
-                    <a href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
+                <td class='text-center'>
+                    $status
+                </td>
+                <td class='text-center'>$vaccination</td>
+                <td class='actions text-center'>
+                    <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
+                    <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
                 </td>
             </tr>
         ";
@@ -142,17 +168,17 @@ if (count($animals) > 0) {
                                     </div>
                                     <div class="socials p-4 text-black">
                                         <div class="d-flex justify-content-end text-center py-1">
-                                            <div>
+                                            <!-- <div>
                                                 <p class="mb-1 h5">253</p>
                                                 <p class="small text-muted mb-0">Photos</p>
                                             </div>
                                             <div class="px-3">
                                                 <p class="mb-1 h5">1026</p>
                                                 <p class="small text-muted mb-0">Followers</p>
-                                            </div>
+                                            </div> -->
                                             <div>
-                                                <p class="mb-1 h5">478</p>
-                                                <p class="small text-muted mb-0">Following</p>
+                                                <p class="mb-1 h5"><?= $animalNumber ?></p>
+                                                <p class="small text-muted mb-0">Animals</p>
                                             </div>
                                         </div>
                                     </div>
@@ -176,11 +202,12 @@ if (count($animals) > 0) {
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
                                         <tr>
-                                            <th>Animal</th>
-                                            <th>Info</th>
-                                            <th>Status</th>
-                                            <th>Vaccination</th>
-                                            <th>Actions</th>
+                                            <th class="ps-5">Animal</th>
+                                            <th class="text-center">Species</th>
+                                            <th class="text-center">Gender</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Vacc.</th>
+                                            <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
