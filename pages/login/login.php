@@ -25,14 +25,14 @@ $role = isLoggedIn($db)[1];
 //redirects the logged in user  to the right dashboard
 if($role !== 'unset'){
     if ($role === 'user') {
-        header("Location:" . BASE_DIR . "pages/user_dashboard.php");
+        header("Location:" . ROOT_PATH . "pages/user_dashboard.php");
         exit();
     }elseif($role === 'admin'){
-        header("Location:" . BASE_DIR . "pages/dashboard.php");
+        header("Location:" . ROOT_PATH . "pages/dashboard.php");
         exit();
     
     }elseif( $role === 'shelter'){
-        header("Location:" . BASE_DIR . "pages/sh_dashboard.php");
+        header("Location:" . ROOT_PATH . "pages/sh_dashboard.php");
         exit();
     }
 }

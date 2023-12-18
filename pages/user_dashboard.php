@@ -10,7 +10,7 @@ $loc = "./";
 
 if ($role !== 'unset') {
   if ($role === 'shelter') {
-    header("Location: " . BASE_DIR . "pages/sh_dashboard.php");
+    header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
     exit();
   }
 }

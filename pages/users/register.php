@@ -16,7 +16,7 @@ require_once('./../../script/isLoggedIn.php');
 
     // if $role is set redirect to loginpage that handles the redirect to right dashboard
     if($role !== 'unset'){
-        header("Location: " . BASE_DIR . "pages/login/login.php");
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
         // exit();
     }
 
@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute($data);
     
             echo 'successfully registered :)';
-            header("refresh:2;url=" . BASE_DIR . "pages/login/login.php");
+            header("refresh:2;url=" . ROOT_PATH . "pages/login/login.php");
 
     
         } catch (PDOException $e) {

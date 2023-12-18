@@ -14,7 +14,7 @@ $loc = "../";
 
 if($role !== 'unset'){
     if ($role === 'shelter') {
-        header("Location: " . BASE_DIR . "pages/sh_dashboard.php");
+        header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
         exit();
     }
 }
@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
             
-            header("refresh:0;url=" . BASE_DIR . "pages/login/login.php");
+            header("refresh:0;url=" . ROOT_PATH . "pages/login/login.php");
             echo 'db entry updated';
         
         } catch (PDOException $e) {

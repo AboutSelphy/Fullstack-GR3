@@ -10,7 +10,7 @@ include_once('../../script/loginGate.php');
 //unset our beautiful cookie :/
 unsetSessionCookie($db);
 
-header("refresh:3;url= ". BASE_DIR . "index.php");
+header("refresh:3;url= ". ROOT_PATH . "index.php");
 
 ?>
 

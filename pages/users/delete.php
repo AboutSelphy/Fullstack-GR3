@@ -11,7 +11,7 @@ $loc = "../";
 
 if($role !== 'unset'){
     if ($role === 'shelter') {
-        header("Location: " . BASE_DIR . "pages/sh_dashboard.php");
+        header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
         exit();
     }
 }
@@ -37,7 +37,7 @@ if(isset($_GET['id'])){
             echo "Deletion successful. $rowCount row(s) deleted.";
             $userDeleted = true;
 
-            header("refresh:1;url=" . BASE_DIR . "pages/login/login.php");
+            header("refresh:1;url=" . ROOT_PATH . "pages/login/login.php");
         } else {
             // echo "No records deleted. Possibly no matching userID found.";
         }
