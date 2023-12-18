@@ -1,20 +1,19 @@
 @use '../variables' as *;
 
 .gradient-custom-2 {
-    border-radius: .5rem .5rem 0 0;
 
     /* fallback for old browsers */
-    background: #fbc2eb;
+    background: $background-color;
 
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    // background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
 
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to bottom, #e1e1e1, #A6A272, #6A7324);
+    // background: linear-gradient(to bottom, #e1e1e1, #A6A272, #6A7324);
 }
 
 .content {
-    background-color: #000;
+    background-color: $main-color;
     height: 200px;
 }
 
