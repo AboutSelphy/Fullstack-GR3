@@ -1,6 +1,16 @@
 <?php
 require_once("./../../script/db_connection.php");
 
+require_once("../../config.php");
+include("./../../script/loginGate.php");
+
+if($role !== 'unset'){
+    if ($role !== 'shelter') {
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
+        exit();
+    }
+}
+
 // $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
 $id = 23; // delete this line once everything established
 $stmt = $db->prepare("SELECT * FROM animals WHERE id = $id");

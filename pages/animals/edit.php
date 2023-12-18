@@ -5,6 +5,17 @@ require_once("./../../script/db_connection.php");
 include("./../../script/file_upload.php");
 
 include("./../../script/input_validation.php");
+
+require_once("../../config.php");
+include("./../../script/loginGate.php");
+
+if($role !== 'unset'){
+    if ($role !== 'shelter') {
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
+        exit();
+    }
+}
+
 // Getting Shelter (foreign key) options
 $shelter = "";
 $stmt = $db->prepare("SELECT * FROM `shelters`");

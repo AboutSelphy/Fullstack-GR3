@@ -10,14 +10,14 @@ include("./../../script/loginGate.php");
 
 if($role !== 'unset'){
     if ($role !== 'shelter') {
-        header("Location: " . ROOT_PATH . "login/login.php");
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
 }
 
 // Getting details of shelter from the database
 // $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
-$id = 2; // delete this line once everything established
+$id = 1; // delete this line once everything established
 $stmt = $db->prepare("SELECT * FROM shelters WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

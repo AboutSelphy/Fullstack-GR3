@@ -1,10 +1,22 @@
 <?php
 require_once("./../../script/db_connection.php");
+//config for global constants
+require_once("../../config.php");
+include("./../../script/loginGate.php");
+
 
 // File Upload
 include("./../../script/file_upload.php");
 
 include("./../../script/input_validation.php");
+
+
+if($role !== 'unset'){
+    if ($role !== 'shelter') {
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
+        exit();
+    }
+}
 
 // Getting Shelter (foreign key) options
 $shelter = "";

@@ -6,7 +6,7 @@ include("./../../script/loginGate.php");
 
 if($role !== 'unset'){
     if ($role === 'user') {
-        header("Location: " . ROOT_PATH . "login/login.php");
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
 }

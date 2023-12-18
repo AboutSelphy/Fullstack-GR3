@@ -1,5 +1,7 @@
 <?php
 require_once("./../../script/db_connection.php");
+require_once("../../config.php");
+
 
 // Get all shelters from the corresponding table and display
 $stmt = $db->prepare("SELECT * FROM `animals`");

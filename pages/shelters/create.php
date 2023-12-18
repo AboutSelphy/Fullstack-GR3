@@ -10,7 +10,7 @@ include("./../../script/loginGate.php");
 
 if($role !== 'unset'){
     if ($role !== 'shelter') {
-        header("Location: " . ROOT_PATH . "login/login.php");
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
 }
