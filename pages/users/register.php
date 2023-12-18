@@ -15,9 +15,10 @@ require_once('./../../script/isLoggedIn.php');
     $role = isLoggedIn($db)[1];
 
     // if $role is set redirect to loginpage that handles the redirect to right dashboard
-    if($role !== 'unset'){
+    if($role !== 'unset' && $role === 'admin'){
+    }elseif($role !== 'unset'){
         header("Location: " . ROOT_PATH . "pages/login/login.php");
-        // exit();
+        exit();
     }
 
 
