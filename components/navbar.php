@@ -49,16 +49,17 @@ $destination = 'users';
         <li class="nav-item">
           <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/shelters.php">Shelters</a>
         </li>
-        <?php if (isset($headerUserRole) && $headerUserRole !== 'unset' && $headerUserRole === 'shelter') : ?>
+        <?php if (isset($headerUserRole) && $headerUserRole === 'shelter') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Actions
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li>
+              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li>
             </ul>
           </li>
-        <?php elseif (isset($headerUserRole) && $headerUserRole !== 'unset' && $headerUserRole === 'admin') : ?>
+        <?php elseif (isset($headerUserRole) &&  $headerUserRole === 'admin') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -92,7 +93,7 @@ $destination = 'users';
             ?>
             <a class="nav-link text-uppercase font-weight-bold role" aria-current="page" href="<?= ROOT_PATH ?>pages/login/login.php">
               <img src="<?= ROOT_PATH ?>resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px" />
-              <?= "<b>" .  strtoupper($headerUserRole) . "</b> Profile: " . $headerUserName ?>
+              <?= "<b>" .  strtoupper($headerUserRole) . " </b>-Profile: " . $headerUserName ?>
             </a>
           <?php else : ?>
           <?php endif; ?>

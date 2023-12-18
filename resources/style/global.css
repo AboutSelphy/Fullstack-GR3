@@ -70,27 +70,11 @@ a {
 }
 
 section {
-  padding: 1rem 0rem;
-  margin: 2rem 0rem;
+  padding: 5rem 0rem;
+  position: relative;
 }
 section:first-of-type {
-  margin: 0rem 0rem;
   padding: 0rem 0rem;
-}
-
-.carousel {
-  height: 40vh;
-}
-
-.c-item {
-  height: 40vh;
-}
-
-.c-img {
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  filter: brightness(0.6);
 }
 
 .footer {
