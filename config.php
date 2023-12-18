@@ -1,2 +1,2 @@
 <?php
-define('ROOT_PATH', '/Fullstack-GR3s/'); // Define your root path
+define('ROOT_PATH', '/Fullstack-GR3ss/'); // Define your root path
