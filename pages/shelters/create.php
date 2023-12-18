@@ -1,5 +1,7 @@
 <?php
 require_once("./../../script/db_connection.php");
+//config for global constants
+require_once("../../config.php");
 
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");

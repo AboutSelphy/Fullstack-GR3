@@ -1,12 +1,14 @@
 <?php
 require_once("./../../script/db_connection.php");
+//config for global constants
+require_once("../../config.php");
 
 include("./../../script/input_validation.php");
 
 // Preparing validation/error messages
 $error = false;
-$name = $animals = $zip = $description = "";
-$nameError = $animalsError = $zipError = $descriptionError = "";
+$name = $animals = $zip = $philosophy = "";
+$nameError = $animalsError = $zipError = $philosophyError = "";
 
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -15,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $animals = clean($_POST['animals']);
     $zip = $_POST['zip'] != 0 ? $_POST['zip'] : 1;
     $image = fileUpload($_FILES['image'], "shelter");
-    $description = clean($_POST['description']);
+    $philosophy = clean($_POST['philosophy']);
 
     if (validate($name, $nameError, 255)[0] == true) {
         $error = true;
@@ -32,22 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $zipError = "Please select one option!";
     }
 
-    if (strlen($description) > 1000) {
+    if (strlen($philosophy) > 1000) {
         $error = true;
-        $descriptionError = "Your input must not have more than 1000 characters!";
+        $philosophyError = "Your input must not have more than 1000 characters!";
     }
 
     $data = [
         'name' => $name,
         'animals' => $animals,
         'image' => $image[0],
-        'description' => $description,
+        'philosophy' => $philosophy,
         'zip' => $zip
     ];
 
     // Prepare and execute SQL insertion
     if (!$error) {
-        $sql = "INSERT INTO `shelters`(`shelter_name`, `animals`, `image`, `description`, `fk_zip`) VALUES (:name, :animals, :image, :description, :zip)";
+        $sql = "INSERT INTO `shelters`(`shelter_name`, `animals`, `image`, `philosophy`, `fk_zip`) VALUES (:name, :animals, :image, :philosophy, :zip)";
         $stmt = $db->prepare($sql);
         $stmt->execute($data);
 
@@ -97,19 +99,29 @@ $db = NULL;
             </div>
 
             <div class="form-group">
-                <label for="age">ZIP:</label>
-                <input type="number" min="1" name="zip" id="zip" class="form-control" value="<?= $zip ?? "" ?>">
-                <span><?= $zipError ?></span>
+                <label for="zip" class="form-label">ZIP:</label>
+                <input type="number" min="1" class="form-control" id="zip">
             </div>
 
             <div class="form-group">
-                <label for="profit">Non-Profit:</label>
+                <label for="city" class="form-label">City:</label>
+                <input type="text" class="form-control" id="city">
             </div>
 
             <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" class="form-control"><?= $description ?? "" ?></textarea>
-                <span><?= $descriptionError ?></span>
+                <label for="country" class="form-label">Country:</label>
+                <input type="text" class="form-control" id="country">
+            </div>
+
+            <div class="form-group">
+                <label class="form-check-label" for="profit">Non-Profit:</label>
+                <input class="form-check-input" type="checkbox" value="0" id="profit" name="profit">
+            </div>
+
+            <div class="form-group">
+                <label for="philosophy">Philosophy:</label>
+                <textarea name="philosophy" id="philosophy" class="form-control"><?= $philosophy ?? "" ?></textarea>
+                <span><?= $philosophyError ?></span>
             </div>
 
             <button type="submit" value="Submit" class="btn btn-default">Submit</button>

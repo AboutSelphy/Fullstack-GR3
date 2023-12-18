@@ -1,5 +1,7 @@
 <?php
 require_once("./../../script/db_connection.php");
+//config for global constants
+require_once("../../config.php");
 
 //USER ID FOR ANIMAL ADOPTION : CUT & PASTE
 $cookieID = $_COOKIE['sessionID'];
