@@ -1,9 +1,18 @@
 <?php
 
-if (isset($role) && $role !== 'unset') {
+if (count($_COOKIE) > 0 && isset($_COOKIE['sessionID'])) {
   $cookieID = $_COOKIE['sessionID'];
 
   $headerUserName = '';
+  try {
+    $db = new PDO('mysql:host=localhost;dbname=animalshelter', 'root', '');
+    // echo 'DB - Connected ✅🖥 ';
+
+  } catch (PDOException $e) {
+      // attempt to retry the connection after some timeout for example
+      // echo $e . 'DB - ERROR ✕ 🖥';
+
+  }
 
   try {
     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
@@ -14,12 +23,14 @@ if (isset($role) && $role !== 'unset') {
     if (is_array($navbarData) && count($navbarData) > 0) {
       $headerUserName = $navbarData['first_name'];
       $headerUserIMG = $navbarData['profile'];
+      $headerUserRole = $navbarData['status'];
     }
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); // This will display the error message
   }
 }
 $destination = 'users';
+
 ?>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
@@ -38,7 +49,7 @@ $destination = 'users';
         <li class="nav-item">
           <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/shelters.php">Shelters</a>
         </li>
-        <?php if (isset($role) && $role !== 'unset' && $role === 'shelter') : ?>
+        <?php if (isset($headerUserRole) && $headerUserRole !== 'unset' && $headerUserRole === 'shelter') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -47,7 +58,7 @@ $destination = 'users';
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li>
             </ul>
           </li>
-        <?php elseif (isset($role) && $role !== 'unset' && $role === 'admin') : ?>
+        <?php elseif (isset($headerUserRole) && $headerUserRole !== 'unset' && $headerUserRole === 'admin') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Dropdown
@@ -68,26 +79,26 @@ $destination = 'users';
       </ul>
       <ul class="navbar-nav  mb-2 mb-lg-0 display-flex align-items-center">
         <li class="nav-item">
-          <?php if (isset($role) && $role !== 'unset') : ?>
+          <?php if (isset($headerUserRole) && $headerUserRole !== 'unset') : ?>
             <?php
-            if (isset($role) && $role !== 'unset') {
-              
+            if (isset($headerUserRole) && $headerUserRole !== 'unset') {
 
-              if ($role === 'shelter') {
+
+              if ($headerUserRole === 'shelter') {
                 $destination = 'shelters';
               }
             }
             // $headerUserIMG = '../resources/img/'
             ?>
             <a class="nav-link text-uppercase font-weight-bold role" aria-current="page" href="<?= ROOT_PATH ?>pages/login/login.php">
-              <img src="../resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px" />
-              <?= "<b>" .  strtoupper($role) . "</b> Profile: " . $headerUserName ?>
+              <img src="<?= ROOT_PATH ?>resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px" />
+              <?= "<b>" .  strtoupper($headerUserRole) . "</b> Profile: " . $headerUserName ?>
             </a>
           <?php else : ?>
           <?php endif; ?>
         </li>
         <li class="nav-item">
-          <?php if (isset($role) && $role !== 'unset') : ?>
+          <?php if (isset($headerUserRole) && $headerUserRole !== 'unset') : ?>
             <a class="nav-link text-uppercase font-weight-bold" aria-current="page" href="<?= ROOT_PATH ?>pages/login/logout.php">Logout</a>
           <?php else : ?>
             <a class="nav-link text-uppercase font-weight-bold" aria-current="page" href="<?= ROOT_PATH ?>pages/login/login.php">Login</a>
@@ -95,7 +106,7 @@ $destination = 'users';
 
         </li>
         <li class="nav-item">
-          <?php if (isset($role) && $role !== 'unset') : ?>
+          <?php if (isset($headerUserRole) && $headerUserRole !== 'unset') : ?>
           <?php else : ?>
             <a class="nav-link text-uppercase font-weight-bold" aria-current="page" href="<?= ROOT_PATH ?>pages/users/register.php">Register</a>
           <?php endif; ?>
