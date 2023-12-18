@@ -6,6 +6,15 @@ require_once("../../config.php");
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");
 
+include("./../../script/loginGate.php");
+
+if($role !== 'unset'){
+    if ($role !== 'shelter') {
+        header("Location: " . ROOT_PATH . "login/login.php");
+        exit();
+    }
+}
+
 // Getting details of shelter from the database
 // $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
 $id = 2; // delete this line once everything established

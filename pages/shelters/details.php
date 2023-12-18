@@ -3,16 +3,16 @@ require_once("./../../script/db_connection.php");
 //config for global constants
 require_once("../../config.php");
 
-//USER ID FOR ANIMAL ADOPTION : CUT & PASTE
-$cookieID = $_COOKIE['sessionID'];
-try {
-    $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-    $stmt->bindParam(':cookieID', $cookieID);
-    $stmt->execute();
-    $userData = $stmt->fetch();
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage(); // This will display the error message
-}
+// //USER ID FOR ANIMAL ADOPTION : CUT & PASTE
+// $cookieID = $_COOKIE['sessionID'];
+// try {
+//     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+//     $stmt->bindParam(':cookieID', $cookieID);
+//     $stmt->execute();
+//     $userData = $stmt->fetch();
+// } catch (PDOException $e) {
+//     echo "Error: " . $e->getMessage(); // This will display the error message
+// }
 // END OF GETTING USER ID
 
 // Get ID from URL (linked in Details button) and select according data
@@ -46,32 +46,32 @@ $details = "
 ";
 
 // DESIGN OF THE ADOPTION CRUD --> NEEDS TO BE TRANSFERED TO THE ANIMALS DETAIL PAGE
-$adoption = "
-    <form action='' method='post'>
-        <input class='btn' type='submit' value='Adopt' name='adopt'>
-    </form>
-";
+// $adoption = "
+//     <form action='' method='post'>
+//         <input class='btn' type='submit' value='Adopt' name='adopt'>
+//     </form>
+// ";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $date = date("d.m.Y");
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     $date = date("d.m.Y");
 
-    $data = [
-        'date' => $date,
-        'fk_user' => $userData['id'],
-        'fk_animal' => $id
-    ];
+//     $data = [
+//         'date' => $date,
+//         'fk_user' => $userData['id'],
+//         'fk_animal' => $id
+//     ];
 
-    try {
-        // Inserting new entry into adoptions table
-        $stmt = $db->prepare("INSERT INTO `adoptions`(`date`, `fk_user`, `fk_animal`) VALUES (:date,:fk_user,:fk_animal)");
-        $stmt->execute($data);
-        // Changing the status of animal to "pending" until it gets accepted by shelter
-        $stmt = $db->prepare("UPDATE `animals` SET `status`='pending' WHERE id = $id");
-        $stmt->execute();
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
+//     try {
+//         // Inserting new entry into adoptions table
+//         $stmt = $db->prepare("INSERT INTO `adoptions`(`date`, `fk_user`, `fk_animal`) VALUES (:date,:fk_user,:fk_animal)");
+//         $stmt->execute($data);
+//         // Changing the status of animal to "pending" until it gets accepted by shelter
+//         $stmt = $db->prepare("UPDATE `animals` SET `status`='pending' WHERE id = $id");
+//         $stmt->execute();
+//     } catch (PDOException $e) {
+//         echo "Error: " . $e->getMessage();
+//     }
+// }
 // END OF ADOPTION FUNCTIONALITY
 
 // Close database connection
@@ -101,7 +101,6 @@ $db = NULL;
 
     <div class="container text-center">
         <?= $details ?>
-        <?= $adoption ?>
     </div>
 
     <!-- // BOOTSTRAP -->

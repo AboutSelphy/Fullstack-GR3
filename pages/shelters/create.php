@@ -6,6 +6,15 @@ require_once("../../config.php");
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");
 
+include("./../../script/loginGate.php");
+
+if($role !== 'unset'){
+    if ($role !== 'shelter') {
+        header("Location: " . ROOT_PATH . "login/login.php");
+        exit();
+    }
+}
+
 // Preparing validation/error messages
 $error = false;
 $name = $capacity = $zip = $description = "";

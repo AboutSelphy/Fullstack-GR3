@@ -11,7 +11,7 @@ require_once(__DIR__.  '/isLoggedIn.php');
     // echo 'FILENAME: ' . basename($_SERVER["SCRIPT_FILENAME"]);
 
     if($role === 'unset'){
-        header("Location: ../pages/login/login.php");
+        header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
 
