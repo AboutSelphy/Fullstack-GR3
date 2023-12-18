@@ -1,0 +1,17 @@
+@use '../variables' as *;
+
+
+.nav-link {
+    font-weight: 600 !important;
+    letter-spacing: 2px;
+    &.role {
+        color: $main-color;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+}
+.mainlogo{
+        width: clamp(30px,5vw,60px) !important;
+        height: auto !important;
+}

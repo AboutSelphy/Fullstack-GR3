@@ -9,6 +9,22 @@
   box-sizing: border-box;
 }
 
+.nav-link {
+  font-weight: 600 !important;
+  letter-spacing: 2px;
+}
+.nav-link.role {
+  color: #98A633;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.mainlogo {
+  width: clamp(30px, 5vw, 60px) !important;
+  height: auto !important;
+}
+
 body {
   font-family: "Nunito";
   font-size: 1rem;
