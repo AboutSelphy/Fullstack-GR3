@@ -19,17 +19,19 @@ function listAdminUsers($users, $usersCount = 0){
                 $status = "
                     <span class='badge rounded-pill text-bg-warning d-inline'>$user[userStatus]</span>
                 ";
+                $showAccept = "";
                 
             } elseif ($user['userStatus'] === "user") {
                 // echo $user['userID'];
                 $status = "
                 <span class='badge rounded-pill text-bg-success d-inline'>$user[userStatus]</span>
                 ";
-                $showAccept = "<a class='px-1' href='./dashboard.php?accepted=$user[userID]'><i class='fa-check fa-solid'></i></a>";
+                $showAccept = "<a class='px-1' href='./dashboard.php?accepted=".$user["userID"]."'><i class='fa-check fa-solid'></i></a>";
             } else {
                 $status = "
                     <span class='badge rounded-pill text-bg-danger d-inline'>$user[userStatus]</span>
                 ";
+                $showAccept = "";
             }
             // // Check vaccination and store the value as an icon into a variable
             // if ($user['vaccination'] == "yes") {
