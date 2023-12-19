@@ -6,6 +6,7 @@ require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 
 include('../script/grammarCheck.php');
+include('../script/accept_request.php');
 
 $loc = "./";
 
@@ -39,6 +40,12 @@ if (count($userData) > 0) {
     echo 'is no user';
 }
 
+
+
+if (isset($_GET['accepted'])) {
+    accept($_GET, $db, "adopted");
+}
+
 try {
     $stmt = $db->prepare("SELECT * FROM `animals` WHERE `fk_shelter` = $userData[fk_shelter]");
     $stmt->execute();
@@ -59,14 +66,19 @@ if ($animalNumber > 0) {
             $status = "
                 <span class='badge rounded-pill text-bg-success d-inline'>$animal[status]</span>
             ";
+            $accept = "";
         } elseif ($animal['status'] == "pending") {
             $status = "
                 <span class='badge rounded-pill text-bg-danger d-inline'>$animal[status]</span>
+            ";
+            $accept = "
+                <span class='d-inline'><i class='fa-solid fa-check'></i></span>
             ";
         } else {
             $status = "
                 <span class='badge rounded-pill text-bg-secondary d-inline'>$animal[status]</span>
             ";
+            $accept = "";
         }
         // Check vaccination and store the value as an icon into a variable
         if ($animal['vaccination'] == "yes") {
@@ -110,6 +122,7 @@ if ($animalNumber > 0) {
                 <td class='actions text-center'>
                     <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                     <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
+                    <a class='px-1' href='./sh_dashboard.php?accepted=$animal[id]'>$accept</a>                
                 </td>
             </tr>
         ";

@@ -42,7 +42,7 @@ if (count($userData) > 0) {
 }
 
 try {
-    $stmt = $db->prepare("SELECT adoptions.status as adoptionStatus, adoptions.* , animals.*, shelters.shelter_name
+    $stmt = $db->prepare("SELECT animals.status as adoptionStatus, adoptions.* , animals.*, shelters.shelter_name
                             FROM `users`
                             INNER JOIN `adoptions`
                             ON users.id = adoptions.fk_user

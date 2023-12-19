@@ -48,13 +48,15 @@ $details = "
 ";
 
 // Adoption Crud
-if ($row['status'] != "adopted") {
+if ($row['status'] == "available") {
     $adoption = "
     <form action='' method='post'>
         <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
     </form>";
 } else {
-    $adoption = "$row[name] found already somebody looking out for him :)";
+    $adoption = "
+        <h4>$row[name] found already somebody looking out for him :)</h4>
+    ";
 }
 
 
@@ -74,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Changing the status of animal to "pending" until it gets accepted by shelter
         $stmt = $db->prepare("UPDATE `animals` SET `status`='pending' WHERE id = $id");
         $stmt->execute();
-        echo "Hurray, a new animal got adopted!";
+        echo "Thanks for your request to adopt a furry friend!";
         header("refresh: 3; url=animals.php");
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
