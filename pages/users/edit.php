@@ -38,8 +38,16 @@ if($role !== 'unset'){
     $cookieID = $_COOKIE['sessionID'];
 
     try {
-        $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-        $stmt->bindParam(':cookieID', $cookieID);
+    if(isset($_GET['id']) && $role === 'admin'){
+            $editUserID = $_GET['id'];
+
+            $stmt = $db->prepare("SELECT * FROM `users` WHERE id = :editUserID");
+            $stmt->bindParam(':editUserID', $editUserID);
+        }else{
+            $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+            $stmt->bindParam(':cookieID', $cookieID);
+
+        }
         $stmt->execute();
         $userData = $stmt->fetch();
 
@@ -178,6 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //     $descriptionError = "Your input must not have more than 500 characters!";
     // }
 
+    
     $data = [
         'first_name' => $first_name,
         'last_name' => $last_name,
@@ -188,8 +197,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'zip' => $zip,
         'shelter' => $shelter,
         'cookieID' => $cookieID,
+        
         // 'status' => $accountType
     ];
+    if( isset($_GET['id']) && $role === 'admin'){
+        $data = [
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'address' => $address,
+            'email' => $email,
+            'password' => hash('sha256',$password),
+            'profile' => $image[0],
+            'zip' => $zip,
+            'shelter' => $shelter,
+            'userID' => $_GET['id']
+        ];
+    }
+
+
 
     // Prepare and execute SQL insertion
     if($error === false){
@@ -201,19 +226,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink("../../resources/img/users/$image" );
             }
 
-            $sql = "UPDATE `users`
-                    INNER JOIN `login` ON login.userID = users.id
-                    SET first_name = :first_name,
-                        last_name = :last_name,
-                        address =  :address,
-                        email =  :email,
-                        password =  :password,
-                        profile =  :profile,
-                        fk_zip =  :zip,
-                        fk_shelter = :shelter
-                    WHERE login.sessionID = :cookieID;";
-        }else{
-            $sql = "UPDATE `users`
+            if(isset($_GET['id']) && $role === 'admin'){
+
+                $sql = "UPDATE `users`
+                        SET first_name = :first_name,
+                            last_name = :last_name,
+                            address =  :address,
+                            email =  :email,
+                            password =  :password,
+                            profile =  :profile,
+                            fk_zip =  :zip,
+                            fk_shelter = :shelter
+                        WHERE id = :userID;";
+
+            }else{
+                
+                $sql = "UPDATE `users`
                         INNER JOIN `login` ON login.userID = users.id
                         SET first_name = :first_name,
                             last_name = :last_name,
@@ -224,6 +252,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             fk_zip =  :zip,
                             fk_shelter = :shelter
                         WHERE login.sessionID = :cookieID;";
+            }
+
+        }else{
+
+            if(isset($_GET['id']) && $role === 'admin'){
+
+                $sql = "UPDATE `users`
+                        SET first_name = :first_name,
+                            last_name = :last_name,
+                            address =  :address,
+                            email =  :email,
+                            password =  :password,
+                            profile =  :profile,
+                            fk_zip =  :zip,
+                            fk_shelter = :shelter
+                        WHERE id = :userID;";
+
+            }else{
+            
+                $sql = "UPDATE `users`
+                            INNER JOIN `login` ON login.userID = users.id
+                            SET first_name = :first_name,
+                                last_name = :last_name,
+                                address =  :address,
+                                email =  :email,
+                                password =  :password,
+                                profile =  :profile,
+                                fk_zip =  :zip,
+                                fk_shelter = :shelter
+                            WHERE login.sessionID = :cookieID;";
+
+            }
+
+                        
         }
         try {
             $stmt = $db->prepare($sql);
