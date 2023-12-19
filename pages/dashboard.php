@@ -176,17 +176,17 @@ if ($animalNumber > 0) {
                 </td>
                 <td class='text-center'>$vaccination</td>
                 
-                <td class='text-center'>
-                    $status
-                </td>
-                <td class='actions text-center'>
-                    <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
-                    <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
-                </td>
-            </tr>
-        ";
-    }
-}
+                </tr>
+                ";
+            }
+        }
+        // <td class='text-center'>
+        //     $status
+        // </td>
+        // <td class='actions text-center'>
+        //     <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
+        //     <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
+        // </td>
 
 
 ?>
@@ -241,9 +241,9 @@ if ($animalNumber > 0) {
                                                 <a href="./users/edit.php?id=<?= $userData['id'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
                                                     Edit profile
                                                 </a>
-                                                <a href="./shelters/edit.php?id=<?= $userData['fk_shelter'] ?>" type="button" class="btn btn-default ms-4" data-mdb-ripple-color="dark">
+                                                <!-- <a href="./shelters/edit.php?id=<?= $userData['fk_shelter'] ?>" type="button" class="btn btn-default ms-4" data-mdb-ripple-color="dark">
                                                     Edit shelter
-                                                </a>
+                                                </a> -->
                                             </div>
                                         </div>
                                         <div class="profile ms-3">
@@ -311,8 +311,8 @@ if ($animalNumber > 0) {
                                             <th class="text-center">Species</th>
                                             <th class="text-center">Gender</th>
                                             <th class="text-center">Vacc.</th>
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center">Actions</th>
+                                            <!-- <th class="text-center">Status</th> -->
+                                            <!-- <th class="text-center">Actions</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
