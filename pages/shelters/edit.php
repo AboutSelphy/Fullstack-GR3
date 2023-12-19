@@ -16,8 +16,7 @@ if ($role !== 'unset') {
 }
 
 // Getting details of shelter from the database
-// $id =$_GET["id"]; --> will get un-commented once there is an ID in the URL
-$id = 1; // delete this line once everything established
+$id = $_GET["id"];
 $stmt = $db->prepare("SELECT * FROM shelters WHERE id = $id");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

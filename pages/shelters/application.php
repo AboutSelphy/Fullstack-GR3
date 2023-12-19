@@ -4,7 +4,7 @@ require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 include("./../../script/loginGate.php");
 
-if($role !== 'unset'){
+if ($role !== 'unset') {
     if ($role === 'shelter') {
         header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
         exit();
