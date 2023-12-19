@@ -2,8 +2,7 @@
 require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 
-
-//USER ID FOR ANIMAL ADOPTION : CUT & PASTE
+//USER ID FOR ANIMAL ADOPTION
 $cookieID = $_COOKIE['sessionID'];
 try {
     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
@@ -13,7 +12,6 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); // This will display the error message
 }
-// END OF GETTING USER ID
 
 // Get ID from URL (linked in Details button) and select according data
 $id = $_GET["id"];
@@ -31,10 +29,11 @@ $row_shelters = $result_shelters[0];
 $details = "
     <div>
         <h1>$row[name]</h1>
+        <a href='./../shelters//details.php?id=$row_shelters[id]'><p>$row_shelters[shelter_name]</p></a>
     </div>
     <div>
         <div>
-            <img src='../../../resources/img/animals/$row[image]' alt='$row[name]'>
+            <img src='../../resources/img/animals/$row[image]' alt='$row[name]'>
         </div>
         <div>
             <h3>$row[description]</h3>
@@ -42,24 +41,25 @@ $details = "
             <h4>$row[age] years</h4>
             <h4>$row[species]</h4>
             <h4>$row[gender] </h4>
-            <h4>$row[vaccination] </h4>
-            <h4>$row[status] </h4>
             <div >
-            <a class='btn btn-default' href='./../shelters//details.php?id=$row_shelters[id]'><p>$row_shelters[shelter_name]</p></a>
             </div>
         </div>
     </div>
 ";
 
-// DESIGN OF THE ADOPTION CRUD --> NEEDS TO BE TRANSFERED TO THE ANIMALS DETAIL PAGE
-$adoption = "
+// Adoption Crud
+if ($row['status'] != "adopted") {
+    $adoption = "
     <form action='' method='post'>
         <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
-    </form>
-";
+    </form>";
+} else {
+    $adoption = "$row[name] found already somebody looking out for him :)";
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $date = date("d.m.Y");
+    $date = date("Y-m-d");
 
     $data = [
         'date' => $date,
@@ -74,11 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Changing the status of animal to "pending" until it gets accepted by shelter
         $stmt = $db->prepare("UPDATE `animals` SET `status`='pending' WHERE id = $id");
         $stmt->execute();
+        echo "Hurray, a new animal got adopted!";
+        header("refresh: 3; url=animals.php");
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 }
-// END OF ADOPTION FUNCTIONALITY
 
 // Close database connection
 $db = NULL;

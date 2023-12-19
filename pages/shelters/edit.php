@@ -8,8 +8,8 @@ include("./../../script/input_validation.php");
 
 include("./../../script/loginGate.php");
 
-if($role !== 'unset'){
-    if ($role !== 'shelter') {
+if ($role !== 'unset') {
+    if ($role === 'user') {
         header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }

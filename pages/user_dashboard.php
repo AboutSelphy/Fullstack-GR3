@@ -42,7 +42,7 @@ if (count($userData) > 0) {
 }
 
 try {
-    $stmt = $db->prepare("SELECT adoptions.* , animals.*, shelters.*
+    $stmt = $db->prepare("SELECT adoptions.status as adoptionStatus, adoptions.* , animals.*, shelters.shelter_name
                             FROM `users`
                             INNER JOIN `adoptions`
                             ON users.id = adoptions.fk_user
@@ -66,13 +66,13 @@ if ($adoptionNumber > 0) {
     foreach ($adoptions as $adoption) {
         $years = grammarCheck($adoption['age'], 'year');
         // Check the status and store the value with its color into a variable
-        if ($adoption['status'] == "pending") {
+        if ($adoption['adoptionStatus'] == "pending") {
             $status = "
-                <span class='badge rounded-pill text-bg-danger d-inline'>$adoption[status]</span>
+                <span class='badge rounded-pill text-bg-danger d-inline'>$adoption[adoptionStatus]</span>
                     ";
         } else {
             $status = "
-                <span class='badge rounded-pill text-bg-success d-inline'>$adoption[status]</span>
+                <span class='badge rounded-pill text-bg-success d-inline'>$adoption[adoptionStatus]</span>
                     ";
         }
 
