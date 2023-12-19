@@ -150,9 +150,14 @@ if ($animalNumber > 0) {
                                     <div class="content rounded-top text-white d-flex flex-row">
                                         <div class="header ms-4 mt-5 d-flex flex-column">
                                             <img src="../resources/img/users/<?= $userData['profile'] ?>" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2">
-                                            <a href="./users/edit.php?id=<?= $userData['id'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
-                                                Edit profile
-                                            </a>
+                                            <div class="d-flex">
+                                                <a href="./users/edit.php?id=<?= $userData['id'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
+                                                    Edit profile
+                                                </a>
+                                                <a href="./shelters/edit.php?id=<?= $userData['fk_shelter'] ?>" type="button" class="btn btn-default ms-4" data-mdb-ripple-color="dark">
+                                                    Edit shelter
+                                                </a>
+                                            </div>
                                         </div>
                                         <div class="profile ms-3">
                                             <h5> <?= $userData['first_name'] . " " .  $userData['last_name'] ?></h5>
