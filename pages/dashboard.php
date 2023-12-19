@@ -24,13 +24,21 @@ $loc = "./";
         }
     }
 
-if(isset($_GET['accepted'])){
-    $parameter = $_GET;
-    //accept shelter invite request
-    // accept($parameter, $db, 'accepted','shelters');
-    accept($parameter, $db, 'shelter','users');
-
-}
+    if(isset($_GET['accepted'])){
+        $userID = $_GET['accepted'];
+        // Validate and sanitize $userID here before using it in the query
+    
+        // accept($parameter, $db, 'accepted','shelters');
+        accept($_GET, $db, 'shelter','users');
+    
+        try {
+            $stmt = $db->prepare("DELETE FROM `login` WHERE userID = :userID");
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT); // Assuming userID is an integer
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
 
 
 $cookieID = $_COOKIE['sessionID'];
@@ -269,7 +277,7 @@ if ($animalNumber > 0) {
                         </div>
                         <!-- section tables -->
                         <!-- Users -->
-                        <div class="row d-flex justify-content-center py-4 usersContainerWrap">
+                        <div id="requests" class="row d-flex justify-content-center py-4 usersContainerWrap">
                         <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Users <a class="btn btn-cta adminCreateShelter" href="../pages/users/register.php">Register User</a></h3>
                             <div class="col col-lg-9 col-xl-8">
                                 <table class="table align-middle mb-0 bg-white">

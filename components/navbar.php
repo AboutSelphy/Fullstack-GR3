@@ -9,8 +9,8 @@ if (count($_COOKIE) > 0 && isset($_COOKIE['sessionID'])) {
     // echo 'DB - Connected ✅🖥 ';
 
   } catch (PDOException $e) {
-      // attempt to retry the connection after some timeout for example
-      // echo $e . 'DB - ERROR ✕ 🖥';
+    // attempt to retry the connection after some timeout for example
+    // echo $e . 'DB - ERROR ✕ 🖥';
 
   }
 
@@ -24,6 +24,7 @@ if (count($_COOKIE) > 0 && isset($_COOKIE['sessionID'])) {
       $headerUserName = $navbarData['first_name'];
       $headerUserIMG = $navbarData['profile'];
       $headerUserRole = $navbarData['status'];
+      $headerShelterRequest = $navbarData['shelterRequest'];
     }
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); // This will display the error message
@@ -50,17 +51,18 @@ $destination = 'users';
           <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/shelters.php">Shelters</a>
         </li>
         <!-- is shelter -->
-        <?php if (isset($headerUserRole) && $headerUserRole === 'shelter') : ?>
+        <?php if (isset($headerUserRole) && $headerUserRole === 'shelter' && $headerShelterRequest === 1) : ?>
+          <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/create.php">Open Shelter</a>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Actions
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li>
+              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li> -->
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li>
             </ul>
           </li>
-        <!-- is admin -->
+          <!-- is admin -->
         <?php elseif (isset($headerUserRole) &&  $headerUserRole === 'admin') : ?>
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
