@@ -71,10 +71,10 @@ $destination = 'users';
               <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/users/register.php">Register User</a></li>
               <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
-              <li>
+              <!-- <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Something else here</a></li>
+              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Something else here</a></li> -->
             </ul>
           </li>
           <li class="nav-item">
