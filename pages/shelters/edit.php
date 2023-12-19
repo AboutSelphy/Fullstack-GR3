@@ -86,9 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Adds the image key if changed
-            $data .= [
-                'image' => $image[0]
-            ];
+            $data['image'] = $image[0];
+
 
             $sql = "UPDATE `shelters` SET `shelter_name`= :name,`capacity`= :capacity,`image`= :image,`description`= :description,`fk_zip`= :zip WHERE id = {$id}";
         } else {
