@@ -57,9 +57,6 @@ function listAdminShelters($shelters, $sheltersCount = 0){
                     <td class='text-center'>
                         <p class='fw-normal mb-1'>$shelter[country]</p>
                     </td>
-                    <td class='text-center'>
-                        $status
-                    </td>
                     <td class='actions text-center'>
                         <a class='px-1' href='shelters/edit.php?id=$shelter[sheltersID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                         <a class='px-1' href='shelters/delete.php?id=$shelter[sheltersID]'><i class='fa-regular fa-trash-can'></i></a>

@@ -282,6 +282,7 @@ if ($animalNumber > 0) {
                                             <th class="text-center">Country</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Actions</th>
+                                            <th class="text-center">Request?</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -324,7 +325,6 @@ if ($animalNumber > 0) {
                                             <th class="text-center">Description</th>
                                             <th class="text-center">Zip</th>
                                             <th class="text-center">Country</th>
-                                            <th class="text-center">Status</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>

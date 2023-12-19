@@ -5,14 +5,14 @@ function listAdminUsers($users, $usersCount = 0){
     $usersList = "";
     $showAccept = "";
 
-    echo '<pre>';
-    var_dump($users);
-    echo '</pre>';
+    // echo '<pre>';
+    // var_dump($users);
+    // echo '</pre>';
 
     if ($usersCount > 0) {
         foreach ($users as $user) {
-            echo $user['userStatus'] . '<br>';
-            echo $user['userID'] . '<br>';
+            // echo $user['userStatus'] . '<br>';
+            // echo $user['userID'] . '<br>';
             // Check the status and store the value with its color into a variable
             if ($user['userStatus'] === "admin") {
                 // echo 'asdasds';
@@ -26,7 +26,9 @@ function listAdminUsers($users, $usersCount = 0){
                 $status = "
                 <span class='badge rounded-pill text-bg-success d-inline'>$user[userStatus]</span>
                 ";
-                $showAccept = "<a class='px-1' href='./dashboard.php?accepted=".$user["userID"]."'><i class='fa-check fa-solid'></i></a>";
+                if($user['shelterRequest'] === 1){
+                    $showAccept = "<a class='px-1' href='./dashboard.php?accepted=".$user["userID"]."'><i class='fa-check fa-solid'></i></a>";
+                }
             } else {
                 $status = "
                     <span class='badge rounded-pill text-bg-danger d-inline'>$user[userStatus]</span>
@@ -81,6 +83,8 @@ function listAdminUsers($users, $usersCount = 0){
                     <td class='actions text-center'>
                         <a class='px-1' href='users/edit.php?id=$user[userID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                         <a class='px-1' href='users/delete.php?id=$user[userID]'><i class='fa-regular fa-trash-can'></i></a>
+                    </td>
+                    <td class='text-center actions'>
                         $showAccept
                     </td>
                     </tr>
