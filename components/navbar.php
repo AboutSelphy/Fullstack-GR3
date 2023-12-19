@@ -80,6 +80,9 @@ $destination = 'users';
           <li class="nav-item">
             <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/dashboard.php#requests">Shelter Requests</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/dashboard.php">Dashboard</a>
+          </li>
 
         <?php else : ?>
 

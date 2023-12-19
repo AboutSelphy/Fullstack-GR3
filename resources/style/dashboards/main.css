@@ -49,4 +49,16 @@
 
 .actions a {
   color: #1D1D1D;
+}
+
+.adminCreateShelterBox {
+  display: inline-flex;
+  align-items: center;
+}
+
+.adminCreateShelter {
+  background-color: #98A633 !important;
+  color: #e1e1e1 !important;
+  letter-spacing: 1px;
+  margin-left: 10px;
 }/*# sourceMappingURL=main.css.map */

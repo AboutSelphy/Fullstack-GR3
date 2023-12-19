@@ -7,19 +7,15 @@ function listAdminShelters($shelters, $sheltersCount = 0){
     if ($sheltersCount > 0) {
         foreach ($shelters as $shelter) {
             // Check the status and store the value with its color into a variable
-            // if ($shelter['status'] == "admin") {
-            //     $status = "
-            //         <span class='badge rounded-pill text-bg-danger d-inline'>$shelter[status]</span>
-            //     ";
-            // } elseif ($shelter['status'] == "user") {
-            //     $status = "
-            //         <span class='badge rounded-pill text-bg-success d-inline'>$shelter[status]</span>
-            //     ";
-            // } else {
-            //     $status = "
-            //         <span class='badge rounded-pill text-bg-warning d-inline'>$shelter[status]</span>
-            //     ";
-            // }
+            if ($shelter['status'] == "pending") {
+                $status = "
+                    <span class='badge rounded-pill text-bg-danger d-inline'>$shelter[status]</span>
+                ";
+            } elseif ($shelter['status'] == "accepted") {
+                $status = "
+                    <span class='badge rounded-pill text-bg-success d-inline'>$shelter[status]</span>
+                ";
+            }
             // // Check vaccination and store the value as an icon into a variable
             // if ($shelter['vaccination'] == "yes") {
             //     $vaccination = "
@@ -42,6 +38,7 @@ function listAdminShelters($shelters, $sheltersCount = 0){
                             src='../resources/img/shelters/$shelter[image]'
                             alt='$shelter[shelter_name]'
                             class='tablePic rounded-circle'
+                            style='object-fit: cover'
                             />
                             <div class='ms-3'>
                                 <p class='fw-bold mb-1'>$shelter[shelter_name]</p>
@@ -60,12 +57,15 @@ function listAdminShelters($shelters, $sheltersCount = 0){
                     <td class='text-center'>
                         <p class='fw-normal mb-1'>$shelter[country]</p>
                     </td>
+                    <td class='text-center'>
+                        $status
+                    </td>
+                    <td class='actions text-center'>
+                        <a class='px-1' href='shelters/edit.php?id=$shelter[sheltersID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
+                        <a class='px-1' href='shelters/delete.php?id=$shelter[sheltersID]'><i class='fa-regular fa-trash-can'></i></a>
+                    </td>
                     </tr>
                     ";
-                    // <td class='actions text-center'>
-                    //     <a class='px-1' href='shelters/edit.php?id=$shelter[sheltersID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
-                    //     <a class='px-1' href='shelters/delete.php?id=$shelter[sheltersID]'><i class='fa-regular fa-trash-can'></i></a>
-                    // </td>
 
         }
     } else {

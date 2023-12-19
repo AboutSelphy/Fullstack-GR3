@@ -2,6 +2,8 @@
 //config for global constants
 require_once("../config.php");
 
+require_once('../script/db_connection.php');
+
 require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 
@@ -9,6 +11,7 @@ include('../script/grammarCheck.php');
 
 include('../components/listAdminUsers.php');
 include('../components/listAdminShelters.php');
+include('../script/accept_request.php');
 
 
 
@@ -21,7 +24,13 @@ $loc = "./";
         }
     }
 
+if(isset($_GET['accepted'])){
+    $parameter = $_GET;
+    //accept shelter invite request
+    // accept($parameter, $db, 'accepted','shelters');
+    accept($parameter, $db, 'shelter','users');
 
+}
 
 
 $cookieID = $_COOKIE['sessionID'];
@@ -48,7 +57,7 @@ if (count($userData) > 0) {
 }
 //fetch Users
 try {
-    $stmt = $db->prepare("SELECT users.id as userID, users.*, shelters.*, zip.* 
+    $stmt = $db->prepare("SELECT users.id as userID, users.status as userStatus, users.*, shelters.*, zip.* 
                             FROM `users`
                             INNER JOIN `zip`
                             ON users.fk_zip = zip.id
@@ -143,6 +152,7 @@ if ($animalNumber > 0) {
                         src='../resources/img/animals/$animal[image]'
                         alt='$animal[name]'
                         class='tablePic rounded-circle'
+                        style='object-fit: cover'
                         />
                         <div class='ms-3'>
                             <p class='fw-bold mb-1'>$animal[name]</p>
@@ -156,10 +166,11 @@ if ($animalNumber > 0) {
                 <td class='text-center'>
                     <p class='fw-normal mb-1'>$animal[gender]</p>
                 </td>
+                <td class='text-center'>$vaccination</td>
+                
                 <td class='text-center'>
                     $status
                 </td>
-                <td class='text-center'>$vaccination</td>
                 <td class='actions text-center'>
                     <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                     <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
@@ -259,7 +270,7 @@ if ($animalNumber > 0) {
                         <!-- section tables -->
                         <!-- Users -->
                         <div class="row d-flex justify-content-center py-4 usersContainerWrap">
-                            <h3 class="col col-lg-9 col-xl-8">Users</h3>
+                        <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Users <a class="btn btn-cta adminCreateShelter" href="../pages/users/register.php">Register User</a></h3>
                             <div class="col col-lg-9 col-xl-8">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
@@ -290,8 +301,8 @@ if ($animalNumber > 0) {
                                             <th class="ps-5">Animal</th>
                                             <th class="text-center">Species</th>
                                             <th class="text-center">Gender</th>
-                                            <th class="text-center">Status</th>
                                             <th class="text-center">Vacc.</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
@@ -303,7 +314,7 @@ if ($animalNumber > 0) {
                         </div>
                         <!-- Shelters -->
                         <div class="row d-flex justify-content-center py-4 animalsContainerWrap">
-                            <h3 class="col col-lg-9 col-xl-8">Shelters</h3>
+                            <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Shelters <a class="btn btn-cta adminCreateShelter" href="../pages/shelters/create.php">Create Shelter</a></h3>
                             <div class="col col-lg-9 col-xl-8">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
@@ -313,7 +324,8 @@ if ($animalNumber > 0) {
                                             <th class="text-center">Description</th>
                                             <th class="text-center">Zip</th>
                                             <th class="text-center">Country</th>
-                                            <!-- <th class="text-center">Actions</th> -->
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

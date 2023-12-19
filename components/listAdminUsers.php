@@ -3,21 +3,32 @@
 
 function listAdminUsers($users, $usersCount = 0){
     $usersList = "";
+    $showAccept = "";
+
+    echo '<pre>';
+    var_dump($users);
+    echo '</pre>';
 
     if ($usersCount > 0) {
         foreach ($users as $user) {
+            echo $user['userStatus'] . '<br>';
+            echo $user['userID'] . '<br>';
             // Check the status and store the value with its color into a variable
-            if ($user['status'] == "admin") {
+            if ($user['userStatus'] === "admin") {
+                // echo 'asdasds';
                 $status = "
-                    <span class='badge rounded-pill text-bg-danger d-inline'>$user[status]</span>
+                    <span class='badge rounded-pill text-bg-warning d-inline'>$user[userStatus]</span>
                 ";
-            } elseif ($user['status'] == "user") {
+                
+            } elseif ($user['userStatus'] === "user") {
+                // echo $user['userID'];
                 $status = "
-                    <span class='badge rounded-pill text-bg-success d-inline'>$user[status]</span>
+                <span class='badge rounded-pill text-bg-success d-inline'>$user[userStatus]</span>
                 ";
+                $showAccept = "<a class='px-1' href='./dashboard.php?accepted=$user[userID]'><i class='fa-check fa-solid'></i></a>";
             } else {
                 $status = "
-                    <span class='badge rounded-pill text-bg-warning d-inline'>$user[status]</span>
+                    <span class='badge rounded-pill text-bg-danger d-inline'>$user[userStatus]</span>
                 ";
             }
             // // Check vaccination and store the value as an icon into a variable
@@ -39,9 +50,10 @@ function listAdminUsers($users, $usersCount = 0){
                     <td class='ps-5'>
                         <div class='d-flex align-items-center'>
                             <img
-                            src='../resources/img/users/$user[image]'
+                            src='../resources/img/users/$user[profile]'
                             alt='$user[first_name]'
                             class='tablePic rounded-circle'
+                            style='object-fit: cover'
                             />
                             <div class='ms-3'>
                                 <p class='fw-bold mb-1'>$user[first_name]</p>
@@ -67,6 +79,7 @@ function listAdminUsers($users, $usersCount = 0){
                     <td class='actions text-center'>
                         <a class='px-1' href='users/edit.php?id=$user[userID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                         <a class='px-1' href='users/delete.php?id=$user[userID]'><i class='fa-regular fa-trash-can'></i></a>
+                        $showAccept
                     </td>
                     </tr>
                     ";
