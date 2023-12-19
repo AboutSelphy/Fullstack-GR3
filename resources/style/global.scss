@@ -19,6 +19,33 @@ a {
     color: $text-color;
 }
 
+
+h1 {
+    font-size: $xxl;
+    font-weight: 800;
+    margin: 2rem 0rem;
+}
+
+h2 {
+    font-size: $xl;
+    font-weight: 600;
+    margin: 2rem 0rem;
+}
+h3 {
+    font-size: $md;
+    font-weight: 500;
+    margin: 2rem 0rem;
+}
+h4 {
+    font-size: $md;
+    font-weight: 300;
+    margin: 2rem 0rem;
+}
+h5 {
+    font-size: $md;
+    font-weight: 200;
+    margin: 2rem 0rem;
+}
 // etc.
 
 // Btn

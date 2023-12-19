@@ -38,41 +38,26 @@
   opacity: 100;
 }
 
-.counter-box {
+.client .counter-box {
   display: block;
-  background: #f6f6f6;
+  background: #98A633;
   padding: 40px 20px 37px;
   text-align: center;
+  color: #e1e1e1;
 }
-
-.counter-box p {
+.client .counter-box p {
   margin: 5px 0 0;
   padding: 0;
-  color: #909090;
   font-size: 18px;
   font-weight: 500;
 }
-
-.counter-box i {
+.client .counter-box i {
   font-size: 60px;
   margin: 0 0 15px;
-  color: #d2d2d2;
 }
-
-.counter {
+.client .counter-box .counter {
   display: block;
   font-size: 32px;
   font-weight: 700;
-  color: #666;
   line-height: 28px;
-}
-
-.counter-box.colored {
-  background: #3acf87;
-}
-
-.counter-box.colored p,
-.counter-box.colored i,
-.counter-box.colored .counter {
-  color: #fff;
 }/*# sourceMappingURL=index.css.map */

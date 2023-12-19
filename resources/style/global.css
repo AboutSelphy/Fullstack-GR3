@@ -39,6 +39,36 @@ a {
   color: #737048;
 }
 
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 2rem 0rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2rem 0rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 2rem 0rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin: 2rem 0rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 200;
+  margin: 2rem 0rem;
+}
+
 .btn {
   padding: 0.655rem 1.44rem;
   min-width: 10rem;

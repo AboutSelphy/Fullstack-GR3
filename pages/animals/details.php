@@ -44,7 +44,9 @@ $details = "
             <h4>$row[gender] </h4>
             <h4>$row[vaccination] </h4>
             <h4>$row[status] </h4>
-            <a href='./../shelters//details.php?id=$row_shelters[id]'><p>$row_shelters[shelter_name]</p></a>
+            <div >
+            <a class='btn btn-default' href='./../shelters//details.php?id=$row_shelters[id]'><p>$row_shelters[shelter_name]</p></a>
+            </div>
         </div>
     </div>
 ";
@@ -52,7 +54,7 @@ $details = "
 // DESIGN OF THE ADOPTION CRUD --> NEEDS TO BE TRANSFERED TO THE ANIMALS DETAIL PAGE
 $adoption = "
     <form action='' method='post'>
-        <input class='btn' type='submit' value='Adopt' name='adopt'>
+        <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
     </form>
 ";
 

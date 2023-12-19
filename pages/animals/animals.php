@@ -27,8 +27,8 @@ if (count($result) > 0) {
                     <div>
                         <h5>Species: $row[species] </h5>
                     </div>
-                    <div class='btn btn-default'>
-                        <a href='./details.php?id=$row[id]'>Details</a>
+                    <div >
+                        <a class='btn btn-default' href='./details.php?id=$row[id]'>Details</a>
                     </div>
                 </div>
             </div>    
