@@ -6,19 +6,21 @@ require_once('../script/globals.php');
 require_once('../script/loginGate.php');
 require_once('../script/getUserIDWithCookieID.php');
 
+include('../script/grammarCheck.php');
+
 $loc = "./";
 
 if ($role !== 'unset') {
-  if ($role === 'shelter') {
-    header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
-    exit();
-  }
+    if ($role === 'shelter') {
+        header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
+        exit();
+    }
 }
 
 
 $cookieID = $_COOKIE['sessionID'];
 try {
-  $stmt = $db->prepare("SELECT users.* , zip.*, shelters.*
+    $stmt = $db->prepare("SELECT users.* , zip.*, shelters.*
                             FROM `login`
                             INNER JOIN `users`
                             ON login.userID = users.id
@@ -27,22 +29,88 @@ try {
                             INNER JOIN `shelters`
                             ON users.fk_shelter = shelters.id
                             WHERE login.sessionID = :cookieID");
-  $stmt->bindParam(':cookieID', $cookieID);
-  $stmt->execute();
-  $userData = $stmt->fetch();
+    $stmt->bindParam(':cookieID', $cookieID);
+    $stmt->execute();
+    $userData = $stmt->fetch();
 } catch (PDOException $e) {
-  // echo "Error: " . $e->getMessage(); // This will display the error message
-}
-// echo '<pre>';
-// var_dump($userData);
-// echo '</pre>';
-// die();
-// and somewhere later:
-if (count($userData) > 0) {
-} else {
-  echo 'is no user';
+    echo "Error: " . $e->getMessage();
 }
 
+if (count($userData) > 0) {
+} else {
+    echo 'is no user';
+}
+
+try {
+    $stmt = $db->prepare("SELECT adoptions.* , animals.*, shelters.*
+                            FROM `users`
+                            INNER JOIN `adoptions`
+                            ON users.id = adoptions.fk_user
+                            INNER JOIN `animals`
+                            ON adoptions.fk_animal = animals.id
+                            INNER JOIN `shelters`
+                            ON animals.fk_shelter = shelters.id
+                            WHERE users.id = $userData[0]");
+    $stmt->execute();
+    $adoptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+// Get number for the adopted animals
+$adoptionNumber = count($adoptions);
+$adoptionCount = grammarCheck($adoptionNumber, "Adoption");
+
+$adoptionList = "";
+if ($adoptionNumber > 0) {
+    foreach ($adoptions as $adoption) {
+        $years = grammarCheck($adoption['age'], 'year');
+        // Check the status and store the value with its color into a variable
+        if ($adoption['status'] == "pending") {
+            $status = "
+                <span class='badge rounded-pill text-bg-danger d-inline'>$adoption[status]</span>
+                    ";
+        } else {
+            $status = "
+                <span class='badge rounded-pill text-bg-success d-inline'>$adoption[status]</span>
+                    ";
+        }
+
+        $adoptionList .= "
+            <tr>
+                <td class='ps-5'>
+                    <div class='d-flex align-items-center'>
+                        <img
+                        src='../resources/img/animals/$adoption[image]'
+                        alt='$adoption[name]'
+                        class='tablePic rounded-circle'
+                        />
+                        <div class='ms-3'>
+                            <p class='fw-bold mb-1'>$adoption[name]</p>
+                            <p class='text-muted mb-0'>$adoption[age] $years</p>
+                        </div>
+                    </div>
+                </td>
+                <td class='text-center'>
+                    <p class='fw-normal mb-1'>$adoption[species]</p>
+                </td>
+                <td class='text-center'>
+                    <p class='fw-normal mb-1'>$adoption[gender]</p>
+                </td>
+                <td class='text-center'>
+                    $status
+                </td>
+                <td class='text-center'>
+                    <p class='fw-normal mb-1'>$adoption[date]</p>
+                </td>
+                <td class='text-center'>
+                    <p class='fw-normal mb-1'>$adoption[shelter_name]</p>
+                </td>
+
+            </tr>
+        ";
+    }
+}
 ?>
 
 <html lang="en">
@@ -88,17 +156,9 @@ if (count($userData) > 0) {
                                     </div>
                                     <div class="socials p-4 text-black">
                                         <div class="d-flex justify-content-end text-center py-1">
-                                            <!-- <div>
-                                                <p class="mb-1 h5">253</p>
-                                                <p class="small text-muted mb-0">Photos</p>
-                                            </div>
-                                            <div class="px-3">
-                                                <p class="mb-1 h5">1026</p>
-                                                <p class="small text-muted mb-0">Followers</p>
-                                            </div> -->
                                             <div>
-                                                <p class="mb-1 h5">Profile</p>
-                                                <p class="small text-muted mb-0">1</p>
+                                                <p class="mb-1 h5"><?= $adoptionNumber ?></p>
+                                                <p class="small text-muted mb-0"><?= $adoptionCount ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -112,10 +172,29 @@ if (count($userData) > 0) {
                                                 <p class="font-italic mb-0"><b>ZIP: </b><?= $userData['zip'] ?></p>
                                             </div>
                                             <a style="color:red;" href="./users/delete.php?id=<?= getUserIDWithCookieID($db) ?>">Delete Account</a>
-                                            <a href="./login/logout.php">logout</a>
+                                            <a class="ms-2" href="./login/logout.php">Logout</a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center py-4">
+                            <div class="col col-lg-9 col-xl-8">
+                                <table class="table align-middle mb-0 bg-white">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="ps-5">Animal</th>
+                                            <th class="text-center">Species</th>
+                                            <th class="text-center">Gender</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Adoption</th>
+                                            <th class="text-center">Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?= $adoptionList ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </section>
