@@ -57,13 +57,11 @@ $destination = 'users';
         <?php endif ?>
         <!-- is shelter -->
         <?php if (isset($headerUserRole) && $headerUserRole === 'shelter' && $headerShelterRequest === 1) : ?>
-          <!-- <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/create.php">Open Shelter</a> -->
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Actions
             </a>
             <ul class="dropdown-menu">
-              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li> -->
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li>
             </ul>
           </li>
@@ -74,14 +72,7 @@ $destination = 'users';
               Actions
             </a>
             <ul class="dropdown-menu">
-              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/shelters/create.php">Create Shelter</a></li> -->
-              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
               <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/users/register.php">Register User</a></li>
-              <!-- <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/animals/create.php">Create Animals</a></li> -->
-              <!-- <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="<?= ROOT_PATH ?>pages/login/logout.php">Something else here</a></li> -->
             </ul>
           </li>
           <li class="nav-item">
@@ -98,16 +89,6 @@ $destination = 'users';
       <ul class="navbar-nav  mb-2 mb-lg-0 display-flex align-items-center">
         <li class="nav-item">
           <?php if (isset($headerUserRole) && $headerUserRole !== 'unset') : ?>
-            <?php
-            if (isset($headerUserRole) && $headerUserRole !== 'unset') {
-
-
-              // if ($headerUserRole === 'shelter') {
-              //   $destination = 'shelters';
-              // }
-            }
-            // $headerUserIMG = '../resources/img/'
-            ?>
             <a class="nav-link text-uppercase font-weight-bold role" aria-current="page" href="<?= ROOT_PATH ?>pages/login/login.php">
               <img src="<?= ROOT_PATH ?>resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px; object-fit:cover;" />
               <?= "<b>" .  strtoupper($headerUserRole) . " </b>-Profile: " . $headerUserName ?>
