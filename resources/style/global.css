@@ -69,6 +69,10 @@ h5 {
   margin: 2rem 0rem;
 }
 
+.error {
+  color: red;
+}
+
 .btn {
   padding: 0.655rem 1.44rem;
   min-width: 10rem;
