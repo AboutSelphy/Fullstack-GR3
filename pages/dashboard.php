@@ -69,7 +69,7 @@ $cookieID = $_COOKIE['sessionID'];
 
 try {
     if($role === 'admin') {
-        $adminSQL = "SELECT users.id as userID, users.* , zip.*, shelters.*
+        $adminSQL = "SELECT users.id as userID, users.status as userROLE, users.* , zip.*, shelters.*
         FROM `login`
         INNER JOIN `users`
         ON login.userID = users.id
@@ -287,7 +287,7 @@ if ($animalNumber > 0) {
                                         </div>
                                         <div class="profile ms-3">
                                             <h5> <?= $userData['first_name'] . " " .  $userData['last_name'] ?></h5>
-                                            <p><b>Role:</b> <?= $userData['status'] ?></p>
+                                            <p><b>Role:</b> <?= $userData['userROLE'] ?></p>
                                             <!-- <p><b>Adress:</b> <?= $userData['address'] ?></p> -->
                                         </div>
                                     </div>

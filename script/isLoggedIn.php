@@ -34,7 +34,7 @@ function isLoggedIn($db){
         }
 
     } else {
-        echo 'no cookies available';
+        // echo 'no cookies available';
     }
     return [false,'unset'];
 
