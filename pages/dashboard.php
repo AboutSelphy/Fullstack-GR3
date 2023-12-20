@@ -121,7 +121,7 @@ try {
 }
 //fetch Animals
 try {
-    $stmt = $db->prepare("SELECT * FROM `animals` WHERE `fk_shelter` = $userData[fk_shelter]");
+    $stmt = $db->prepare("SELECT * FROM `animals`");
     $stmt->execute();
     $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
