@@ -68,7 +68,6 @@ $loc = "./";
 $cookieID = $_COOKIE['sessionID'];
 
 try {
-    echo $role;
     if($role === 'admin') {
         $adminSQL = "SELECT users.id as userID, users.* , zip.*, shelters.*
         FROM `login`
