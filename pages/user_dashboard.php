@@ -20,7 +20,7 @@ if ($role !== 'unset') {
 
 $cookieID = $_COOKIE['sessionID'];
 try {
-    $stmt = $db->prepare("SELECT users.* , zip.*, shelters.*
+    $stmt = $db->prepare("SELECT users.id as userID, users.* , zip.*, shelters.*
                             FROM `login`
                             INNER JOIN `users`
                             ON login.userID = users.id
@@ -144,7 +144,7 @@ if ($adoptionNumber > 0) {
                                     <div class="content rounded-top text-white d-flex flex-row">
                                         <div class="header ms-4 mt-5 d-flex flex-column">
                                             <img src="../resources/img/users/<?= $userData['profile'] ?>" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2">
-                                            <a href="./users/edit.php?id=<?= $userData['id'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
+                                            <a href="./users/edit.php?id=<?= $userData['userID'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
                                                 Edit profile
                                             </a>
                                         </div>

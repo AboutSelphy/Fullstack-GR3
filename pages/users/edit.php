@@ -235,8 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             email =  :email,
                             password =  :password,
                             profile =  :profile,
-                            fk_zip =  :zip,
-                            -- fk_shelter = :shelter
+                            fk_zip =  :zip
                         WHERE id = :userID;";
 
             }else{
@@ -249,8 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             email =  :email,
                             password =  :password,
                             profile =  :profile,
-                            fk_zip =  :zip,
-                            -- fk_shelter = :shelter
+                            fk_zip =  :zip
                         WHERE login.sessionID = :cookieID;";
             }
 
@@ -265,8 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             email =  :email,
                             password =  :password,
                             profile =  :profile,
-                            fk_zip =  :zip,
-                            -- fk_shelter = :shelter
+                            fk_zip =  :zip
                         WHERE id = :userID;";
 
             }else{
@@ -279,8 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 email =  :email,
                                 password =  :password,
                                 profile =  :profile,
-                                fk_zip =  :zip,
-                                -- fk_shelter = :shelter
+                                fk_zip =  :zip
                             WHERE login.sessionID = :cookieID;";
 
             }
@@ -291,11 +287,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
             
-            header("refresh:0;url=" . ROOT_PATH . "pages/login/login.php");
+            // header("refresh:0;url=" . ROOT_PATH . "pages/login/login.php");
             echo 'db entry updated';
         
         } catch (PDOException $e) {
-            // echo "Error: " . $e->getMessage(); 
+            echo "Error: " . $e->getMessage(); 
         }
     }
 
