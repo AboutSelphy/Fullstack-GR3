@@ -3,15 +3,15 @@ require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 
  //USER ID FOR ANIMAL ADOPTION
-// $cookieID = $_COOKIE['sessionID'];
-// try {
-//     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-//     $stmt->bindParam(':cookieID', $cookieID);
-//     $stmt->execute();
-//     $userData = $stmt->fetch();
-// } catch (PDOException $e) {
-//     echo "Error: " . $e->getMessage(); // This will display the error message
-// }
+$cookieID = $_COOKIE['sessionID'];
+try {
+    $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+    $stmt->bindParam(':cookieID', $cookieID);
+    $stmt->execute();
+    $userData = $stmt->fetch();
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage(); // This will display the error message
+}
 
 // Get ID from URL (linked in Details button) and select according data
 $id = $_GET["id"];
