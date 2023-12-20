@@ -28,21 +28,44 @@ $stmt->execute();
 $result_zip = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $row_zip = $result_zip[0];
 
+// $details = "
+//     <div>
+//         <h1>$row[shelter_name]</h1>
+//     </div>
+//     <div>
+//         <div>
+//             <img src='../../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+//         </div>
+//         <div>
+//             <h3>$row[description]</h3>
+//             <hr>
+//             <h4>$row[capacity] animals</h4>
+//             <p>$row_zip[zip] $row_zip[city], $row_zip[country]</p>
+//         </div>
+//     </div>
+// ";
+
 $details = "
-    <div>
-        <h1>$row[shelter_name]</h1>
-    </div>
-    <div>
-        <div>
-            <img src='../../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+    <section class='detailpage d-flex align-items-center justify-content-center '>
+        <div class='container'>
+            <div class='card'>
+                <div class='card-body img-card'>
+                    <div class='row justify-content-center align-items-center'>
+                        <div class='col-12 col-lg-5 col-md-6 col-sm-12 '>
+                           <img src='./../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+                        </div>
+                        <div class='col-12 col-lg-7 col-md-6 col-sm-12'>
+                                    <h3 class='card-title'>$row[shelter_name]</h3>
+                                    <h4 class='card-subtitle mb-2'> $row[description]</h4>
+                                    <hr>
+                                    <h4 class='card-subtitle mb-2'>Animals: $row[capacity] </h4>
+                                    <h4 class='card-subtitle mb-2'>Country: $row_zip[zip] $row_zip[city], $row_zip[country]</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <h3>$row[description]</h3>
-            <hr>
-            <h4>$row[capacity] animals</h4>
-            <p>$row_zip[zip] $row_zip[city], $row_zip[country]</p>
-        </div>
-    </div>
+    </section>
 ";
 
 // DESIGN OF THE ADOPTION CRUD --> NEEDS TO BE TRANSFERED TO THE ANIMALS DETAIL PAGE
@@ -99,10 +122,10 @@ $db = NULL;
 <body>
     <?php require_once("./../../components/navbar.php") ?>
 
-    <div class="container text-center">
-        <?= $details ?>
-    </div>
-
+    <div class="text-center">
+         <?= $details ?>
+    </div> 
+    <?php require_once("./../../components/footer.php") ?>
     <!-- // BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

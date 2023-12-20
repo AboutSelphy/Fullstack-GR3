@@ -30,13 +30,6 @@
   color: #e1e1e1;
   font-size: 1.5rem;
 }
-.about hr {
-  height: 4px;
-  background-color: #e1e1e1;
-  border: none;
-  margin: 20px 0;
-  opacity: 100;
-}
 
 .client .counter-box {
   display: block;

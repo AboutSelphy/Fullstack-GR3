@@ -14,23 +14,19 @@ $shelters = "";
 if (count($result) > 0) {
     foreach ($result as $row) {
         $shelters .= "
-            <div>
-                <div>
-                    <div>
-                        <h3>$row[shelter_name]</h3>
-                    </div>
-                    <div>
-                        <img class='img-fluid' src='../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
-                    </div>   
-                    <div>
-                        <h5>Capacity: $row[capacity] animals</h5>
-                    </div>
-                    <div>
-                        <a class='btn btn-default' href='./details.php?id=$row[id]'>Details</a>
-                    </div>
+    <div class=' col col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-3'>
+        <div class='card p-1'>
+            <img class='card-img-top img-fluid mt-2 px-2' src='./../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+            <div class='card-body '>
+                <h3 class='card-title'>$row[shelter_name]</h3>
+                <p class='card-text'>Capacity: $row[capacity] animals</p>
+                <div class='mt-2'>
+                    <a href='./details.php?id=$row[id]' class='btn btn-default'>Details</a>
                 </div>
-            </div>    
-        ";
+            </div>
+        </div>
+    </div>
+";
     }
 } else {
     $shelters = "<p>There are no shelters yet :(</p>";
@@ -61,11 +57,14 @@ $db = NULL;
 <body>
     <?php require_once("./../../components/navbar.php") ?>
 
-    <div class="container text-center">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4 my-4">
+    <section class="overviewgrid">
+        <div class="container text-center">
+            <div class="row g-2  my-4 justify-content-start">
             <?= $shelters ?>
+            </div>
         </div>
-    </div>
+    </section>
+    <?php require_once("./../../components/footer.php") ?>
     <!-- // BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -2,16 +2,16 @@
 require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 
-//USER ID FOR ANIMAL ADOPTION
-$cookieID = $_COOKIE['sessionID'];
-try {
-    $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-    $stmt->bindParam(':cookieID', $cookieID);
-    $stmt->execute();
-    $userData = $stmt->fetch();
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage(); // This will display the error message
-}
+ //USER ID FOR ANIMAL ADOPTION
+// $cookieID = $_COOKIE['sessionID'];
+// try {
+//     $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+//     $stmt->bindParam(':cookieID', $cookieID);
+//     $stmt->execute();
+//     $userData = $stmt->fetch();
+// } catch (PDOException $e) {
+//     echo "Error: " . $e->getMessage(); // This will display the error message
+// }
 
 // Get ID from URL (linked in Details button) and select according data
 $id = $_GET["id"];
@@ -26,26 +26,6 @@ $stmt->execute();
 $result_shelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $row_shelters = $result_shelters[0];
 
-$details = "
-    <div>
-        <h1>$row[name]</h1>
-        <a href='./../shelters//details.php?id=$row_shelters[id]'><p>$row_shelters[shelter_name]</p></a>
-    </div>
-    <div>
-        <div>
-            <img src='../../resources/img/animals/$row[image]' alt='$row[name]'>
-        </div>
-        <div>
-            <h3>$row[description]</h3>
-            <hr>
-            <h4>$row[age] years</h4>
-            <h4>$row[species]</h4>
-            <h4>$row[gender] </h4>
-            <div >
-            </div>
-        </div>
-    </div>
-";
 
 // Adoption Crud
 if ($row['status'] == "available") {
@@ -58,6 +38,40 @@ if ($row['status'] == "available") {
         <h4>$row[name] found already somebody looking out for him :)</h4>
     ";
 }
+
+
+$details = "
+    <section class='detailpage d-flex align-items-center justify-content-center '>
+        <div class='container'>
+            <div class='card'>
+                <div class='card-body img-card'>
+                    <div class='row justify-content-center align-items-center'>
+                        <div class='col-12 col-lg-5 col-md-6 col-sm-12 '>
+                            <img src='../../resources/img/animals/$row[image]' alt='$row[name]'>
+                        </div>
+                        <div class='col-12 col-lg-7 col-md-6 col-sm-12'>
+                                    <h3 class='card-title'>$row[name]</h3>
+                                    <h4 class='card-subtitle mb-2'>Description: $row[description]</h4>
+                                    <hr>
+                                    <h4 class='card-subtitle mb-2'>Age: $row[age] years</h4>
+                                    <h4 class='card-subtitle mb-2'>Species: $row[species]</h4>
+                                    <h4 class='card-subtitle mb-2'>Gender: $row[gender]</h4>
+                                    <h4 class='card-subtitle mb-2'>Vaccinated: $row[vaccination]</h4>
+                            <div class=' mt-3'>
+                                    <hr>                            
+                                    <h3 class='card-title'>Shelter: <a href='./../shelters/details.php?id=$row_shelters[id]'> $row_shelters[shelter_name] </a></h3>
+                                    <div class='adoption-section'>$adoption</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+";
+
+
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -107,12 +121,11 @@ $db = NULL;
 
 <body>
     <?php require_once("./../../components/navbar.php") ?>
-
-    <div class="container text-center">
-        <?= $details ?>
-        <?= $adoption ?>
-    </div>
-
+    
+        <div class="text-center">
+         <?= $details ?>
+        </div>    
+        <?php require_once("./../../components/footer.php") ?>
     <!-- // BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -83,7 +83,7 @@ $numUsers = $stmtUser->rowCount();
     <section class="about">
       <div class="container ">
         <div class="row justify-content-center align-items-center">
-          <div class="col col-lg-8 col-md-6 col-sx-12">
+          <div class="col col-12 col-lg-8 col-md-6 col-sm-12">
             <h2>Who we are!</h2>
             <p>Welcome to [Wildlife Shelter Name], where dedication meets compassion in our commitment to safeguarding the lives of wild animals. As a refuge for those in need, we strive to rescue, rehabilitate, and release these incredible beings back into their natural habitats.
 
@@ -119,7 +119,7 @@ Join us in our mission to protect and nurture the incredible wildlife that grace
               </li>
             </ul>
           </div>
-          <div class="col col-lg-4 col-md-6 col-sx-12">
+          <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
             <img src="./resources/img/website/logo.svg" alt="Logo.svg" class="card-logo">
           </div>
         </div>

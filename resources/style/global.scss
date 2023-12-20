@@ -88,11 +88,42 @@ section {
     &:first-of-type {
         padding: 0rem 0rem;
     }
+
+    hr {
+        height: 4px;  
+        background-color: $background-color;
+        border: none; 
+        margin: 20px 0; 
+        opacity: 100;
+      }
+
+
+    img {
+        border-radius: .5rem;
+    }
 }
 
 
 
+// Detail
+.detailpage {
+    min-height: 100vh;
+    background-color: $hover-color;
+    color: $background-color;
+    margin: 0 auto;  
+      
 
+    img {
+        object-fit: cover;
+        width: 100%;
+    }
+}
+
+// Overview Grid
+.overviewgrid {
+    min-height: 80vh;
+    margin: 0 auto;  
+}
 
 
 
@@ -101,8 +132,21 @@ section {
     .footer {
         background-color: $main-color;
         color: $background-color;
+        
 
         i {
             color: $background-color;
         }
     }
+
+
+
+// Responsive code:
+
+
+// IphoneSX, Detail page
+@media screen and (min-height: 600px) and (max-height: 800px) {  
+    .detailpage {
+        min-height: 140vh;
+    } 
+}
