@@ -81,7 +81,7 @@ function listAdminUsers($users, $usersCount = 0){
                         $status
                     </td>
                     <td class='actions text-center'>
-                        <a class='px-1' href='users/edit.php?id=$user[userID]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
+                        <a class='px-1' href='users/edit.php?id=$user[userID]&asEditor=$user[userStatus]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
                         <a class='px-1' href='users/delete.php?id=$user[userID]'><i class='fa-regular fa-trash-can'></i></a>
                     </td>
                     <td class='text-center actions'>
