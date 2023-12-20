@@ -27,10 +27,31 @@ $loc = "./";
     if(isset($_GET['accepted'])){
         $userID = $_GET['accepted'];
         // Validate and sanitize $userID here before using it in the query
-    
-        // accept($parameter, $db, 'accepted','shelters');
-        accept($_GET, $db, 'shelter','users');
-        // acceptShelter($_GET, $db, $_GET['accepted'],'users');
+        
+        //set shelterRequest to 1, that means the user is accepted to be shown.
+        try {
+            $stmt = $db->prepare("UPDATE `users`
+                                    JOIN `shelters` ON users.fk_shelter = shelters.id
+                                    SET users.shelterRequest = 1,
+                                        shelters.status = 'accepted'
+                                    WHERE users.id = :userID
+                                ");
+            $stmt->bindParam(':userID', $userID); // Assuming $userID holds the user's ID
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        //update shelter to accepted
+        // try {
+        //     $stmt = $db->prepare("UPDATE `users`
+        //                         JOIN `users` ON shelters.fk_user_id = users.id
+        //                         SET `status` = 'accepted'
+        //                         WHERE shelters.id = :shelterID
+        //                     ");
+        //     $stmt->execute();
+        // } catch (PDOException $e) {
+        //     echo "Error: " . $e->getMessage();
+        // }
     
         try {
             $stmt = $db->prepare("DELETE FROM `login` WHERE userID = :userID");
@@ -39,6 +60,8 @@ $loc = "./";
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
+        header("Location: dashboard.php");
+
     }
 
 
@@ -66,10 +89,12 @@ if (count($userData) > 0) {
 }
 //fetch Users
 try {
-    $stmt = $db->prepare("SELECT users.id as userID, users.status as userStatus, users.*, zip.* 
+    $stmt = $db->prepare("SELECT users.id as userID, shelters.id as shelterID, users.status as userStatus, users.*, zip.* 
                             FROM `users`
                             INNER JOIN `zip`
                             ON users.fk_zip = zip.id
+                            INNER JOIN `shelters`
+                            ON users.fk_shelter = shelters.id
                             "
                         );
     $stmt->execute();
@@ -186,7 +211,6 @@ if ($animalNumber > 0) {
         //     <a class='px-1' href='animals/edit.php?id=$animal[id]'><i class='fa-sharp fa-solid fa-pen-nib'></i></a>
         //     <a class='px-1' href='animals/delete.php?id=$animal[id]'><i class='fa-regular fa-trash-can'></i></a>
         // </td>
-
 
 ?>
 

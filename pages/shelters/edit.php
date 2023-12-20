@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute($data);
 
         echo 'db entry created';
+        header('Location: ../sh_dashboard.php');
     } else {
         echo 'oh no, a problem';
     }

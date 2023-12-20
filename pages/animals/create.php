@@ -9,6 +9,8 @@ include("./../../script/loginGate.php");
 include("./../../script/file_upload.php");
 
 include("./../../script/input_validation.php");
+require_once("../../script/getUserIDWithCookieID.php");
+
 
 
 if($role !== 'unset'){
@@ -18,14 +20,16 @@ if($role !== 'unset'){
     }
 }
 
+$userID = getUserIDWithCookieID($db);
+
 // Getting Shelter (foreign key) options
 $shelter = "";
-$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt = $db->prepare("SELECT shelters.id as sheltersID, shelters.*, users.id as userID FROM `users` JOIN `shelters` ON users.fk_shelter = shelters.id WHERE users.id = $userID");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($result as $row) {
-    $shelter .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
+    $shelter .= "<option value='{$row['sheltersID']}' selected>{$row['shelter_name']}</option>";
 }
 
 // Preparing validation/error messages
@@ -111,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = true;
         $descriptionError = "Your input must not have more than 500 characters!";
     }
-
+    echo 'OLTA: ' . $fk_shelter;
     // Prepare the SQL statement with named parameters
     $sql = "INSERT INTO animals (`name`, `age`, `species`, `gender`, `fk_shelter`, `vaccination`, `image`, `status`, `description`) VALUES (:name, :age, :species, :gender, :fk_shelter, :vaccination, :image, :status, :description)";
     $stmt = $db->prepare($sql);

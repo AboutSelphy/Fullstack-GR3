@@ -202,7 +202,7 @@ if ($animalNumber > 0) {
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center py-4">
-                            <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Animals</h3>
+                            <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Animals that live in my Shelter</h3>
                             <div class="col col-lg-9 col-xl-8">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
