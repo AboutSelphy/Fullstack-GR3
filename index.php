@@ -40,6 +40,8 @@ $numUsers = $stmtUser->rowCount();
     <link rel="stylesheet" href="./resources/style/components/index.css">
     <!-- Icons FA -->
     <script src="https://kit.fontawesome.com/96fa54072b.js" crossorigin="anonymous"></script>
+    <!-- sweetAlert2 -->
+    <link rel="stylesheet" href="sweetalert2.min.css">
   </head>
   <body>
     <!-- Navbar --> <?php require_once("./components/navbar.php") ?>

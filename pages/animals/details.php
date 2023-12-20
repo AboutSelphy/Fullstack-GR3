@@ -27,6 +27,27 @@ $result_shelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $row_shelters = $result_shelters[0];
 
 
+
+
+// ======================================================
+// SWEET ALERT BEGINN
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adopt'])) {
+    // Perform any processing or database operations here
+    
+    // Show SweetAlert on form submission
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'The Internet?',
+                text: 'That thing is still around?',
+                icon: 'question'
+            });
+        });
+    </script>";
+}
+// ======================================================
+
 // Adoption Crud
 if ($row['status'] == "available") {
     $adoption = "
