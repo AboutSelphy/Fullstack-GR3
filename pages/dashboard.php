@@ -83,7 +83,7 @@ try {
     echo "Error: " . $e->getMessage(); // This will display the error message
 }
 
-if (count($userData) > 0) {
+if (is_array($userData) && count($userData) > 0) {
 } else {
     echo 'is no user';
 }
