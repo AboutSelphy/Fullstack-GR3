@@ -2,17 +2,20 @@
 require_once("./../../script/db_connection.php");
 require_once("../../config.php");
 
- //USER ID FOR ANIMAL ADOPTION
-$cookieID = $_COOKIE['sessionID'];
-try {
-    $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
-    $stmt->bindParam(':cookieID', $cookieID);
-    $stmt->execute();
-    $userData = $stmt->fetch();
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage(); // This will display the error message
-}
+// USER ID FOR ANIMAL ADOPTION
+$cookieID = isset($_COOKIE['sessionID']) ? $_COOKIE['sessionID'] : null;
 
+if ($cookieID !== null) {
+    try {
+        $stmt = $db->prepare("SELECT users.* FROM `login` INNER JOIN `users` ON login.userID = users.id WHERE login.sessionID = :cookieID");
+        $stmt->bindParam(':cookieID', $cookieID);
+        $stmt->execute();
+        $userData = $stmt->fetch();
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage(); // This will display the error message
+    }
+}
+var_dump($userData);
 // Get ID from URL (linked in Details button) and select according data
 $id = $_GET["id"];
 $stmt = $db->prepare("SELECT * FROM `animals` WHERE id = $id");
@@ -48,16 +51,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adopt'])) {
 }
 // ======================================================
 
-// Adoption Crud
-if ($row['status'] == "available") {
+
+// Get the user role from the cookie, assuming it's stored in the 'role' key
+$userRole = isset($_COOKIE['role']) ? $_COOKIE['role'] : null;
+
+// Check if the user is logged in
+if (isset($userData['id']) && $userData['status'] == 'user') {
+    // Adoption Crud
+    if ($row['status'] == "available") {
+        $adoption = "
+        <form action='' method='post'>
+            <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
+        </form>";
+    } else {
+        $adoption = "
+            <h4>$row[name] found already somebody looking out for him :)</h4>
+        ";
+    }
+    
+} else if ($userData['status'] == 'shelter'){
     $adoption = "
-    <form action='' method='post'>
-        <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
-    </form>";
+        ";
 } else {
     $adoption = "
-        <h4>$row[name] found already somebody looking out for him :)</h4>
-    ";
+    <a href='./../login/login.php' class='btn btn-default'>Please Login</a>
+        ";
 }
 
 
