@@ -33,19 +33,19 @@ foreach ($result as $row) {
 }
 
 // Getting Shelters (foreign key) options
-$shelters = "";
-$stmt = $db->prepare("SELECT * FROM `shelters`");
-$stmt->execute();
-$responseShelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// $shelters = "";
+// $stmt = $db->prepare("SELECT * FROM `shelters`");
+// $stmt->execute();
+// $responseShelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($responseShelters as $row) {
-    $shelters .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
-}
+// foreach ($responseShelters as $row) {
+//     $shelters .= "<option value='{$row['id']}'>{$row['shelter_name']}</option>";
+// }
 
 // Preparing validation/error messages
 $error = false;
 
-$first_nameError = $last_nameError = $addressError = $emailError = $passwordError = $zipError = $shelterError =  "";
+$first_nameError = $last_nameError = $addressError = $emailError = $passwordError = $zipError =  "";
 
 
 // Clean, validate & store data from input form into variable
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $accountType = clean($_POST['accountType']);
 
     $zip = $_POST['zip'] != 0 ? $_POST["zip"] : 0;
-    $shelter = $_POST['shelter'] != 0 ? $_POST["shelter"] : 0;
+    // $shelter = $_POST['shelter'] != 0 ? $_POST["shelter"] : 0;
 
     $image = fileUpload($_FILES["image"], "user");
 
@@ -115,10 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //VAL shelter
-    if ($shelter == "0") {
-        $error = true;
-        $shelterError = "Please select one option!";
-    }
+    // if ($shelter == "0") {
+    //     $error = true;
+    //     $shelterError = "Please select one option!";
+    // }
 
     $data = [
         'first_name' => $first_name,
@@ -128,14 +128,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'password' => hash('sha256',$password),
         'profile' => $image[0],
         'zip' => $zip,
-        'shelter' => $shelter,
+        // 'shelter' => $shelter,
         // 'status' => $accountType
     ];
 
     // Prepare and execute SQL insertion
     if($error === false){
         try {
-            $sql = "INSERT INTO `users`(`first_name`, `last_name`, `address`, `email`, `password`,`profile`,`fk_zip`,`fk_shelter`) VALUES (:first_name, :last_name, :address, :email, :password, :profile, :zip, :shelter)";
+            $sql = "INSERT INTO `users`(`first_name`, `last_name`, `address`, `email`, `password`,`profile`,`fk_zip`) VALUES (:first_name, :last_name, :address, :email, :password, :profile, :zip)";
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
     
@@ -220,14 +220,13 @@ $db = NULL;
                 <span style="color:red;"><?= $zipError ?></span>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="shelter">Shelter:</label>
                 <select name="shelter" id="shelter" class="form-control">
                     <option value="0">Please choose...</option>
-                    <?= $shelters ?>
                 </select>
-                <span style="color:red;"><?= $shelterError ?></span>
-            </div>
+                <span style="color:red;"></span>
+            </div> -->
 
             <div class="form-group">
                 <label for="image">ProfilePicture:</label>

@@ -27,7 +27,7 @@ try {
                             INNER JOIN `zip`
                             ON users.fk_zip = zip.id
                             INNER JOIN `shelters`
-                            ON users.fk_shelter = shelters.id
+                            -- ON users.fk_shelter = shelters.id
                             WHERE login.sessionID = :cookieID");
     $stmt->bindParam(':cookieID', $cookieID);
     $stmt->execute();
@@ -42,14 +42,14 @@ if (count($userData) > 0) {
 }
 
 try {
-    $stmt = $db->prepare("SELECT animals.status as adoptionStatus, adoptions.* , animals.*, shelters.shelter_name
+    $stmt = $db->prepare("SELECT animals.status as adoptionStatus, adoptions.* , animals.*
                             FROM `users`
                             INNER JOIN `adoptions`
                             ON users.id = adoptions.fk_user
                             INNER JOIN `animals`
                             ON adoptions.fk_animal = animals.id
-                            INNER JOIN `shelters`
-                            ON animals.fk_shelter = shelters.id
+                            -- INNER JOIN `shelters`
+                            -- ON animals.fk_shelter = shelters.id
                             WHERE users.id = $userData[0]");
     $stmt->execute();
     $adoptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -104,11 +104,11 @@ if ($adoptionNumber > 0) {
                     <p class='fw-normal mb-1'>$adoption[date]</p>
                 </td>
                 <td class='text-center'>
-                    <p class='fw-normal mb-1'>$adoption[shelter_name]</p>
                 </td>
-
-            </tr>
-        ";
+                
+                </tr>
+                ";
+                // <p class='fw-normal mb-1'>$adoption[shelter_name]</p>
     }
 }
 ?>
@@ -168,7 +168,6 @@ if ($adoptionNumber > 0) {
                                             <div class="infoblock p-4">
                                                 <p class="font-italic mb-1"><b>Email: </b><?= $userData['email'] ?></p>
                                                 <p class="font-italic mb-1"><b>Address: </b><?= $userData['address'] ?></p>
-                                                <p class="font-italic mb-0"><b>Shelter: </b><?= $userData['shelter_name'] ?></p>
                                                 <p class="font-italic mb-0"><b>ZIP: </b><?= $userData['zip'] ?></p>
                                             </div>
                                             <a style="color:red;" href="./users/delete.php?id=<?= getUserIDWithCookieID($db) ?>">Delete Account</a>

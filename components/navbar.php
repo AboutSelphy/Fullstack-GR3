@@ -104,7 +104,7 @@ $destination = 'users';
             // $headerUserIMG = '../resources/img/'
             ?>
             <a class="nav-link text-uppercase font-weight-bold role" aria-current="page" href="<?= ROOT_PATH ?>pages/login/login.php">
-              <img src="<?= ROOT_PATH ?>resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px" />
+              <img src="<?= ROOT_PATH ?>resources/img/<?= $destination . "/" . $headerUserIMG  ?>" class="rounded-circle me-2" alt="" style="width: 40px; height: 40px; object-fit:cover;" />
               <?= "<b>" .  strtoupper($headerUserRole) . " </b>-Profile: " . $headerUserName ?>
             </a>
           <?php else : ?>

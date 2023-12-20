@@ -31,7 +31,7 @@ $loc = "../";
     $image = "";
 
     $zip = 0;
-    $shelter = 0;
+    // $shelter = 0;
 
 
 
@@ -59,7 +59,7 @@ $loc = "../";
         $image = $userData['profile'];
     
         $zip = $userData['fk_zip'] != 0 ? $userData['fk_zip'] : 0;
-        $shelter = $userData['fk_shelter'] != 0 ? $userData['fk_shelter'] : 0;
+        // $shelter = $userData['fk_shelter'] != 0 ? $userData['fk_shelter'] : 0;
 
 
 
@@ -92,19 +92,19 @@ foreach ($result as $row) {
 }
 
 // Getting Shelters (foreign key) options
-$shelters = "";
-$stmt = $db->prepare("SELECT * FROM `shelters`");
-$stmt->execute();
-$responseShelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// $shelters = "";
+// $stmt = $db->prepare("SELECT * FROM `shelters`");
+// $stmt->execute();
+// $responseShelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($responseShelters as $row) {
-    $shelters .= "<option value='{$row['id']}' ".($userData['fk_shelter'] == $row['id'] ? 'selected' : '' )." >{$row['shelter_name']}</option>";
-}
+// foreach ($responseShelters as $row) {
+//     $shelters .= "<option value='{$row['id']}' ".($userData['fk_shelter'] == $row['id'] ? 'selected' : '' )." >{$row['shelter_name']}</option>";
+// }
 
 // Preparing validation/error messages
 $error = false;
 
-$first_nameError = $last_nameError = $addressError = $emailError = $passwordError = $zipError = $shelterError =  "";
+$first_nameError = $last_nameError = $addressError = $emailError = $passwordError = $zipError  =  "";
 
 
 
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $accountType = clean($_POST['accountType']);
 
     $zip = $_POST['zip'] != 0 ? $_POST["zip"] : 0;
-    $shelter = $_POST['shelter'] != 0 ? $_POST["shelter"] : 0;
+    // $shelter = $_POST['shelter'] != 0 ? $_POST["shelter"] : 0;
 
     $image = fileUpload($_FILES["image"], "user");
 
@@ -176,10 +176,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //VAL zip
-    if ($shelter == "0") {
-        $error = true;
-        $shelterError = "Please select one option!";
-    }
+    // if ($shelter == "0") {
+    //     $error = true;
+    //     $shelterError = "Please select one option!";
+    // }
 
     // if (strlen($description) > 500) {
     //     $error = true;
@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'password' => hash('sha256',$password),
         'profile' => $image[0],
         'zip' => $zip,
-        'shelter' => $shelter,
+        // 'shelter' => $shelter,
         'cookieID' => $cookieID,
         
         // 'status' => $accountType
@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'password' => hash('sha256',$password),
             'profile' => $image[0],
             'zip' => $zip,
-            'shelter' => $shelter,
+            // 'shelter' => $shelter,
             'userID' => $_GET['id']
         ];
     }
@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             password =  :password,
                             profile =  :profile,
                             fk_zip =  :zip,
-                            fk_shelter = :shelter
+                            -- fk_shelter = :shelter
                         WHERE id = :userID;";
 
             }else{
@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             password =  :password,
                             profile =  :profile,
                             fk_zip =  :zip,
-                            fk_shelter = :shelter
+                            -- fk_shelter = :shelter
                         WHERE login.sessionID = :cookieID;";
             }
 
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             password =  :password,
                             profile =  :profile,
                             fk_zip =  :zip,
-                            fk_shelter = :shelter
+                            -- fk_shelter = :shelter
                         WHERE id = :userID;";
 
             }else{
@@ -280,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 password =  :password,
                                 profile =  :profile,
                                 fk_zip =  :zip,
-                                fk_shelter = :shelter
+                                -- fk_shelter = :shelter
                             WHERE login.sessionID = :cookieID;";
 
             }
@@ -362,7 +362,7 @@ $db = NULL;
                 </select>
                 <span style="color:red;"><?= $zipError ?></span>
             </div>
-
+<!-- 
             <div class="form-group">
                 <label for="shelter">Shelter:</label>
                 <select name="shelter" id="shelter" class="form-control">
@@ -370,7 +370,7 @@ $db = NULL;
                     <?= $shelters ?>
                 </select>
                 <span style="color:red;"><?= $shelterError ?></span>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="image">ProfilePicture:</label>
