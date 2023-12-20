@@ -68,6 +68,7 @@ $loc = "./";
 $cookieID = $_COOKIE['sessionID'];
 
 try {
+    echo $role;
     if($role === 'admin') {
         $adminSQL = "SELECT users.id as userID, users.* , zip.*, shelters.*
         FROM `login`
@@ -75,7 +76,7 @@ try {
         ON login.userID = users.id
         INNER JOIN `zip`
         ON users.fk_zip = zip.id
-        -- INNER JOIN `shelters`
+        INNER JOIN `shelters`
         -- ON users.fk_shelter = shelters.id
         WHERE login.sessionID = :cookieID";
     }else {
