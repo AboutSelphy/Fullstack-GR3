@@ -76,33 +76,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$error) {
 
         //check if shelter exists
-        try {
-            $shelterList = $db->prepare("SELECT * FROM `shelters` WHERE fk_zip = :zip");
-            $shelterList->bindParam(':zip', $zip , PDO::PARAM_INT);
-            $shelterList->execute();
-            $shelters = $shelterList->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($shelters);
-            if (is_array($shelters) && count($shelters) > 0) {
-                echo "Address exists already!";
-            } else {
+        // try {
+        //     $shelterList = $db->prepare("SELECT * FROM `shelters` WHERE fk_zip = :zip");
+        //     $shelterList->bindParam(':zip', $zip , PDO::PARAM_INT);
+        //     $shelterList->execute();
+        //     $shelters = $shelterList->fetchAll(PDO::FETCH_ASSOC);
+        //     var_dump($shelters);
+        //     if (is_array($shelters) && count($shelters) > 0) {
+        //         echo "Address exists already!";
+        //     } else {
                
                 $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
                 $stmt = $db->prepare($sql);
                 $stmt->execute($data);
-                $lastinsert=  $db->lastInsertId() ;
-        
+                $lastinsert =  $db->lastInsertId() ;
+                echo  $lastinsert ;
                 //get userID
                 if($role === 'user'){
                     $userID =  getUserIDWithCookieID($db);
-        
+                    echo $userID;
                     $dataNew = [
-                        'fk_shelter' => $lastinsert,
+                        'fk_shelter' => intval($lastinsert),
                         'userID' => $userID,
                         'newRole' => 'shelter',
                     ];
+                    
+                    var_dump($dataNew);
         
-        
-                     $sqlUser = "UPDATE `users` SET fk_shelter = :fk_shelter, `status` = :newRole,  WHERE id = :userID";
+                     $sqlUser = "UPDATE `users` SET fk_shelter = :fk_shelter, `status` = :newRole  WHERE id = :userID ";
             
                     $stmtUser = $db->prepare($sqlUser);
                     $stmtUser->execute($dataNew);
@@ -114,13 +115,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: ./shelters.php');
             }
 
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
+        // } catch (PDOException $e) {
+        //     echo "Error: " . $e->getMessage();
+        // }
 
-    } else {
-        echo 'oh no, a problem';
-    }
+    // } else {
+    //     echo 'oh no, a problem';
+    // }
 }
 
 // Close database connection
