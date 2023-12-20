@@ -34,7 +34,7 @@ $destination = 'users';
 
 ?>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+<nav class="navbar navbar-expand-xxl bg-body-tertiary px-2 px-5-xxl">
   <div class="container-fluid">
     <a class="navbar-brand" href="<?= ROOT_PATH ?>index.php">
       <img src="<?= ROOT_PATH ?>resources/img/website/logo.png" class="rounded-circle mainlogo" alt="" />
