@@ -66,16 +66,32 @@ $loc = "./";
 
 
 $cookieID = $_COOKIE['sessionID'];
+
 try {
-    $stmt = $db->prepare("SELECT users.id as userID, users.* , zip.*, shelters.*
-                            FROM `login`
-                            INNER JOIN `users`
-                            ON login.userID = users.id
-                            INNER JOIN `zip`
-                            ON users.fk_zip = zip.id
-                            INNER JOIN `shelters`
-                            ON users.fk_shelter = shelters.id
-                            WHERE login.sessionID = :cookieID");
+    if($role === 'admin') {
+        $adminSQL = "SELECT users.id as userID, users.* , zip.*, shelters.*
+        FROM `login`
+        INNER JOIN `users`
+        ON login.userID = users.id
+        INNER JOIN `zip`
+        ON users.fk_zip = zip.id
+        -- INNER JOIN `shelters`
+        -- ON users.fk_shelter = shelters.id
+        WHERE login.sessionID = :cookieID";
+    }else {
+        $adminSQL = "SELECT users.id as userID, users.* , zip.*, shelters.*
+        FROM `login`
+        INNER JOIN `users`
+        ON login.userID = users.id
+        INNER JOIN `zip`
+        ON users.fk_zip = zip.id
+        INNER JOIN `shelters`
+        ON users.fk_shelter = shelters.id
+        WHERE login.sessionID = :cookieID";
+    }
+
+
+    $stmt = $db->prepare($adminSQL);
     $stmt->bindParam(':cookieID', $cookieID);
     $stmt->execute();
     $userData = $stmt->fetch();
