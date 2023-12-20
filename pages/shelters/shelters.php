@@ -5,7 +5,7 @@ require_once("../../config.php");
 
 
 // Get all shelters from the corresponding table and display
-$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt = $db->prepare("SELECT * FROM `shelters` WHERE `status` = 'accepted'");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
