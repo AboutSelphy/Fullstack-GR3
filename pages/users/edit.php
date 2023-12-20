@@ -12,12 +12,12 @@ include("./../../script/input_validation.php");
 
 $loc = "../";
 
-if($role !== 'unset'){
-    if ($role === 'shelter') {
-        header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
-        exit();
-    }
-}
+// if($role !== 'unset'){
+//     if ($role === 'shelter') {
+//         header("Location: " . ROOT_PATH . "pages/sh_dashboard.php");
+//         exit();
+//     }
+// }
 
 
 // Getting current User

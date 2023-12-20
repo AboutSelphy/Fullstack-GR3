@@ -97,9 +97,9 @@ $destination = 'users';
             if (isset($headerUserRole) && $headerUserRole !== 'unset') {
 
 
-              if ($headerUserRole === 'shelter') {
-                $destination = 'shelters';
-              }
+              // if ($headerUserRole === 'shelter') {
+              //   $destination = 'shelters';
+              // }
             }
             // $headerUserIMG = '../resources/img/'
             ?>
