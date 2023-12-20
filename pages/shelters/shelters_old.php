@@ -1,11 +1,11 @@
 <?php
 require_once("./../../script/db_connection.php");
-
 //config for global constants
 require_once("../../config.php");
 
+
 // Get all shelters from the corresponding table and display
-$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt = $db->prepare("SELECT * FROM `shelters` WHERE `status` = 'accepted'");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -15,8 +15,8 @@ if (count($result) > 0) {
     foreach ($result as $row) {
         $shelters .= "
     <div class=' col col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-3'>
-        <div class='card p-1 h-100'>
-            <img class='card-img-top img-fluid mt-2 px-2 h-100' src='./../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+        <div class='card p-1'>
+            <img class='card-img-top img-fluid mt-2 px-2' src='./../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
             <div class='card-body '>
                 <h3 class='card-title'>$row[shelter_name]</h3>
                 <p class='card-text'>Capacity: $row[capacity] animals</p>
@@ -60,7 +60,7 @@ $db = NULL;
     <section class="overviewgrid">
         <div class="container text-center">
             <div class="row g-2  my-4 justify-content-start">
-                <?= $shelters ?>
+            <?= $shelters ?>
             </div>
         </div>
     </section>

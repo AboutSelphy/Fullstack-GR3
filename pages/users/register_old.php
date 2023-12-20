@@ -10,6 +10,7 @@ include("./../../script/input_validation.php");
 // checks if user is loggedIn and seesion cookie is set
 require_once('./../../script/isLoggedIn.php');
 
+
 //check if client has entry in db table login
 $role = isLoggedIn($db)[1];
 
@@ -19,6 +20,7 @@ if ($role !== 'unset' && $role === 'admin') {
     header("Location: " . ROOT_PATH . "pages/login/login.php");
     exit();
 }
+
 
 // Getting ZIP (foreign key) options
 $locations = "";
@@ -44,6 +46,7 @@ foreach ($result as $row) {
 $error = false;
 
 $first_nameError = $last_nameError = $addressError = $emailError = $passwordError = $zipError =  "";
+
 
 // Clean, validate & store data from input form into variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -167,90 +170,66 @@ $db = NULL;
 <body>
     <?php require_once("./../../components/navbar.php") ?>
 
-    <div class="container p-4">
-        <div class="row justify-content-center mt-1">
-
-            <div class="col-md-8">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="card-group mb-0">
-                        <div class="card p-4">
-                            <div class="card-body">
-                                <h1 class="text-center">Sign up</h1>
-                                <p class="text-muted">Create your account</p>
-                                <div class="input-group mb-3">
-                                    <label for="first_name" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-user"></i></span></label>
-                                    <input autocomplete="on" type="text" name="first_name" id="first_name" class="form-control" value="<?= $first_name ?? "" ?>" placeholder="First name">
-                                </div>
-                                <p style="color:red;"><?= $first_nameError ?></p>
-
-                                <div class="input-group mb-3">
-                                    <label for="last_name" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-user"></i></span></label>
-                                    <input autocomplete="on" type="text" name="last_name" id="last_name" class="form-control" value="<?= $last_name ?? "" ?>" placeholder="Last name">
-                                </div>
-                                <p style="color:red;"><?= $last_nameError ?></p>
-
-                                <div class="input-group mb-3">
-                                    <label for="address" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-city"></i></span></label>
-                                    <input autocomplete="on" type="text" name="address" id="address" class="form-control" value="<?= $address ?? "" ?>" placeholder="Address">
-                                </div>
-                                <p style="color:red;"><?= $addressError ?></p>
-
-                                <div class="input-group mb-3">
-                                    <label for="email" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-envelope"></i></span></label>
-                                    <input autocomplete="on" type="email" name="email" id="email" class="form-control" value="<?= $email ?? "" ?>" placeholder="Email">
-                                </div>
-                                <p style="color:red;"><?= $emailError ?></p>
-
-                                <div class="input-group mb-3">
-                                    <label for="password" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-lock"></i></span></label>
-                                    <input autocomplete="on" type="password" name="password" id="password" class="form-control" value="<?= $password ?? "" ?>" placeholder="Password">
-                                </div>
-                                <p style="color:red;"><?= $passwordError ?></p>
-
-
-                                <div class="input-group mb-3">
-                                    <label for="zip" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-location"></i></span></label>
-                                    <select name="zip" id="zip" class="form-control">
-                                        <option value="0">Please choose...</option>
-                                        <?= $locations ?>
-                                    </select>
-                                </div>
-                                <p style="color:red;"><?= $zipError ?></p>
-
-
-                                <div class="input-group mb-3">
-                                    <label for="image" class="d-flex align-items-center border border-2 rounded-start p-2" style><span class="input-group-addon"><i class="fa fa-image"></i></span></label>
-                                    <input type="file" name="image" id="image" class="form-control">
-                                </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="submit" value="Submit" class="btn btn-default">Create account</button>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card text-white py-5 d-md-down-none" style="width:44%; background: #98A633">
-                            <div class="card-body text-center">
-                                <div>
-                                    <h2>Sign in</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <a type="button" href="<?= ROOT_PATH ?>pages/login/login.php" class="btn btn-default active mt-3">Login Now!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input autocomplete="on" type="text" name="first_name" id="first_name" class="form-control" value="<?= $first_name ?? "" ?>">
+                <span style="color:red;"><?= $first_nameError ?></span>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input autocomplete="on" type="text" name="last_name" id="last_name" class="form-control" value="<?= $last_name ?? "" ?>">
+                <span style="color:red;"><?= $last_nameError ?></span>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input autocomplete="on" type="text" name="address" id="address" class="form-control" value="<?= $address ?? "" ?>">
+                <span style="color:red;"><?= $addressError ?></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input autocomplete="on" type="email" name="email" id="email" class="form-control" value="<?= $email ?? "" ?>">
+                <span style="color:red;"><?= $emailError ?></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input autocomplete="on" type="password" name="password" id="password" class="form-control" value="<?= $password ?? "" ?>">
+                <span style="color:red;"><?= $passwordError ?></span>
+            </div>
+            <!-- <div class="form-group">
+                <label for="accountType">Account Type:</label>
+                <select name="accountType" id="accountType" class="form-control">
+                    <option value="user" <?= $_SERVER['REQUEST_METHOD'] === 'POST' && $accountType == 'user' ? 'selected' : '' ?>>User</option>
+                    <option value="shelter" <?= $_SERVER['REQUEST_METHOD'] === 'POST' && $accountType == 'shelter' ? 'selected' : '' ?>>Shelter</option>
+                </select>
+            </div> -->
 
+            <div class="form-group">
+                <label for="zip">ZIP:</label>
+                <select name="zip" id="zip" class="form-control">
+                    <option value="0">Please choose...</option>
+                    <?= $locations ?>
+                </select>
+                <span style="color:red;"><?= $zipError ?></span>
+            </div>
 
+            <!-- <div class="form-group">
+                <label for="shelter">Shelter:</label>
+                <select name="shelter" id="shelter" class="form-control">
+                    <option value="0">Please choose...</option>
+                </select>
+                <span style="color:red;"></span>
+            </div> -->
 
+            <div class="form-group">
+                <label for="image">ProfilePicture:</label>
+                <input type="file" name="image" id="image" class="form-control">
+            </div>
+
+            <button type="submit" value="Submit" class="btn btn-default">Create Account</button>
+
+        </form>
     </div>
     <!-- // BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

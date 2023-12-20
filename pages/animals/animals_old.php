@@ -1,25 +1,26 @@
 <?php
 require_once("./../../script/db_connection.php");
-
-//config for global constants
 require_once("../../config.php");
 
+
 // Get all shelters from the corresponding table and display
-$stmt = $db->prepare("SELECT * FROM `shelters`");
+$stmt = $db->prepare("SELECT animals.* , shelters.status, shelters.shelter_name as shelterName FROM `animals` JOIN `shelters` ON animals.fk_shelter = shelters.id WHERE shelters.status = 'accepted'");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$shelters = "";
+$animals = "";
 
 if (count($result) > 0) {
     foreach ($result as $row) {
-        $shelters .= "
+        $animals .= "
     <div class=' col col-sm-12 col-md-4 col-lg-4 col-xl-3 col-xxl-3'>
-        <div class='card p-1 h-100'>
-            <img class='card-img-top img-fluid mt-2 px-2 h-100' src='./../../resources/img/shelters/$row[image]' alt='$row[shelter_name]'>
+        <div class='card p-1'>
+            <img class='card-img-top img-fluid mt-2 px-2' src='./../../resources/img/animals/$row[image]' alt='$row[name]'>
             <div class='card-body '>
-                <h3 class='card-title'>$row[shelter_name]</h3>
-                <p class='card-text'>Capacity: $row[capacity] animals</p>
+                <h3 class='card-title'>$row[name]</h3>
+                <p class='card-text'>Age: $row[age] years</p>
+                <p class='card-text'>Species: $row[species]</p>
+                <p class='card-text'><b>Shelter:</b> $row[shelterName]</p>
                 <div class='mt-2'>
                     <a href='./details.php?id=$row[id]' class='btn btn-default'>Details</a>
                 </div>
@@ -27,9 +28,10 @@ if (count($result) > 0) {
         </div>
     </div>
 ";
+
     }
 } else {
-    $shelters = "<p>There are no shelters yet :(</p>";
+    $animals = "<p>There are no shelters yet :(</p>";
 }
 
 // Close database connection
@@ -56,11 +58,10 @@ $db = NULL;
 
 <body>
     <?php require_once("./../../components/navbar.php") ?>
-
     <section class="overviewgrid">
         <div class="container text-center">
             <div class="row g-2  my-4 justify-content-start">
-                <?= $shelters ?>
+                <?= $animals ?>
             </div>
         </div>
     </section>
