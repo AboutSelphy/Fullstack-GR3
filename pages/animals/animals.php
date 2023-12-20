@@ -4,7 +4,7 @@ require_once("../../config.php");
 
 
 // Get all shelters from the corresponding table and display
-$stmt = $db->prepare("SELECT * FROM `animals`");
+$stmt = $db->prepare("SELECT animals.* , shelters.status, shelters.shelter_name as shelterName FROM `animals` JOIN `shelters` ON animals.fk_shelter = shelters.id WHERE shelters.status = 'accepted'");
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -20,6 +20,7 @@ if (count($result) > 0) {
                 <h3 class='card-title'>$row[name]</h3>
                 <p class='card-text'>Age: $row[age] years</p>
                 <p class='card-text'>Species: $row[species]</p>
+                <p class='card-text'><b>Shelter:</b> $row[shelterName]</p>
                 <div class='mt-2'>
                     <a href='./details.php?id=$row[id]' class='btn btn-default'>Details</a>
                 </div>
