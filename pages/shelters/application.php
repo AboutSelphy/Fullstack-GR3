@@ -100,6 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $request = $db->prepare("UPDATE `users`
                             SET `shelterRequest`=1 WHERE id = $userData[id]");
         $request->execute();
+
+        echo "<h3>Shelter registration request sent, pls wait for confirmation</h3>";
+        header("refresh:2;url=" . ROOT_PATH . "pages/login/login.php");
+
+
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }

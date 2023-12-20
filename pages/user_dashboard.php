@@ -42,25 +42,27 @@ if (count($userData) > 0) {
 }
 
 try {
-    $stmt = $db->prepare("SELECT animals.status as adoptionStatus, adoptions.* , animals.*
+    $stmt = $db->prepare("SELECT animals.status as adoptionStatus, adoptions.* , animals.*, shelters.shelter_name
                             FROM `users`
                             INNER JOIN `adoptions`
                             ON users.id = adoptions.fk_user
                             INNER JOIN `animals`
                             ON adoptions.fk_animal = animals.id
-                            -- INNER JOIN `shelters`
-                            -- ON animals.fk_shelter = shelters.id
+                            INNER JOIN `shelters`
+                            ON animals.fk_shelter = shelters.id
                             WHERE users.id = $userData[0]");
     $stmt->execute();
     $adoptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+// var_dump($adoptions);
+
+// exit();
 
 // Get number for the adopted animals
 $adoptionNumber = count($adoptions);
 $adoptionCount = grammarCheck($adoptionNumber, "Adoption");
-
 $adoptionList = "";
 if ($adoptionNumber > 0) {
     foreach ($adoptions as $adoption) {
@@ -104,11 +106,11 @@ if ($adoptionNumber > 0) {
                     <p class='fw-normal mb-1'>$adoption[date]</p>
                 </td>
                 <td class='text-center'>
+                    <p class='fw-normal mb-1'>$adoption[shelter_name]</p>
                 </td>
                 
                 </tr>
                 ";
-                // <p class='fw-normal mb-1'>$adoption[shelter_name]</p>
     }
 }
 ?>

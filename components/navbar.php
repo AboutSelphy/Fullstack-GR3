@@ -50,9 +50,14 @@ $destination = 'users';
         <li class="nav-item">
           <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/shelters.php">Shelters</a>
         </li>
+        <!-- is user -->
+        <?php if (isset($headerUserRole) && $headerUserRole === 'user' && $headerShelterRequest === 0) : ?>
+          <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/create.php">Register Shelter</a>
+        <?php else: ?>
+        <?php endif ?>
         <!-- is shelter -->
         <?php if (isset($headerUserRole) && $headerUserRole === 'shelter' && $headerShelterRequest === 1) : ?>
-          <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/create.php">Open Shelter</a>
+          <!-- <a class="nav-link text-uppercase font-weight-bold active" aria-current="page" href="<?= ROOT_PATH ?>pages/shelters/create.php">Open Shelter</a> -->
           <li class="nav-item dropdown">
             <a class="nav-link text-uppercase font-weight-bold dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Actions

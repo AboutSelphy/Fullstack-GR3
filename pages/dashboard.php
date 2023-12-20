@@ -30,6 +30,7 @@ $loc = "./";
     
         // accept($parameter, $db, 'accepted','shelters');
         accept($_GET, $db, 'shelter','users');
+        // acceptShelter($_GET, $db, $_GET['accepted'],'users');
     
         try {
             $stmt = $db->prepare("DELETE FROM `login` WHERE userID = :userID");
@@ -43,7 +44,7 @@ $loc = "./";
 
 $cookieID = $_COOKIE['sessionID'];
 try {
-    $stmt = $db->prepare("SELECT users.* , zip.*, shelters.*
+    $stmt = $db->prepare("SELECT users.id as userID, users.* , zip.*, shelters.*
                             FROM `login`
                             INNER JOIN `users`
                             ON login.userID = users.id
@@ -65,12 +66,10 @@ if (count($userData) > 0) {
 }
 //fetch Users
 try {
-    $stmt = $db->prepare("SELECT users.id as userID, users.status as userStatus, users.*, shelters.*, zip.* 
+    $stmt = $db->prepare("SELECT users.id as userID, users.status as userStatus, users.*, zip.* 
                             FROM `users`
                             INNER JOIN `zip`
                             ON users.fk_zip = zip.id
-                            INNER JOIN `shelters`
-                            ON users.fk_shelter = shelters.id
                             "
                         );
     $stmt->execute();
@@ -238,7 +237,7 @@ if ($animalNumber > 0) {
                                         <div class="header ms-4 mt-5 d-flex flex-column">
                                             <img src="../resources/img/users/<?= $userData['profile'] ?>" alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2">
                                             <div class="d-flex">
-                                                <a href="./users/edit.php?id=<?= $userData['id'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
+                                                <a href="./users/edit.php?id=<?= $userData['userID'] ?>" type="button" class="btn btn-default" data-mdb-ripple-color="dark">
                                                     Edit profile
                                                 </a>
                                                 <!-- <a href="./shelters/edit.php?id=<?= $userData['fk_shelter'] ?>" type="button" class="btn btn-default ms-4" data-mdb-ripple-color="dark">
@@ -290,7 +289,7 @@ if ($animalNumber > 0) {
                                             <th class="text-center">Country</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Actions</th>
-                                            <th class="text-center">Request?</th>
+                                            <th class="text-center">Make Visible</th>
                                         </tr>
                                     </thead>
                                     <tbody>

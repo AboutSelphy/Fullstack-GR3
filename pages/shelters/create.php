@@ -2,6 +2,7 @@
 require_once("./../../script/db_connection.php");
 //config for global constants
 require_once("../../config.php");
+require_once("../../script/getUserIDWithCookieID.php");
 
 include("./../../script/file_upload.php");
 include("./../../script/input_validation.php");
@@ -9,7 +10,7 @@ include("./../../script/input_validation.php");
 include("./../../script/loginGate.php");
 
 if ($role !== 'unset') {
-    if ($role === 'user') {
+    if ($role === 'shelter') {
         header("Location: " . ROOT_PATH . "pages/login/login.php");
         exit();
     }
@@ -73,12 +74,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare and execute SQL insertion
     if (!$error) {
-        $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
-        $stmt = $db->prepare($sql);
-        $stmt->execute($data);
 
-        echo 'db entry created';
-        header('Location: ./shelters.php');
+        //check if shelter exists
+        try {
+            $shelterList = $db->prepare("SELECT * FROM `shelters` WHERE fk_zip = :zip");
+            $shelterList->bindParam(':zip', $zip , PDO::PARAM_INT);
+            $shelterList->execute();
+            $shelters = $shelterList->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($shelters);
+            if (is_array($shelters) && count($shelters) > 0) {
+                echo "Address exists already!";
+            } else {
+               
+                $sql = "INSERT INTO `shelters`(`shelter_name`, `capacity`, `image`, `description`, `fk_zip`) VALUES (:name, :capacity, :image, :description, :zip)";
+                $stmt = $db->prepare($sql);
+                $stmt->execute($data);
+                $lastinsert=  $db->lastInsertId() ;
+        
+                //get userID
+                if($role === 'user'){
+                    $userID =  getUserIDWithCookieID($db);
+        
+                    $dataNew = [
+                        'fk_shelter' => $lastinsert,
+                        'userID' => $userID,
+                        'newRole' => 'shelter',
+                    ];
+        
+        
+                     $sqlUser = "UPDATE `users` SET fk_shelter = :fk_shelter, `status` = :newRole,  WHERE id = :userID";
+            
+                    $stmtUser = $db->prepare($sqlUser);
+                    $stmtUser->execute($dataNew);
+                }
+        
+        
+        
+                echo 'db entry created';
+                header('Location: ./shelters.php');
+            }
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
     } else {
         echo 'oh no, a problem';
     }

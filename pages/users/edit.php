@@ -222,9 +222,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // var_dump($data);
         // echo '</pre>';
         if($_FILES["image"]["error"] == 0){
-            if( $userData['profile'] != "default.jpg" ){
-                unlink("../../resources/img/users/$image" );
-            }
+            $destination = 'users';
+
+            // if($_GET['asEditor'] == 'shelter'){
+            //     $destination = 'shelter';
+            // }
+
+            // if( $userData['profile'] != "default.jpg" ){
+            //     unlink("../../resources/img/$destination/$image[0]" );
+            // }
 
             if(isset($_GET['id']) && $role === 'admin'){
 
@@ -267,7 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         WHERE id = :userID;";
 
             }else{
-            
+                echo "role: $role";
                 $sql = "UPDATE `users`
                             INNER JOIN `login` ON login.userID = users.id
                             SET first_name = :first_name,
@@ -277,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 password =  :password,
                                 profile =  :profile,
                                 fk_zip =  :zip
-                            WHERE login.sessionID = :cookieID;";
+                            WHERE login.sessionID = :cookieID";
 
             }
 
@@ -287,11 +293,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $db->prepare($sql);
             $stmt->execute($data);
             
-            // header("refresh:0;url=" . ROOT_PATH . "pages/login/login.php");
-            echo 'db entry updated';
+            header("refresh:0;url=" . ROOT_PATH . "pages/login/login.php");
+            echo 'Profile updated';
         
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage(); 
+            echo "Errors: " . $e->getMessage(); 
         }
     }
 
