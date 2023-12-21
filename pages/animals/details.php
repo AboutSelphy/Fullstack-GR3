@@ -42,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adopt'])) {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
-                title: 'The Internet?',
-                text: 'That thing is still around?',
-                icon: 'question'
+                title: 'Adoption',
+                text: 'Thank you for adopting! Your kindness creates a forever home and a lifetime of joy.🐾',
+                icon: 'success'
             });
         });
     </script>";
