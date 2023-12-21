@@ -69,10 +69,7 @@ if (isset($userData['id']) && $userData['status'] == 'user') {
         ";
     }
     
-} else if ($userData['status'] == 'shelter'){
-    $adoption = "
-        ";
-}else if ($userData['status'] == 'admin'){
+} else if ($userData['status'] == 'shelter' || $userData['status'] == 'admin'){
     $adoption = "
         ";
 } else {
