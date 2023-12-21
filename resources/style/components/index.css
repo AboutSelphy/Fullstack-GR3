@@ -5,32 +5,12 @@
 }
 
 .carousel {
-  height: 75vh;
+  height: calc(100dvh - 86px);
   position: relative;
-}
-@media screen and (max-width: 1300px) {
-  .carousel {
-    height: 85vh;
-  }
-}
-@media screen and (max-width: 767px) {
-  .carousel {
-    height: 90vh;
-  }
 }
 
 .c-item {
-  height: 75vh;
-}
-@media screen and (max-width: 1300px) {
-  .c-item {
-    height: 85vh;
-  }
-}
-@media screen and (max-width: 767px) {
-  .c-item {
-    height: 90vh;
-  }
+  height: calc(100dvh - 86px);
 }
 
 .c-img {

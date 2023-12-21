@@ -9,29 +9,29 @@
 }
 
 .carousel {
-    height: 75vh;
+    height: calc(100dvh - 86px);
     position: relative;
 
-    @media screen and (max-width: 1300px) {
-        height: 85vh;
-    }
+    // @media screen and (max-width: 1300px) {
+    //     height: 100vh;
+    // }
 
-    @media screen and (max-width: 767px) {
-        height: 90vh;
-    }
+    // @media screen and (max-width: 767px) {
+    //     height: 100vh;
+    // }
 }
 
 
 .c-item {
-    height: 75vh;
+    height: calc(100dvh - 86px);
 
-    @media screen and (max-width: 1300px) {
-        height: 85vh;
-    }
+    // @media screen and (max-width: 1300px) {
+    //     height: 100vh;
+    // }
 
-    @media screen and (max-width: 767px) {
-        height: 90vh;
-    }
+    // @media screen and (max-width: 767px) {
+    //     height: 100vh;
+    // }
   }
   
   .c-img {
