@@ -4,9 +4,29 @@
   height: 75vh;
   position: relative;
 }
+@media screen and (max-width: 1300px) {
+  .carousel {
+    height: 85vh;
+  }
+}
+@media screen and (max-width: 767px) {
+  .carousel {
+    height: 90vh;
+  }
+}
 
 .c-item {
   height: 75vh;
+}
+@media screen and (max-width: 1300px) {
+  .c-item {
+    height: 85vh;
+  }
+}
+@media screen and (max-width: 767px) {
+  .c-item {
+    height: 90vh;
+  }
 }
 
 .c-img {
@@ -25,6 +45,11 @@
   padding: 1rem;
   border-radius: 2rem;
   border: solid 0.6rem #1D1D1D;
+}
+@media screen and (max-width: 767px) {
+  .about .card-logo {
+    margin-top: 20px;
+  }
 }
 .about i {
   color: #e1e1e1;

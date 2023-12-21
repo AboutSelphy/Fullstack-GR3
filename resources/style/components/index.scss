@@ -5,10 +5,27 @@
 .carousel {
     height: 75vh;
     position: relative;
+
+    @media screen and (max-width: 1300px) {
+        height: 85vh;
+    }
+
+    @media screen and (max-width: 767px) {
+        height: 90vh;
+    }
 }
+
 
 .c-item {
     height: 75vh;
+
+    @media screen and (max-width: 1300px) {
+        height: 85vh;
+    }
+
+    @media screen and (max-width: 767px) {
+        height: 90vh;
+    }
   }
   
   .c-img {
@@ -31,6 +48,10 @@
         padding: 1rem;
         border-radius: 2rem;
         border: solid .6rem $optional-color;
+
+        @media screen and (max-width: 767px) {
+            margin-top: 20px;
+        }
         
         
     }

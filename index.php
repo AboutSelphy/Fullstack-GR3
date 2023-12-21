@@ -59,7 +59,7 @@ $numUsers = $stmtUser->rowCount();
           <img src="./resources/img/animals/default.jpg" class="d-block w-100 c-img" alt="Slide 1">
           <div class="carousel-caption top-50 translate-middle-y text-center">
             <p class="mt-5 fs-3 text-uppercase">Discover the hidden world:</p>
-            <h1 class="display-1 fw-bolder text-capitalize">Meet Our Animal Ambassadors: Stories of Resilience and Hop</h1>
+            <h1 class="display-1 fw-bolder text-capitalize">Meet Our Animal Ambassadors: Stories of Resilience and Hope</h1>
             <a href="./pages/animals/animals.php"> <button class="btn btn-cta px-4 py-2 fs-5 mt-5">Our Animals</button> </a>
           </div>
         </div>
@@ -134,7 +134,7 @@ $numUsers = $stmtUser->rowCount();
   <section class="client">
     <div class="container">
       <div class="row">
-        <h2 class="text-center">Archieved</h2>
+        <h2 class="text-center">Achieved</h2>
         <div class="four col-md-3">
           <div class="counter-box ">
             <i class="fa fa-thumbs-o-up"></i>
@@ -153,7 +153,7 @@ $numUsers = $stmtUser->rowCount();
           <div class="counter-box">
             <i class="fa-solid fa-otter"></i>
             <span class="counter"><?php echo $numAnimals; ?></span>
-            <p>Available Adoption</p>
+            <p>Available Adoptions</p>
           </div>
         </div>
         <div class="four col-md-3">
