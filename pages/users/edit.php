@@ -389,10 +389,7 @@ $db = NULL;
             </div>
         </div>
     </section>
-    <div style="position: fixed; width: 100%; bottom: 0">
-        <?php require_once("../../components/footer.php") ?>
-
-    </div>
+    <?php require_once("../../components/footer.php") ?>
 </body>
 
 </html>

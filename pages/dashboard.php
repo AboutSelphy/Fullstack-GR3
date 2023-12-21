@@ -103,7 +103,7 @@ if (is_array($userData) && count($userData) > 0) {
 } else {
     echo 'is no user';
 }
-//fetch Users
+//fetch Shelter Users
 try {
     $stmt = $db->prepare("SELECT users.id as userID, shelters.id as shelterID, users.status as userStatus, users.*, zip.* 
                             FROM `users`
@@ -118,6 +118,21 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+
+//fetch Users
+try {
+    $stmtNormalUsers = $db->prepare("SELECT users.id as userID, users.status as userStatus, users.*, zip.* 
+                            FROM `users`
+                            INNER JOIN `zip`
+                            ON users.fk_zip = zip.id
+                            "
+                        );
+    $stmtNormalUsers->execute();
+    $normalUsers = $stmtNormalUsers->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
 //fetch Animals
 try {
     $stmt = $db->prepare("SELECT * FROM `animals`");
@@ -148,10 +163,15 @@ $usersList = "";
 $sheltersList = "";
 
 $usersNumber = count($users);
+$normalUsersNumber = count($normalUsers);
 $sheltersNumber = count($shelters);
 
-//get usersList
+//get usersSheltersList
 $usersList = listAdminUsers($users,$usersNumber);
+
+//get normalUsers
+$normalUsersList = listAdminUsers($normalUsers,$usersNumber);
+
 //get sheltersList
 $sheltersList = listAdminShelters($shelters, $sheltersNumber);
 
@@ -317,7 +337,7 @@ if ($animalNumber > 0) {
                         <!-- section tables -->
                         <!-- Users -->
                         <div id="requests" class="row d-flex justify-content-center py-4 usersContainerWrap">
-                        <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Users <a class="btn btn-cta adminCreateShelter" href="../pages/users/register.php">Register User</a></h3>
+                        <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Shelter / Requests </h3>
                             <div class="col col-lg-9 col-xl-8">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
@@ -335,6 +355,29 @@ if ($animalNumber > 0) {
                                     <tbody>
                                         <!-- hit them with the list elvis -->
                                         <?= $usersList ?? '' ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- NormalUsers -->
+                        <div id="requests" class="row d-flex justify-content-center py-4 usersContainerWrap">
+                        <h3 class="col col-lg-9 col-xl-8 adminCreateShelterBox">Global Users <a class="btn btn-cta adminCreateShelter" href="../pages/users/register.php">Register User</a></h3>
+                            <div class="col col-lg-9 col-xl-8">
+                                <table class="table align-middle mb-0 bg-white">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="ps-5">Users</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">ZIP</th>
+                                            <th class="text-center">Country</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- hit them with the list elvis -->
+                                        <?= $normalUsersList ?? '' ?>
                                     </tbody>
                                 </table>
                             </div>
