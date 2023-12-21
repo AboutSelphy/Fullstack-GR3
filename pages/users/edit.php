@@ -333,6 +333,7 @@ $db = NULL;
         <div class="container">
             <div class="card">
                 <div class="card-body">
+                <form method="post"  enctype="multipart/form-data">
                     <h2>Edit <?php echo $first_name, $last_name; ?></h2>
                     <div class="form-group">
                         <label for="first_name">First Name:</label>
