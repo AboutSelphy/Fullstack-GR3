@@ -115,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = true;
         $descriptionError = "Your input must not have more than 500 characters!";
     }
-    echo 'OLTA: ' . $fk_shelter;
     // Prepare the SQL statement with named parameters
     $sql = "INSERT INTO animals (`name`, `age`, `species`, `gender`, `fk_shelter`, `vaccination`, `image`, `status`, `description`) VALUES (:name, :age, :species, :gender, :fk_shelter, :vaccination, :image, :status, :description)";
     $stmt = $db->prepare($sql);
