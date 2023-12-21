@@ -154,7 +154,7 @@ $db = NULL;
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <form method="post"  enctype="multipart/form-data">
+                <form method="post"  enctype="multipart/form-data">
                     <h2> Register as Shelter</h2>
                     <div class="form-group">
                         <label for="name">Name:</label>
