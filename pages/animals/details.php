@@ -52,31 +52,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['adopt'])) {
 // ======================================================
 
 
-// Get the user role from the cookie, assuming it's stored in the 'role' key
-$userRole = isset($_COOKIE['role']) ? $_COOKIE['role'] : null;
-
 // Check if the user is logged in
-if (isset($userData['id']) && $userData['status'] == 'user') {
+if (isset($userData['id']) && isset($userData['status']) && $userData['status'] == 'user') {
     // Adoption Crud
-    if ($row['status'] == "available") {
+    if (isset($row['status']) && $row['status'] == "available") {
         $adoption = "
         <form action='' method='post'>
             <input class='btn btn-cta' type='submit' value='Adopt' name='adopt'>
         </form>";
     } else {
         $adoption = "
-            <h4>$row[name] found already somebody looking out for him :)</h4>
+            <h4>{$row['name']} found already somebody looking out for him :)</h4>
         ";
     }
     
-} else if ($userData['status'] == 'shelter' || $userData['status'] == 'admin'){
-    $adoption = "
-        ";
+} else if (isset($userData['status']) && ($userData['status'] == 'shelter' || $userData['status'] == 'admin')) {
+    $adoption = "";
 } else {
     $adoption = "
     <a href='./../login/login.php' class='btn btn-default'>Please Login</a>
         ";
 }
+
 
 
 $details = "
