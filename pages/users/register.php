@@ -170,7 +170,7 @@ $db = NULL;
     <div class="container p-4">
         <div class="row justify-content-center mt-1">
 
-            <div class="col-md-8">
+            <div class="col-md-8 registerformwrapper">
                 <form method="post" enctype="multipart/form-data">
                     <div class="card-group mb-0">
                         <div class="card p-4">
