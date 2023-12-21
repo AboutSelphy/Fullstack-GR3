@@ -2,6 +2,12 @@
 
 // hero
 
+.hero {
+    h1 {
+        font-size: clamp(40px,4.16vw,80px);
+    }
+}
+
 .carousel {
     height: 75vh;
     position: relative;
