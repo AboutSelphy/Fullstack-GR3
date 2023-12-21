@@ -130,46 +130,51 @@ $db = NULL;
 <body>
     <?php require_once("./../../components/navbar.php") ?>
 
-    <div class="container">
-        <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?= $row["shelter_name"] ?? "" ?>">
-                <span><?= $nameError ?></span>
+    <section class="form d-flex align-items-center justify-content-center">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h2> Register as Shelter</h2>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" class="form-control" value="<?= $row["shelter_name"] ?? "" ?>">
+                        <span><?= $nameError ?></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Capacity:</label>
+                        <input type="number" min="1" name="capacity" id="capacity" class="form-control" value="<?= $row["capacity"] ?? "" ?>">
+                        <span><?= $capacityError ?></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zip">ZIP:</label>
+                        <select name="zip" id="zip" class="form-control">
+                            <option value="0">Please choose...</option>
+                            <?= $locations ?>
+                        </select>
+                        <span><?= $zipError ?></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image:</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" id="description" class="form-control"><?= $row["description"] ?? "" ?></textarea>
+                        <span><?= $descriptionError ?></span>
+                    </div>
+
+                    <button type="submit" value="Submit" class="btn btn-default">Submit</button>
+
+                    </form>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="age">Capacity:</label>
-                <input type="number" min="1" name="capacity" id="capacity" class="form-control" value="<?= $row["capacity"] ?? "" ?>">
-                <span><?= $capacityError ?></span>
-            </div>
-
-            <div class="form-group">
-                <label for="zip">ZIP:</label>
-                <select name="zip" id="zip" class="form-control">
-                    <option value="0">Please choose...</option>
-                    <?= $locations ?>
-                </select>
-                <span><?= $zipError ?></span>
-            </div>
-
-            <div class="form-group">
-                <label for="image">Image:</label>
-                <input type="file" name="image" id="image" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea name="description" id="description" class="form-control"><?= $row["description"] ?? "" ?></textarea>
-                <span><?= $descriptionError ?></span>
-            </div>
-
-            <button type="submit" value="Submit" class="btn btn-default">Submit</button>
-
-        </form>
-    </div>
-    <!-- // BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        </div>
+    </section>
+<?php require_once("./../../components/footer.php") ?>
 </body>
 
 </html>

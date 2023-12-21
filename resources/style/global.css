@@ -138,6 +138,11 @@ section img {
   margin: 0 auto;
 }
 
+.form {
+  min-height: 90vh;
+  margin: 0 auto;
+}
+
 .footer {
   background-color: #98A633;
   color: #e1e1e1;

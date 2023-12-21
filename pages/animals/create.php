@@ -165,76 +165,79 @@ $db = null;
 
 <body>
     <?php require_once("./../../components/navbar.php") ?>
+    <section class="form d-flex align-items-center justify-content-center">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Create Animal</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" id="name" class="form-control" required>
+                        </div>
 
-    <!-- MOSTAFA WILL ENTER OUR LANDING PAGE HERE -->
-<div class="container">
-    <form method="post"  enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" class="form-control" required>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" min="1" name="age" id="age" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="species">Species:</label>
+                            <input type="text" name="species" id="species" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender:</label>
+                            <select name="gender" id="gender" class="form-control" required>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fk_shelter" >Shelter:</label>
+                            <select name="fk_shelter" id="fk_shelter" class="form-control" required>
+                            <option value="" disabled selected hidden>Please Choose...</option>
+                            <?= $shelter ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vaccination">Vaccination:</label>
+                            <select name="vaccination" id="vaccination" class="form-control" required>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image:</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                <option value="Adopted">Adopted</option>
+                                <option value="Available">Available</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea name="description" id="description" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" value="Submit" class="btn btn-cta">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" min="1" name="age" id="age" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="species">Species:</label>
-            <input type="text" name="species" id="species" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender" class="form-control" required>
-                <option value="" disabled selected hidden>Please Choose...</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="fk_shelter" >Shelter:</label>
-            <select name="fk_shelter" id="fk_shelter" class="form-control" required>
-            <option value="" disabled selected hidden>Please Choose...</option>
-            <?= $shelter ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="vaccination">Vaccination:</label>
-            <select name="vaccination" id="vaccination" class="form-control" required>
-                <option value="" disabled selected hidden>Please Choose...</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="file" name="image" id="image" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <select name="status" id="status" class="form-control" required>
-                <option value="" disabled selected hidden>Please Choose...</option>
-                <option value="Adopted">Adopted</option>
-                <option value="Available">Available</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea name="description" id="description" class="form-control" required></textarea>
-        </div>
-
-    <button type="submit" value="Submit" class="btn btn-cta">Submit</button>
-
-    </form>
-</div>
-    <!-- // BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </section>
+<?php require_once("./../../components/footer.php") ?>
 </body>
 
 </html>

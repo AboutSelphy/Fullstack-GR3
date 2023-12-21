@@ -37,8 +37,10 @@ header("refresh:3;url= ". ROOT_PATH . "index.php");
       <p class="lead mb-4">Fly free, sign out, roam wild! Best from the untamed fauna.</p>
     </div>
   </div>
-        <!-- // BOOTSTRAP -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <div style="position: fixed; width: 100%; bottom: 0">
+        <?php require_once("../../components/footer.php") ?>
+
+    </div>
 
 </body>
 </html>

@@ -329,62 +329,69 @@ $db = NULL;
 <body>
     <?php require_once("./../../components/navbar.php") ?>
 
-    <div class="container">
-        <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="first_name">First Name:</label>
-                <input autocomplete="on" type="text" name="first_name" id="first_name" class="form-control" value="<?= $first_name ?? "" ?>">
-                <span style="color:red;"><?= $first_nameError ?></span>
-            </div>
-            <div class="form-group">
-                <label for="last_name">Last Name:</label>
-                <input autocomplete="on" type="text" name="last_name" id="last_name" class="form-control" value="<?= $last_name ?? "" ?>">
-                <span style="color:red;"><?= $last_nameError ?></span>
-            </div>
-            <div class="form-group">
-                <label for="address">Address:</label>
-                <input autocomplete="on" type="text" name="address" id="address" class="form-control" value="<?= $address ?? "" ?>">
-                <span style="color:red;"><?= $addressError ?></span>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input autocomplete="on" type="email" name="email" id="email" class="form-control" value="<?= $email ?? "" ?>">
-                <span style="color:red;"><?= $emailError ?></span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input autocomplete="on" type="password" name="password" id="password" class="form-control" >
-                <span style="color:red;"><?= $passwordError ?></span>
-            </div>
-            <div class="form-group">
-                <label for="zip">ZIP:</label>
-                <select name="zip" id="zip" class="form-control">
-                    <option value="0">Please choose...</option>
-                    <?= $locations ?>
-                </select>
-                <span style="color:red;"><?= $zipError ?></span>
-            </div>
-<!-- 
-            <div class="form-group">
-                <label for="shelter">Shelter:</label>
-                <select name="shelter" id="shelter" class="form-control">
-                    <option value="0">Please choose...</option>
-                    <?= $shelters ?>
-                </select>
-                <span style="color:red;"><?= $shelterError ?></span>
-            </div> -->
+    <section class="form d-flex align-items-center justify-content-center">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Edit <?php echo $first_name, $last_name; ?></h2>
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input autocomplete="on" type="text" name="first_name" id="first_name" class="form-control" value="<?= $first_name ?? "" ?>">
+                        <span style="color:red;"><?= $first_nameError ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input autocomplete="on" type="text" name="last_name" id="last_name" class="form-control" value="<?= $last_name ?? "" ?>">
+                        <span style="color:red;"><?= $last_nameError ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input autocomplete="on" type="text" name="address" id="address" class="form-control" value="<?= $address ?? "" ?>">
+                        <span style="color:red;"><?= $addressError ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input autocomplete="on" type="email" name="email" id="email" class="form-control" value="<?= $email ?? "" ?>">
+                        <span style="color:red;"><?= $emailError ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input autocomplete="on" type="password" name="password" id="password" class="form-control" >
+                        <span style="color:red;"><?= $passwordError ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">ZIP:</label>
+                        <select name="zip" id="zip" class="form-control">
+                            <option value="0">Please choose...</option>
+                            <?= $locations ?>
+                        </select>
+                        <span style="color:red;"><?= $zipError ?></span>
+                    </div>
+        <!-- 
+                    <div class="form-group">
+                        <label for="shelter">Shelter:</label>
+                        <select name="shelter" id="shelter" class="form-control">
+                            <option value="0">Please choose...</option>
+                            <?= $shelters ?>
+                        </select>
+                        <span style="color:red;"><?= $shelterError ?></span>
+                    </div> -->
 
-            <div class="form-group">
-                <label for="image">ProfilePicture:</label>
-                <input type="file" name="image" id="image" class="form-control">
+                    <div class="form-group">
+                        <label for="image">ProfilePicture:</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                    </div>
+
+                    <button type="submit" value="Submit" class="btn btn-default">Update Account</button>
+                    </form>
+                </div>
             </div>
+        </div>
+    </section>
+    <div style="position: fixed; width: 100%; bottom: 0">
+        <?php require_once("../../components/footer.php") ?>
 
-            <button type="submit" value="Submit" class="btn btn-default">Update Account</button>
-
-        </form>
     </div>
-    <!-- // BOOTSTRAP -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>
